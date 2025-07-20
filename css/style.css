@@ -3,12 +3,14 @@ body {
   margin: 0;
   background: #fafafa;
 }
+
 header {
   text-align: center;
   padding: 1rem;
   background: #333;
   color: white;
 }
+
 .albums {
   display: flex;
   justify-content: center;
@@ -16,32 +18,74 @@ header {
   gap: 1rem;
   padding: 1rem;
 }
+
 .album-card {
+  position: relative;
   text-decoration: none;
-  color: #333;
-  border: 1px solid #ccc;
+  color: white; /* text color white for contrast */
   border-radius: 8px;
   overflow: hidden;
   width: 200px;
-  background: white;
+  height: 150px; /* fixed height for consistent backgrounds */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+
+  /* Background image styling */
+  background-size: cover;
+  background-position: center;
 }
+
+/* Remove the img inside album-card if present */
 .album-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
+  display: none;
 }
-.album-card h2 {
-  text-align: center;
-  padding: 0.5rem;
-}
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
-.gallery img {
-  width: 100%;
+
+/* Dark overlay to improve text visibility */
+.album-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 0;
   border-radius: 8px;
+}
+
+/* Position text above overlay */
+.album-card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+/* Hover effect */
+.album-card:hover::before {
+  background: rgba(0,0,0,0.6);
+  transition: background 0.3s ease;
+}
+
+/* Background images for folders */
+.album-card.flowers {
+  background-image: url('../images/flowers/sample.jpg');
+}
+
+.album-card.skies {
+  background-image: url('../images/skies/sample.jpg');
+}
+
+.album-card.insects {
+  background-image: url('../images/insects/sample.jpg');
+}
+
+.album-card.animals {
+  background-image: url('../images/animals/sample.jpg');
+}
+
+.album-card.landscapes {
+  background-image: url('../images/landscapes/sample.jpg');
 }
