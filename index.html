@@ -4,12 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Photography</title>
+  
+  <!-- Your custom CSS -->
   <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- Lightbox CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
 </head>
 <body>
   <header>
-    <h1>My Photography</h1>
+    <h1>Nidhi Mekaraj-Photography Portfolio</h1>
   </header>
+  
   <main>
     <div class="albums">
       <a href="flowers.html" class="album-card flowers">
@@ -28,6 +34,41 @@
         <h2>Landscapes</h2>
       </a>
     </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery-section">
+      <h2>Gallery Preview</h2>
+      <div id="random-gallery" class="gallery"></div>
+    </div>
   </main>
+
+    <!-- Lightbox2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+
+    <!-- Dynamic Gallery Script with Loop -->
+    <script>
+      const images = [];
+
+      // Generate image paths based on folder and number pattern
+      ['flowers', 'skies', 'insects', 'animals', 'landscapes'].forEach(folder => {
+        for (let i = 1; i <= 20; i++) {
+          images.push(`/images/${folder}/${folder}${i}.jpg`);
+        }
+      });
+
+      // Shuffle and display images
+      const shuffled = images.sort(() => 0.5 - Math.random());
+      const container = document.getElementById("random-gallery");
+      shuffled.forEach(src => {
+        const link = document.createElement("a");
+        link.href = src;
+        link.setAttribute("data-lightbox", "gallery");
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "";
+        link.appendChild(img);
+        container.appendChild(link);
+      });
+    </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+/* General Page Styling */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -10,7 +11,12 @@ header {
   background: #333;
   color: white;
 }
+h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
 
+
+/* Album Section */
 .albums {
   display: flex;
   justify-content: center;
@@ -22,12 +28,12 @@ header {
 .album-card {
   position: relative;
   text-decoration: none;
-  color: white; /* text color white for contrast */
+  color: white;
   border-radius: 8px;
   overflow: hidden;
   width: 200px;
-  height: 150px; /* fixed height for consistent backgrounds */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 150px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   display: flex;
   align-items: flex-end;
@@ -35,27 +41,26 @@ header {
   font-weight: bold;
   font-size: 1.2rem;
 
-  /* Background image styling */
   background-size: cover;
   background-position: center;
 }
 
-/* Remove the img inside album-card if present */
+/* Hide any actual <img> tag in album cards */
 .album-card img {
   display: none;
 }
 
-/* Dark overlay to improve text visibility */
+/* Overlay for album readability */
 .album-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 0;
   border-radius: 8px;
 }
 
-/* Position text above overlay */
+/* Album card title positioning */
 .album-card h2 {
   position: relative;
   z-index: 1;
@@ -63,13 +68,13 @@ header {
   text-align: center;
 }
 
-/* Hover effect */
+/* Hover effect on album cards */
 .album-card:hover::before {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   transition: background 0.3s ease;
 }
 
-/* Background images for folders */
+/* Album background images */
 .album-card.flowers {
   background-image: url('/images/flowers/DSC04506.jpg');
 }
@@ -86,3 +91,51 @@ header {
   background-image: url('/images/landscapes/20221228_163026.jpg');
 }
 
+/* Gallery Section Below Albums */
+.gallery-section {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 1000px;
+  padding: 0 1rem;
+}
+
+.gallery-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Gallery Thumbnails */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.gallery a img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+/* Hover zoom effect */
+.gallery a img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  .album-card {
+    width: 90%;
+    height: 120px;
+  }
+
+  .gallery a img {
+    width: 120px;
+    height: 80px;
+  }
+}

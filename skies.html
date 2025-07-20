@@ -5,16 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Skies Album</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
 </head>
 <body>
   <header>
     <h1>Skies</h1>
-    <a href="index.html">← Back to Home</a>
+    <a href="index.html" style="color: white;">← Back to Home</a>
   </header>
+
   <main>
-    <div class="gallery">
-      <!-- Add images here -->
+    <div class="gallery-section">
+      <div id="skies-gallery" class="gallery"></div>
     </div>
   </main>
+
+  <!-- Lightbox2 Script -->
+  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+
+  <script>
+    const container = document.getElementById("skies-gallery");
+
+    // Try to load skies1.jpg to skies20.jpg
+    for (let i = 1; i <= 20; i++) {
+      const src = `/images/skies/skies${i}.jpg`;
+
+      const link = document.createElement("a");
+      link.href = src;
+      link.setAttribute("data-lightbox", "skies");
+      link.setAttribute("data-title", `skies${i}.jpg`);
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `skies${i}`;
+
+      link.appendChild(img);
+      container.appendChild(link);
+    }
+  </script>
 </body>
 </html>

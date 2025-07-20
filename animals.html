@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flowers Album</title>
+  <title>Animals Album</title>
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
 </head>
 <body>
   <header>
-    <h1>Flowers</h1>
+    <h1>Animals</h1>
     <a href="index.html" style="color: white;">← Back to Home</a>
   </header>
 
   <main>
     <div class="gallery-section">
-      <div id="flowers-gallery" class="gallery"></div>
+      <div id="animals-gallery" class="gallery"></div>
     </div>
   </main>
 
@@ -23,20 +23,20 @@
   <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
 
   <script>
-    const container = document.getElementById("flowers-gallery");
+    const container = document.getElementById("animals-gallery");
 
-    // Try to load flowers1.jpg to flowers20.jpg
+    // Try to load animals1.jpg to animals20.jpg
     for (let i = 1; i <= 20; i++) {
-      const src = `/images/flowers/flowers${i}.jpg`;
+      const src = `/images/animals/animals${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = src;
-      link.setAttribute("data-lightbox", "flowers");
-      link.setAttribute("data-title", `flowers${i}.jpg`);
+      link.setAttribute("data-lightbox", "animals");
+      link.setAttribute("data-title", `animals${i}.jpg`);
 
       const img = document.createElement("img");
       img.src = src;
-      img.alt = `flowers${i}`;
+      img.alt = `animals${i}`;
 
       link.appendChild(img);
       container.appendChild(link);
