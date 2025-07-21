@@ -50,13 +50,16 @@
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
 
     <!-- Dynamic Gallery Script that skips missing images -->
-  <!-- <script>
+    <script>
+    const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
     const images = [];
-    for (let i = 1; i <= 20; i++) {
-      const filename = `insects (${i}).jpg`;
-      const encodedFilename = encodeURIComponent(filename);
-      images.push(`/images/insects/${encodedFilename}`);
-    }
+
+    folders.forEach(folder => {
+      for (let i = 1; i <= 20; i++) {
+        const filename = `${folder}${i}.jpg`;
+        images.push(`/images/${folder}/${filename}`);
+      }
+    });
 
     const shuffled = images.sort(() => 0.5 - Math.random());
     const container = document.getElementById("random-gallery");
@@ -76,38 +79,28 @@
       };
       img.src = src;
     });
-  </script> -->
-
+  </script>
+  
+<!-- Scroll to Top Button -->
   <script>
-  const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
-  const images = [];
+  const scrollBtn = document.getElementById("scrollToTop");
 
-  folders.forEach(folder => {
-    for (let i = 1; i <= 20; i++) {
-      const filename = `${folder}${i}.jpg`;
-      images.push(`/images/${folder}/${filename}`);
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
     }
   });
 
-  const shuffled = images.sort(() => 0.5 - Math.random());
-  const container = document.getElementById("random-gallery");
-
-  shuffled.forEach(src => {
-    const img = new Image();
-    img.onload = () => {
-      const link = document.createElement("a");
-      link.href = src;
-      link.setAttribute("data-lightbox", "gallery");
-      img.alt = "";
-      link.appendChild(img);
-      container.appendChild(link);
-    };
-    img.onerror = () => {
-      console.warn("Missing:", src);
-    };
-    img.src = src;
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
+
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTop" title="Back to Top">↑</button>
 
 </body>
 </html>
