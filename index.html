@@ -42,15 +42,20 @@
     <!-- Gallery Section -->
     <div class="gallery-section">
       <h2>Gallery Preview</h2>
-      <div id="random-gallery" class="gallery"></div>
+      <div class="gallery">
+        <!-- Images will be dynamically inserted here -->
+      </div>
     </div>
   </main>
 
-    <!-- Lightbox2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" title="Back to Top" onclick="scrollToTop()">↑</button>
 
-    <!-- Dynamic Gallery Script that skips missing images -->
-    <script>
+  <!-- Lightbox2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+
+  <!-- Responsive Gallery Script -->
+  <script>
     const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
     const images = [];
 
@@ -61,8 +66,8 @@
       }
     });
 
-    const shuffled = images.sort(() => 0.5 - Math.random());
-    const container = document.getElementById("random-gallery");
+    const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 30); // Show only 30 random
+    const gallery = document.querySelector(".gallery");
 
     shuffled.forEach(src => {
       const img = new Image();
@@ -72,35 +77,23 @@
         link.setAttribute("data-lightbox", "gallery");
         img.alt = "";
         link.appendChild(img);
-        container.appendChild(link);
+        gallery.appendChild(link);
       };
       img.onerror = () => {
         console.warn("Missing:", src);
       };
       img.src = src;
     });
-  </script>
-  
-<!-- Scroll to Top Button -->
-  <script>
-  const scrollBtn = document.getElementById("scrollToTop");
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollBtn.classList.add("show");
-    } else {
-      scrollBtn.classList.remove("show");
+    // Scroll to top logic
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  });
 
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
-
-
-<!-- Scroll to Top Button -->
-<button id="scrollToTop" title="Back to Top">↑</button>
-
+    window.addEventListener('scroll', () => {
+      const button = document.getElementById('scrollToTop');
+      button.classList.toggle('show', window.scrollY > 300);
+    });
+  </script>
 </body>
 </html>

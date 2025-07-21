@@ -112,6 +112,7 @@ h1 {
 }
 
 /* Gallery Thumbnails (Improved Layout) */
+/* Responsive Gallery Grid */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -129,18 +130,12 @@ h1 {
   transition: transform 0.2s ease;
 }
 
-/* Hover zoom effect */
 .gallery a img:hover {
   transform: scale(1.05);
 }
 
-/* Responsive for smaller screens */
+/* Responsive tweaks */
 @media (max-width: 600px) {
-  .album-card {
-    flex: 0 0 140px;
-    height: 100px;
-  }
-
   .gallery {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 1rem;
@@ -152,7 +147,7 @@ h1 {
   }
 }
 
-/* Scroll to Top Button */
+/* Scroll to Top Button (already present, reused) */
 #scrollToTop {
   position: fixed;
   bottom: 30px;
@@ -176,8 +171,8 @@ h1 {
   background-color: #555;
 }
 
-/* Show button when scrolling down */
 #scrollToTop.show {
   opacity: 1;
   visibility: visible;
 }
+
