@@ -39,11 +39,11 @@
 
     </div>
 
-    <!-- Gallery Section -->
+    <!-- Responsive Gallery Section -->
     <div class="gallery-section">
       <h2>Gallery Preview</h2>
-      <div class="gallery">
-        <!-- Images will be dynamically inserted here -->
+      <div id="lightgallery" class="gallery">
+        <!-- Images dynamically inserted -->
       </div>
     </div>
   </main>
@@ -51,48 +51,59 @@
   <!-- Scroll to Top Button -->
   <button id="scrollToTop" title="Back to Top" onclick="scrollToTop()">↑</button>
 
-  <!-- Lightbox2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+  <!-- LightGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 
-  <!-- Responsive Gallery Script -->
+  <!-- Gallery Script -->
   <script>
     const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
     const images = [];
 
     folders.forEach(folder => {
       for (let i = 1; i <= 20; i++) {
-        const filename = `${folder}${i}.jpg`;
-        images.push(`/images/${folder}/${filename}`);
+        const name = `${folder}${i}.jpg`;
+        images.push({ 
+          src: `/images/${folder}/${name}`, 
+          thumb: `/images/${folder}/${name}`,
+          caption: `${folder.charAt(0).toUpperCase() + folder.slice(1)} #${i}` 
+        });
       }
     });
 
-    const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 30); // Show only 30 random
-    const gallery = document.querySelector(".gallery");
+    const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 30);
+    const gallery = document.getElementById('lightgallery');
 
-    shuffled.forEach(src => {
-      const img = new Image();
-      img.onload = () => {
-        const link = document.createElement("a");
-        link.href = src;
-        link.setAttribute("data-lightbox", "gallery");
-        img.alt = "";
-        link.appendChild(img);
-        gallery.appendChild(link);
-      };
-      img.onerror = () => {
-        console.warn("Missing:", src);
-      };
-      img.src = src;
+    shuffled.forEach(({ src, thumb, caption }) => {
+      const a = document.createElement('a');
+      a.href = src;
+      a.setAttribute('data-lg-size', '1400-933');
+      a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
+      a.classList.add("gallery-item");
+
+      const img = document.createElement('img');
+      img.src = thumb;
+      img.alt = caption;
+      a.appendChild(img);
+      gallery.appendChild(a);
     });
 
-    // Scroll to top logic
+    lightGallery(document.getElementById('lightgallery'), {
+      thumbnail: true,
+      zoom: true,
+      download: false,
+      share: false,
+      actualSize: false,
+      selector: '.gallery-item'
+    });
+
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     window.addEventListener('scroll', () => {
-      const button = document.getElementById('scrollToTop');
-      button.classList.toggle('show', window.scrollY > 300);
+      document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
     });
   </script>
 </body>
