@@ -42,6 +42,10 @@
     <!-- Responsive Gallery Section -->
     <div class="gallery-section">
       <h2>「 ✦ Gallery Preview ✦ 」</h2>
+      
+      <!-- Spinner shown while images are loading -->
+      <div id="loading-spinner" class="spinner"></div>
+      
       <div id="lightgallery" class="gallery">
         <!-- Images dynamically inserted -->
       </div>
@@ -80,11 +84,13 @@
           caption: `${folder.charAt(0).toUpperCase() + folder.slice(1)} #${i}` 
         });
       }
-}
-
+    }
 
     const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 30);
     const gallery = document.getElementById('lightgallery');
+    const spinner = document.getElementById('loading-spinner');
+
+    let imagesLoaded = 0;
 
     shuffled.forEach(({ src, thumb, caption }) => {
       const a = document.createElement('a');
@@ -96,6 +102,15 @@
       const img = document.createElement('img');
       img.src = thumb;
       img.alt = caption;
+
+      // Count loaded images
+      img.onload = img.onerror = () => {
+        imagesLoaded++;
+        if (imagesLoaded === shuffled.length) {
+          spinner.style.display = 'none'; // Hide spinner once all are loaded
+        }
+      };
+
       a.appendChild(img);
       gallery.appendChild(a);
     });
@@ -117,5 +132,6 @@
       document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
     });
   </script>
+
 </body>
 </html>
