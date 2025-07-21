@@ -33,7 +33,13 @@
 
       const link = document.createElement("a");
       link.href = src;
-      link.setAttribute("data-sub-html", `<h4>Astro #${i}</h4>`);
+
+      if (i === 1) {
+        link.setAttribute("data-sub-html", "<h2>The Milky Way</h2>"); }
+      else if (i === 8) {
+        link.setAttribute("data-sub-html", "<h2>Orion and Jupiter</h2>"); }
+      else
+        link.setAttribute("data-sub-html", `<h4>Astro #${i}</h4>`);
 
       const img = document.createElement("img");
       img.src = src;
