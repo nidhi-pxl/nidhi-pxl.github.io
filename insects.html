@@ -27,16 +27,16 @@
 
     // Try to load insects1.jpg to insects20.jpg
     for (let i = 1; i <= 20; i++) {
-      const src = `/images/insects/insects (${i}).jpg`;
+      const src = `/images/insects/insects${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = src;
       link.setAttribute("data-lightbox", "insects");
-      link.setAttribute("data-title", `insects (${i}).jpg`);
+      link.setAttribute("data-title", `insects${i}.jpg`);
 
       const img = document.createElement("img");
       img.src = src;
-      img.alt = `insects (${i})`;
+      img.alt = `insects${i}`;
 
       link.appendChild(img);
       container.appendChild(link);

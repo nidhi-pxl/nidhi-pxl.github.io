@@ -13,7 +13,7 @@
 </head>
 <body>
   <header>
-    <h1>Nidhi Mekaraj-Photography Portfolio</h1>
+    <h1>Nidhi Mekaraj - Photography Portfolio</h1>
   </header>
   
   <main>
@@ -24,15 +24,19 @@
       <a href="skies.html" class="album-card skies">
         <h2>Skies</h2>
       </a>
-      <a href="insects.html" class="album-card insects">
-        <h2>Insects</h2>
-      </a>
       <a href="animals.html" class="album-card animals">
         <h2>Animals</h2>
       </a>
       <a href="landscapes.html" class="album-card landscapes">
         <h2>Landscapes</h2>
       </a>
+      <a href="insects.html" class="album-card insects">
+        <h2>Insects</h2>
+      </a>
+      <a href="astro.html" class="album-card astro">
+        <h2>Astro</h2>
+      </a>
+
     </div>
 
     <!-- Gallery Section -->
@@ -46,7 +50,7 @@
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
 
     <!-- Dynamic Gallery Script that skips missing images -->
-  <script>
+  <!-- <script>
     const images = [];
     for (let i = 1; i <= 20; i++) {
       const filename = `insects (${i}).jpg`;
@@ -72,17 +76,16 @@
       };
       img.src = src;
     });
-  </script>
+  </script> -->
 
-  <!-- <script>
-  const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes'];
+  <script>
+  const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
   const images = [];
 
   folders.forEach(folder => {
     for (let i = 1; i <= 20; i++) {
-      const filename = `${folder} (${i}).jpg`;
-      const encodedFilename = encodeURIComponent(filename);
-      images.push(`/images/${folder}/${encodedFilename}`);
+      const filename = `${folder}${i}.jpg`;
+      images.push(`/images/${folder}/${filename}`);
     }
   });
 
@@ -104,7 +107,7 @@
     };
     img.src = src;
   });
-</script> -->
+</script>
 
 </body>
 </html>

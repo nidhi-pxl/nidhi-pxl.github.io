@@ -7,12 +7,12 @@ body {
 
 header {
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem;
   background: #333;
   color: white;
 }
 h1 {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(98, 6, 6, 0.564);
 }
 
 
@@ -76,19 +76,22 @@ h1 {
 
 /* Album background images */
 .album-card.flowers {
-  background-image: url('/images/flowers/DSC04506.jpg');
+  background-image: url('/images/flowers/flowers12.jpg');
 }
 .album-card.skies {
-  background-image: url('/images/skies/DSC09066.JPG');
+  background-image: url('/images/skies/skies15.JPG');
 }
 .album-card.insects {
-  background-image: url('/images/insects/insects (1).jpg');
+  background-image: url('/images/insects/insects1.jpg');
 }
 .album-card.animals {
-  background-image: url('/images/animals/DSC04416.jpg');
+  background-image: url('/images/animals/animals9.jpg');
 }
 .album-card.landscapes {
-  background-image: url('/images/landscapes/20221228_163026.jpg');
+  background-image: url('/images/landscapes/landscapes13.jpg');
+}
+.album-card.astro {
+  background-image: url('/images/astro/astro1.jpg');
 }
 
 /* Gallery Section Below Albums */
@@ -108,9 +111,9 @@ h1 {
 /* Gallery Thumbnails */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   justify-items: center;
 }
 
