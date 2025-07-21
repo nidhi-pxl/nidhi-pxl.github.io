@@ -59,10 +59,20 @@
   <!-- Gallery Script -->
   <script>
     const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
+    const folderImageCounts = {
+      flowers: 22,
+      skies: 28,
+      insects: 14,
+      animals: 25,
+      landscapes: 13,
+      astro: 9
+    };
+
     const images = [];
 
-    folders.forEach(folder => {
-      for (let i = 1; i <= 20; i++) {
+    for (const folder in folderImageCounts) {
+      const count = folderImageCounts[folder];
+      for (let i = 1; i <= count; i++) {
         const name = `${folder}${i}.jpg`;
         images.push({ 
           src: `/images/${folder}/${name}`, 
@@ -70,7 +80,8 @@
           caption: `${folder.charAt(0).toUpperCase() + folder.slice(1)} #${i}` 
         });
       }
-    });
+}
+
 
     const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 30);
     const gallery = document.getElementById('lightgallery');
