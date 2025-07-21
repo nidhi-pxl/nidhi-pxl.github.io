@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Astro Album</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" rel="stylesheet" />
 </head>
 <body>
   <header>
@@ -19,28 +19,36 @@
     </div>
   </main>
 
-  <!-- Lightbox2 Script -->
-  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+ <!-- LightGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
 
   <script>
     const container = document.getElementById("astro-gallery");
 
-    // Try to load astro1.jpg to astro20.jpg
+    // Try to load astro1.jpg to astro9.jpg
     for (let i = 1; i <= 9; i++) {
       const src = `/images/astro/astro${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = src;
-      link.setAttribute("data-lightbox", "astro");
-      link.setAttribute("data-title", `astro${i}.jpg`);
+      link.setAttribute("data-sub-html", `<h4>Astro #${i}</h4>`);
 
       const img = document.createElement("img");
       img.src = src;
       img.alt = `astro${i}`;
+      img.loading = "lazy";
 
       link.appendChild(img);
       container.appendChild(link);
     }
+
+    lightGallery(container, {
+      plugins: [lgZoom, lgThumbnail],
+      speed: 500,
+      download: false
+    });
   </script>
 </body>
 </html>

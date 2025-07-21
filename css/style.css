@@ -20,14 +20,13 @@ h1 {
 /* Album Section */
 .albums {
   display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;              /* Prevent wrapping */
+  justify-content: space-between;
+  flex-wrap: wrap;              /* Prevent wrapping */
   gap: 1rem;
-  padding: 1.5rem 0.5rem;
+  padding: 1.5rem 2rem;
   overflow-x: auto;               /* Enable horizontal scroll if needed */
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none;      /* IE and Edge */
-  justify-content: flex-start; /* Changed from center */
 }
 
 .albums::-webkit-scrollbar {
@@ -35,8 +34,9 @@ h1 {
 }
 
 .album-card {
-  flex: 0 0 160px;                /* Fixed width for 6 in a row */
-  height: 120px;
+  flex: 1 1 calc(16.66% - 1rem);      /* 6 cards per row with gap */
+  max-width: calc(16.66% - 1rem);     /* Prevents overflow */
+  height: 140px;
   position: relative;
   text-decoration: none;
   color: white;
@@ -52,6 +52,13 @@ h1 {
 
   background-size: cover;
   background-position: center;
+}
+
+@media (max-width: 768px) {
+  .album-card {
+    flex: 1 1 calc(50% - 1rem); /* 2 per row on small screens */
+    max-width: calc(50% - 1rem);
+  }
 }
 
 .album-card img {
@@ -117,7 +124,7 @@ h1 {
 /* Responsive Gallery */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 4 images per row */
   gap: 1.5rem;
   padding: 1.5rem 0;
   justify-items: center;
@@ -140,14 +147,22 @@ h1 {
   transform: scale(1.05);
 }
 
-
-@media (max-width: 600px) {
+/* Adaptive to screen size */
+@media (max-width: 1024px) {
   .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
+}
 
-  .gallery img {
-    height: 140px;
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
   }
 }
 

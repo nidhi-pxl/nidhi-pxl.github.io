@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Landscapes Album</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" rel="stylesheet" />
 </head>
 <body>
   <header>
@@ -19,8 +19,10 @@
     </div>
   </main>
 
-  <!-- Lightbox2 Script -->
-  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
+ <!-- LightGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
 
   <script>
     const container = document.getElementById("landscapes-gallery");
@@ -31,16 +33,22 @@
 
       const link = document.createElement("a");
       link.href = src;
-      link.setAttribute("data-lightbox", "landscapes");
-      link.setAttribute("data-title", `landscapes${i}.jpg`);
+      link.setAttribute("data-sub-html", `<h4>Landscape #${i}</h4>`);
 
       const img = document.createElement("img");
       img.src = src;
       img.alt = `landscapes${i}`;
+      img.loading = "lazy";
 
       link.appendChild(img);
       container.appendChild(link);
     }
+
+    lightGallery(container, {
+      plugins: [lgZoom, lgThumbnail],
+      speed: 500,
+      download: false
+    });
   </script>
 </body>
 </html>
