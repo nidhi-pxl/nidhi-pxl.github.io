@@ -88,22 +88,22 @@ h1 {
 }
 
 .album-card.flowers {
-  background-image: url('/images/flowers/flowers12.jpg');
+  background-image: url('/images/flowers/thumbs/flowers12.jpg');
 }
 .album-card.skies {
-  background-image: url('/images/skies/skies15.jpg');
+  background-image: url('/images/skies/thumbs/skies15.jpg');
 }
 .album-card.insects {
-  background-image: url('/images/insects/insects1.jpg');
+  background-image: url('/images/insects/thumbs/insects1.jpg');
 }
 .album-card.animals {
-  background-image: url('/images/animals/animals9.jpg');
+  background-image: url('/images/animals/thumbs/animals9.jpg');
 }
 .album-card.landscapes {
-  background-image: url('/images/landscapes/landscapes13.jpg');
+  background-image: url('/images/landscapes/thumbs/landscapes13.jpg');
 }
 .album-card.astro {
-  background-image: url('/images/astro/astro3.jpg');
+  background-image: url('/images/astro/thumbs/astro3.jpg');
 }
 
 /* Gallery Section Below Albums */
