@@ -22,7 +22,7 @@ h1 {
   justify-content: center;
   flex-wrap: nowrap;              /* Prevent wrapping */
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 0 1rem;
   overflow-x: auto;               /* Enable horizontal scroll if needed */
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none;      /* IE and Edge */
@@ -34,7 +34,7 @@ h1 {
 
 .album-card {
   flex: 0 0 160px;                /* Fixed width for 6 in a row */
-  height: 120px;
+  height: 140px;
   position: relative;
   text-decoration: none;
   color: white;
