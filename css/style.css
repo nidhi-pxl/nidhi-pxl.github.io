@@ -22,7 +22,7 @@ h1 {
   justify-content: center;
   flex-wrap: nowrap;              /* Prevent wrapping */
   gap: 1rem;
-  padding: 0 1rem;
+  padding: 1.5rem 0.5rem;
   overflow-x: auto;               /* Enable horizontal scroll if needed */
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none;      /* IE and Edge */
@@ -34,7 +34,7 @@ h1 {
 
 .album-card {
   flex: 0 0 160px;                /* Fixed width for 6 in a row */
-  height: 140px;
+  height: 120px;
   position: relative;
   text-decoration: none;
   color: white;
@@ -94,7 +94,7 @@ h1 {
   background-image: url('/images/landscapes/landscapes13.jpg');
 }
 .album-card.astro {
-  background-image: url('/images/astro/astro1.jpg');
+  background-image: url('/images/astro/astro3.jpg');
 }
 
 /* Gallery Section Below Albums */
