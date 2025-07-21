@@ -46,34 +46,65 @@
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox.min.js"></script>
 
     <!-- Dynamic Gallery Script that skips missing images -->
-    <script>
-      const images = [];
+  <script>
+    const images = [];
+    for (let i = 1; i <= 20; i++) {
+      const filename = `insects (${i}).jpg`;
+      const encodedFilename = encodeURIComponent(filename);
+      images.push(`/images/insects/${encodedFilename}`);
+    }
 
-      ['flowers', 'skies', 'insects', 'animals', 'landscapes'].forEach(folder => {
-        for (let i = 1; i <= 20; i++) {
-          images.push(`/images/${folder}/${folder}${i}.jpg`);
-        }
-      });
+    const shuffled = images.sort(() => 0.5 - Math.random());
+    const container = document.getElementById("random-gallery");
 
-      const shuffled = images.sort(() => 0.5 - Math.random());
-      const container = document.getElementById("random-gallery");
+    shuffled.forEach(src => {
+      const img = new Image();
+      img.onload = () => {
+        const link = document.createElement("a");
+        link.href = src;
+        link.setAttribute("data-lightbox", "gallery");
+        img.alt = "";
+        link.appendChild(img);
+        container.appendChild(link);
+      };
+      img.onerror = () => {
+        console.warn("Missing:", src);
+      };
+      img.src = src;
+    });
+  </script>
 
-      shuffled.forEach(src => {
-        const img = new Image();
-        img.onload = () => {
-          const link = document.createElement("a");
-          link.href = src;
-          link.setAttribute("data-lightbox", "gallery");
-          img.alt = "";
-          link.appendChild(img);
-          container.appendChild(link);
-        };
-        img.onerror = () => {
-          // Skip broken/missing image
-        };
-        img.src = src;
-      });
-    </script>
+  <!-- <script>
+  const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes'];
+  const images = [];
+
+  folders.forEach(folder => {
+    for (let i = 1; i <= 20; i++) {
+      const filename = `${folder} (${i}).jpg`;
+      const encodedFilename = encodeURIComponent(filename);
+      images.push(`/images/${folder}/${encodedFilename}`);
+    }
+  });
+
+  const shuffled = images.sort(() => 0.5 - Math.random());
+  const container = document.getElementById("random-gallery");
+
+  shuffled.forEach(src => {
+    const img = new Image();
+    img.onload = () => {
+      const link = document.createElement("a");
+      link.href = src;
+      link.setAttribute("data-lightbox", "gallery");
+      img.alt = "";
+      link.appendChild(img);
+      container.appendChild(link);
+    };
+    img.onerror = () => {
+      console.warn("Missing:", src);
+    };
+    img.src = src;
+  });
+</script> -->
 
 </body>
 </html>

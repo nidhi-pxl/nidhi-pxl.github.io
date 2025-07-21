@@ -107,24 +107,26 @@ h1 {
 
 /* Gallery Thumbnails */
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
+  padding: 0 1rem;
+  justify-items: center;
 }
 
 .gallery a img {
-  width: 150px;
-  height: 100px;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
   object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
 }
 
 /* Hover zoom effect */
 .gallery a img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 /* Responsive for smaller screens */
