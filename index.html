@@ -86,7 +86,7 @@
       }
     }
 
-    const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 30);
+    const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 50);
     const gallery = document.getElementById('lightgallery');
     const spinner = document.getElementById('loading-spinner');
 
@@ -95,7 +95,7 @@
     shuffled.forEach(({ src, thumb, caption }) => {
       const a = document.createElement('a');
       a.href = src;
-      a.setAttribute('data-lg-size', '1400-933');
+      // a.setAttribute('data-lg-size', '1400-933');
       a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
       a.classList.add("gallery-item");
 

@@ -33,7 +33,7 @@
       const fullSrc = `/images/animals/animals${i}.jpg`;
 
       const link = document.createElement("a");
-      link.href = src;
+      link.href = fullSrc;
             
       if (i === 2) {
         link.setAttribute("data-sub-html", "<h2>Galah cockatoo</h2>"); }
@@ -49,7 +49,7 @@
         link.setAttribute("data-sub-html", `<h4>Animal #${i}</h4>`);
 
       const img = document.createElement("img");
-      img.src = src;
+      img.src = thumbSrc;
       img.alt = `animals${i}`;
       img.loading = "lazy";
 

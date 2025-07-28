@@ -29,15 +29,15 @@
 
     // Try to load skies1.jpg to skies20.jpg
     for (let i = 1; i <= 28; i++) {
-      const src = `/images/skies/thumbs/skies${i}.jpg`;
+      const thumbSrc = `/images/skies/thumbs/skies${i}.jpg`;
       const fullSrc = `/images/animals/skies${i}.jpg`;
 
       const link = document.createElement("a");
-      link.href = src;
+      link.href = fullSrc;
       link.setAttribute("data-sub-html", `<h4>Skiess #${i}</h4>`);
 
       const img = document.createElement("img");
-      img.src = src;
+      img.src = thumbSrc;
       img.alt = `skies${i}`;
       img.loading = "lazy";
 
