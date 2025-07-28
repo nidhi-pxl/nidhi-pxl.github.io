@@ -118,28 +118,53 @@ h1 {
   font-size: 1.8rem;
   margin-bottom: 2rem;
   color: #333;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
+
+@media (max-width: 768px) {
+  .gallery-section h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
 
 /* Gallery Thumbnails */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 10px;
+  gap: 1rem;
   padding: 1.5rem 0;
-  justify-items: center;
 }
 
-.gallery img:invalid {
-  display: none;
+.gallery a {
+  display: block;
+  break-inside: avoid;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .gallery img {
   width: 100%;
-  height: 220px;
+  height: auto;
   object-fit: cover;
+  display: block;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
+}
+
+.gallery img:invalid {
+  display: none;
 }
 
 .gallery img:hover {
@@ -147,7 +172,7 @@ h1 {
 }
 
 /* Responsive Gallery Layout */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .gallery {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -163,7 +188,7 @@ h1 {
   .gallery {
     grid-template-columns: 1fr;
   }
-}
+} */
 
 /* Scroll to Top */
 #scrollToTop {

@@ -29,7 +29,8 @@
 
     // Try to load animals1.jpg to animals20.jpg
     for (let i = 1; i <= 24; i++) {
-      const src = `/images/animals/thumbs/animals${i}.jpg`;
+      const thumbSrc = `/images/animals/thumbs/animals${i}.jpg`;
+      const fullSrc = `/images/animals/animals${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = src;
