@@ -51,14 +51,22 @@
 
       if (i === 1 || i === 7) {
         link.setAttribute("data-sub-html", "<h2>Papilio demoleus (Lime Swallowtail)</h2>"); }
-      else if (i === 10) {
-        link.setAttribute("data-sub-html", "<h2>Black swan</h2>"); }
-      else if (i === 20) {
-        link.setAttribute("data-sub-html", "<h2>Budgerigar</h2>"); }
-      else if (i === 24) {
-        link.setAttribute("data-sub-html", "<h2>Lamprotornis purpureus (Purple Glossy Starling)</h2>"); }
-      else if(i === 23) {
-        link.setAttribute("data-sub-html", "<h2>White-throated Toucan</h2>"); }
+      else if (i === 2) {
+        link.setAttribute("data-sub-html", "<h2>Male damselfly</h2>"); }
+      else if (i === 3) {
+        link.setAttribute("data-sub-html", "<h2>Papilio polytes (Common Mormon)</h2>"); }
+      else if (i === 4) {
+        link.setAttribute("data-sub-html", "<h2>Talicada nyseus (Red Pierrot)</h2>"); }
+      else if(i === 10) {
+        link.setAttribute("data-sub-html", "<h2>Ariadne merione (Common Castor)</h2>"); }
+      else if (i === 11) {
+        link.setAttribute("data-sub-html", "<h2>Neurothemis fluctuans (Red Grasshawk)</h2>"); }
+      else if(i === 9) {
+        link.setAttribute("data-sub-html", "<h2>Chilades lajus (Lime Blue)</h2>"); }
+      else if (i === 12) {
+        link.setAttribute("data-sub-html", "<h2>Rhyothemis variegata (Common Picture Wing dragonfly)</h2>", "<h4>variegated flutterer</h4>"); }
+      else if(i === 14) {
+        link.setAttribute("data-sub-html", "<h2>Neurothemis tullia (Pied Paddy Skimmer)</h2>"); }
       else
         link.setAttribute("data-sub-html", `<h4>Insect #${i}</h4>`);
 
@@ -74,14 +82,22 @@
       //thumbnail captions
       if (i === 1 || i === 7) {
         img.alt = "Lime Swallowtail";
+      } else if (i === 2) {
+        img.alt = "Damselfly";
+      } else if (i === 3) {
+        img.alt = "Common Mormon";
+      } else if (i === 4) {
+        img.alt = "Red Pierrot";
+      } else if (i === 9) {
+        img.alt = "Lime Blue";
       } else if (i === 10) {
-        img.alt = "Black swan";
-      } else if (i === 20) {
-        img.alt = "Budgerigar";
-      } else if (i === 24) {
-        img.alt = "Purple Glossy Starling";
-      } else if (i === 23) {
-        img.alt = "White-throated Toucan";
+        img.alt = "Common Castor";
+      } else if (i === 11) {
+        img.alt = "Red Grasshawk";
+      } else if (i === 12) {
+        img.alt = "Common Picture Wing";
+      } else if (i === 14) {
+        img.alt = "Pied Paddy Skimmer";
       } else {
         img.alt = "";  // No tooltip
       }
