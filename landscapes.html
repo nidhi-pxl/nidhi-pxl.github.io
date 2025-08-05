@@ -44,7 +44,7 @@
     // Try to load landscapes1.jpg to landscapes20.jpg
     for (let i = 1; i <= 13; i++) {
       const thumbSrc = `/images/landscapes/thumbs/landscapes${i}.jpg`;
-      const fullSrc = `/images/animals/landscapes${i}.jpg`;
+      const fullSrc = `/images/landscapes/landscapes${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = fullSrc;
@@ -64,12 +64,12 @@
     $(document).ready(function () {
       const rowHeight = window.innerWidth > 1600 ? 160 : 200;
 
-      $('#animals-gallery').justifiedGallery({
+      $('#landscapes-gallery').justifiedGallery({
         rowHeight: rowHeight,
         margins: 4,
         lastRow: 'justify'
       }).on('jg.complete', function () {
-        lightGallery(document.getElementById('animals-gallery'), {
+        lightGallery(document.getElementById('landscapes-gallery'), {
           plugins: [lgZoom, lgThumbnail],
           speed: 500,
           download: false,

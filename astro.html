@@ -44,7 +44,7 @@
     // Try to load astro1.jpg to astro9.jpg
     for (let i = 1; i <= 9; i++) {
       const thumbSrc = `/images/astro/thumbs/astro${i}.jpg`;
-      const fullSrc = `/images/animals/astro${i}.jpg`;
+      const fullSrc = `/images/astro/astro${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = fullSrc;
@@ -70,12 +70,12 @@
     $(document).ready(function () {
       const rowHeight = window.innerWidth > 1600 ? 160 : 200;
 
-      $('#animals-gallery').justifiedGallery({
+      $('#astro-gallery').justifiedGallery({
         rowHeight: rowHeight,
         margins: 4,
         lastRow: 'justify'
       }).on('jg.complete', function () {
-        lightGallery(document.getElementById('animals-gallery'), {
+        lightGallery(document.getElementById('astro-gallery'), {
           plugins: [lgZoom, lgThumbnail],
           speed: 500,
           download: false,

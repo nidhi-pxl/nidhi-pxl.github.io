@@ -44,7 +44,7 @@
     // Try to load skies1.jpg to skies20.jpg
     for (let i = 1; i <= 28; i++) {
       const thumbSrc = `/images/skies/thumbs/skies${i}.jpg`;
-      const fullSrc = `/images/animals/skies${i}.jpg`;
+      const fullSrc = `/images/skies/skies${i}.jpg`;
 
       const link = document.createElement("a");
       link.href = fullSrc;
@@ -64,12 +64,12 @@
     $(document).ready(function () {
       const rowHeight = window.innerWidth > 1600 ? 160 : 200;
 
-      $('#animals-gallery').justifiedGallery({
+      $('#skies-gallery').justifiedGallery({
         rowHeight: rowHeight,
         margins: 4,
         lastRow: 'justify'
       }).on('jg.complete', function () {
-        lightGallery(document.getElementById('animals-gallery'), {
+        lightGallery(document.getElementById('skies-gallery'), {
           plugins: [lgZoom, lgThumbnail],
           speed: 500,
           download: false,
