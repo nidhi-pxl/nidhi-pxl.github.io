@@ -130,12 +130,17 @@
         lastRow: 'justify'
       }).on('jg.complete', function () {
         lightGallery(document.getElementById('lightgallery'), {
+          selector: '.gallery-item',
           thumbnail: true,
           zoom: true,
           download: false,
           share: false,
           actualSize: false,
-          selector: '.gallery-item'
+          plugins: [lgZoom, lgThumbnail],
+          zoomFromOrigin: true,
+          scale: 1,
+          enableZoomAfter: 300,
+          doubleTapZoom: 2  // <- Enables double-click/double-tap to zoom
         });
         spinner.style.display = 'none';
       });
