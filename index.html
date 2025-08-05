@@ -51,13 +51,12 @@
   <!-- Scroll To Top Button -->
   <button id="scrollToTop" title="Back to Top" onclick="scrollToTop()">↑</button>
 
-
   <!-- jQuery -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 
   <!-- JustifiedGallery -->
   <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
-  
+
   <!-- LightGallery -->
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
@@ -74,52 +73,63 @@
       astro: 9
     };
 
-    // Define custom captions here
     const customCaptions = {
       animals2: "Galah cockatoo",
       animals10: "Black swan",
       animals20: "Budgerigar",
       animals23: "White-throated Toucan",
       animals24: "Purple Glossy Starling (Lamprotornis purpureus)"
-      // Add more as needed
     };
 
     const images = [];
-
     for (const folder in folderImageCounts) {
       const count = folderImageCounts[folder];
       for (let i = 1; i <= count; i++) {
         const key = `${folder}${i}`;
         const name = `${key}.jpg`;
-        const caption = customCaptions[key] || ''; // Only use if defined
-
-        images.push({ 
-          src: `/images/${folder}/${name}`, 
+        const caption = customCaptions[key] || '';
+        images.push({
+          src: `/images/${folder}/${name}`,
           thumb: `/images/${folder}/thumbs/${name}`,
           caption
         });
       }
     }
 
-    const shuffled = images.sort(() => 0.5 - Math.random()).slice(0, 50);
+    const shuffled = images.sort(() => 0.5 - Math.random());
     const gallery = document.getElementById('lightgallery');
     const spinner = document.getElementById('loading-spinner');
 
-    shuffled.forEach(({ src, thumb, caption }) => {
-      const a = document.createElement('a');
-      a.href = src;
-      if (caption) {
-        a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
-      }
-      a.classList.add("gallery-item");
+    let loadedCount = 0;
+    const batchSize = 20;
+    let isLoading = false;
 
-      const img = document.createElement('img');
-      img.src = thumb;
-      img.alt = caption || "";
+    function loadBatch() {
+      if (loadedCount >= shuffled.length) return;
 
-      a.appendChild(img);
-      gallery.appendChild(a);
-    });
+      const batch = shuffled.slice(loadedCount, loadedCount + batchSize);
+
+      batch.forEach(({ src, thumb, caption }) => {
+        const a = document.createElement('a');
+        a.href = src;
+        if (caption) {
+          a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
+        }
+        a.classList.add("gallery-item");
+
+        const img = document.createElement('img');
+        img.src = thumb;
+        img.alt = caption || "";
+
+        a.appendChild(img);
+        gallery.appendChild(a);
+      });
+
+      loadedCount += batchSize;
+
+      $('#lightgallery').justifiedGallery('norewind');
+      isLoading = false;
+    }
 
     $(document).ready(function () {
       const rowHeight = window.innerWidth > 1600 ? 160 : 200;
@@ -140,19 +150,35 @@
           zoomFromOrigin: true,
           scale: 1,
           enableZoomAfter: 300,
-          doubleTapZoom: 2  // <- Enables double-click/double-tap to zoom
+          doubleTapZoom: 2
         });
         spinner.style.display = 'none';
       });
+
+      // Load initial batch
+      loadBatch();
+    });
+
+    // Infinite Scroll
+    window.addEventListener('scroll', () => {
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+
+      if (nearBottom && !isLoading && loadedCount < shuffled.length) {
+        isLoading = true;
+        spinner.style.display = 'block';
+
+        setTimeout(() => {
+          loadBatch();
+          spinner.style.display = 'none';
+        }, 500);
+      }
+
+      document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
     });
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    window.addEventListener('scroll', () => {
-      document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
-    });
   </script>
 </body>
 </html>
