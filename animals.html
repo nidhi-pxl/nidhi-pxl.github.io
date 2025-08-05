@@ -65,6 +65,11 @@
       const img = document.createElement("img");
       img.src = thumbSrc;
       img.loading = "lazy";
+      img.onload = () => {
+        if (img.naturalWidth < 300 || img.naturalHeight < 300) {
+          img.src = fullSrc;
+        }
+      };
 
       // Add alt text only for specific custom captions
       if (i === 2) {

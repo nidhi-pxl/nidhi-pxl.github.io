@@ -54,7 +54,11 @@
       img.src = thumbSrc;
       img.alt = `landscapes${i}`;
       img.loading = "lazy";
-
+      img.onload = () => {
+        if (img.naturalWidth < 300 || img.naturalHeight < 300) {
+          img.src = fullSrc;
+        }
+      };
       link.appendChild(img);
       container.appendChild(link);
     }
