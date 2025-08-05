@@ -75,16 +75,23 @@
       astro: 9
     };
 
+    // const customCaptions = {
+    //   animals24: "Purple Glossy Starling (Lamprotornis purpureus)"
+    //   // Add more like: "folderName + number": "Caption"
+    // };
+
     const images = [];
 
     for (const folder in folderImageCounts) {
       const count = folderImageCounts[folder];
       for (let i = 1; i <= count; i++) {
         const name = `${folder}${i}.jpg`;
+        const key = `${folder}${i}`;
+        // const caption = customCaptions[key] || ''; // ✅ Only add if caption exists
         images.push({ 
           src: `/images/${folder}/${name}`, 
           thumb: `/images/${folder}/thumbs/${name}`,
-          caption: `${folder.charAt(0).toUpperCase() + folder.slice(1)} #${i}` 
+          caption
         });
       }
     }
@@ -96,36 +103,44 @@
     shuffled.forEach(({ src, thumb, caption }) => {
       const a = document.createElement('a');
       a.href = src;
-      a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
+      if (caption) {
+        a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
+      }
       a.classList.add("gallery-item");
 
       const img = document.createElement('img');
       img.src = thumb;
-      img.alt = caption;
+      img.alt = caption || '';
 
       a.appendChild(img);
       gallery.appendChild(a);
     });
 
-$(document).ready(function () {
-  const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+    $(document).ready(function () {
+      const rowHeight = window.innerWidth > 1600 ? 160 : 200;
 
-  $('#lightgallery').justifiedGallery({
-    rowHeight: rowHeight,
-    margins: 4,
-    lastRow: 'justify'
-  }).on('jg.complete', function () {
-    lightGallery(document.getElementById('lightgallery'), {
-      thumbnail: true,
-      zoom: true,
-      download: false,
-      share: false,
-      actualSize: false,
-      selector: '.gallery-item'
+      $('#lightgallery').justifiedGallery({
+        rowHeight: rowHeight,
+        margins: 4,
+        lastRow: 'justify'
+      }).on('jg.complete', function () {
+        lightGallery(document.getElementById('lightgallery'), {
+          plugins: [lgZoom, lgThumbnail],
+          selector: '.gallery-item',
+          thumbnail: true,
+          zoom: true,
+          actualSize: true,
+          download: false,
+          share: false,
+
+          // ✅ Double-click zoom
+          doubleTapZoom: true,
+          scale: 1.5,
+          gesture: true
+        });
+        spinner.style.display = 'none';
+      });
     });
-    spinner.style.display = 'none';
-  });
-});
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -135,5 +150,6 @@ $(document).ready(function () {
       document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
     });
   </script>
+
 </body>
 </html>

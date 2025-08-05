@@ -64,8 +64,22 @@
 
       const img = document.createElement("img");
       img.src = thumbSrc;
-      img.alt = `animals${i}`;
       img.loading = "lazy";
+
+      // Add alt text only for specific custom captions
+      if (i === 2) {
+        img.alt = "Galah cockatoo";
+      } else if (i === 10) {
+        img.alt = "Black swan";
+      } else if (i === 20) {
+        img.alt = "Budgerigar";
+      } else if (i === 24) {
+        img.alt = "Purple Glossy Starling (Lamprotornis purpureus)";
+      } else if (i === 23) {
+        img.alt = "White-throated Toucan";
+      } else {
+        img.alt = "";  // No tooltip
+      }
 
       link.appendChild(img);
       container.appendChild(link);
