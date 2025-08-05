@@ -48,23 +48,36 @@
 
       const link = document.createElement("a");
       link.href = fullSrc;
-
+            
       if (i === 1) {
-        link.setAttribute("data-sub-html", "<h2>The Milky Way</h2>"); }
+        link.setAttribute("data-sub-html", "<h2>Milky Way</h2><p>Cosmic Ventures Campsite, Goa</p>"); }
       else if (i === 8) {
-        link.setAttribute("data-sub-html", "<h2>Orion and Jupiter</h2>"); }
+        link.setAttribute("data-sub-html", "<h2>Jupiter and Orion</h2>"); }
+      else if (i === 4) {
+        link.setAttribute("data-sub-html", "<h2>Full Snow Moon</h2>"); }
       else
         link.setAttribute("data-sub-html", `<h4>Astro #${i}</h4>`);
 
       const img = document.createElement("img");
       img.src = thumbSrc;
-      img.alt = `astro${i}`;
       img.loading = "lazy";
       img.onload = () => {
         if (img.naturalWidth < 300 || img.naturalHeight < 300) {
           img.src = fullSrc;
         }
       };
+
+      //thumbnail captions
+      if (i === 1) {
+        img.alt = "Milky Way";
+      } else if (i === 2) {
+        img.alt = "Jupiter and Orionn";
+      } else if (i === 4) {
+        img.alt = "Snow Moon";
+      } else {
+        img.alt = "";  // No tooltip
+      }
+
       link.appendChild(img);
       container.appendChild(link);
     }
