@@ -15,7 +15,7 @@
 
   <main>
     <div class="gallery-section">
-      <div id="landscapes-gallery" class="gallery"></div>
+      <div id="landscapes-gallery" class="justified-gallery"></div>
     </div>
   </main>
 
@@ -45,11 +45,33 @@
       container.appendChild(link);
     }
 
-    lightGallery(container, {
-      plugins: [lgZoom, lgThumbnail],
-      speed: 500,
-      download: false
+  </script>
+  <script>
+    $(document).ready(function () {
+      const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+
+      $('#animals-gallery').justifiedGallery({
+        rowHeight: rowHeight,
+        margins: 4,
+        lastRow: 'justify'
+      }).on('jg.complete', function () {
+        lightGallery(document.getElementById('animals-gallery'), {
+          plugins: [lgZoom, lgThumbnail],
+          speed: 500,
+          download: false
+        });
+      });
     });
   </script>
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+
+  <!-- JustifiedGallery CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
+
+  <!-- JustifiedGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+
 </body>
 </html>
