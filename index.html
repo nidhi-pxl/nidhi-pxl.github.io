@@ -8,8 +8,11 @@
   <!-- Your custom CSS -->
   <link rel="stylesheet" href="css/style.css" />
   
-  <!-- Lightbox CSS -->
+  <!-- LightGallery CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" />
+  <!-- JustifiedGallery CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
+
 </head>
 <body>
   <header>
@@ -46,7 +49,7 @@
       <!-- Spinner shown while images are loading -->
       <div id="loading-spinner" class="spinner"></div>
       
-      <div id="lightgallery" class="gallery">
+      <div id="lightgallery" class="justified-gallery">
         <!-- Images dynamically inserted -->
       </div>
     </div>
@@ -95,7 +98,6 @@
     shuffled.forEach(({ src, thumb, caption }) => {
       const a = document.createElement('a');
       a.href = src;
-      // a.setAttribute('data-lg-size', '1400-933');
       a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
       a.classList.add("gallery-item");
 
@@ -103,25 +105,27 @@
       img.src = thumb;
       img.alt = caption;
 
-      // Count loaded images
-      img.onload = img.onerror = () => {
-        imagesLoaded++;
-        if (imagesLoaded === shuffled.length) {
-          spinner.style.display = 'none'; // Hide spinner once all are loaded
-        }
-      };
-
       a.appendChild(img);
       gallery.appendChild(a);
     });
 
-    lightGallery(document.getElementById('lightgallery'), {
-      thumbnail: true,
-      zoom: true,
-      download: false,
-      share: false,
-      actualSize: false,
-      selector: '.gallery-item'
+    $(document).ready(function () {
+      $('#lightgallery').justifiedGallery({
+        rowHeight: 220,
+        margins: 5,
+        lastRow: 'nojustify'
+      }).on('jg.complete', function () {
+        lightGallery(document.getElementById('lightgallery'), {
+          thumbnail: true,
+          zoom: true,
+          download: false,
+          share: false,
+          actualSize: false,
+          selector: '.gallery-item'
+        });
+
+        spinner.style.display = 'none'; // Hide spinner after layout
+      });
     });
 
     function scrollToTop() {
@@ -132,6 +136,12 @@
       document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
     });
   </script>
+
+  <!-- jQuery is required -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+
+  <!-- JustifiedGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 
 </body>
 </html>
