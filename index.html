@@ -1,5 +1,3 @@
-temp
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,23 +107,25 @@ temp
       gallery.appendChild(a);
     });
 
-    $(document).ready(function () {
-      $('#lightgallery').justifiedGallery({
-        rowHeight: 220,
-        margins: 5,
-        lastRow: 'justify'
-      }).on('jg.complete', function () {
-        lightGallery(document.getElementById('lightgallery'), {
-          thumbnail: true,
-          zoom: true,
-          download: false,
-          share: false,
-          actualSize: false,
-          selector: '.gallery-item'
-        });
-        spinner.style.display = 'none';
-      });
+$(document).ready(function () {
+  const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+
+  $('#lightgallery').justifiedGallery({
+    rowHeight: rowHeight,
+    margins: 4,
+    lastRow: 'justify'
+  }).on('jg.complete', function () {
+    lightGallery(document.getElementById('lightgallery'), {
+      thumbnail: true,
+      zoom: true,
+      download: false,
+      share: false,
+      actualSize: false,
+      selector: '.gallery-item'
     });
+    spinner.style.display = 'none';
+  });
+});
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
