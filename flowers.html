@@ -48,17 +48,89 @@
 
       const link = document.createElement("a");
       link.href = fullSrc;
-      link.setAttribute("data-sub-html", `<h4>Flower #${i}</h4>`);
+
+      if (i === 1 || i === 12) {
+        link.setAttribute("data-sub-html", "<h2>Blue Plumbago Auriculata</h2>"); }
+      else if (i === 2) {
+        link.setAttribute("data-sub-html", "<h2>Blue Plumbago Auriculata</h2>", "<p>⚲ Bits Goa</p>"); }
+      else if (i === 3) {
+        link.setAttribute("data-sub-html", "<h2>Chrysanthemum</h2>"); }
+      else if (i === 4) {
+        link.setAttribute("data-sub-html", "<h2>Calliandra (Pink Powder Puff)</h2>"); }
+      else if(i === 6) {
+        link.setAttribute("data-sub-html", "<h2>Hymenocallis littoralis (Beach Spider Lily)</h2>"); }
+      else if (i === 7) {
+        link.setAttribute("data-sub-html", "<h2>Passiflora incarnata (Purple Passion Flower)</h2>"); }
+      else if(i === 8) {
+        link.setAttribute("data-sub-html", "<h2>Bauhinia purpurea (Purple Orchid Tree)</h2>"); }
+      else if (i === 9 || i === 10) {
+        link.setAttribute("data-sub-html", "<h2>Water Lily</h2>"); }
+      else if(i === 11) {
+        link.setAttribute("data-sub-html", "<h2>Aptenia cordifolia (Baby Sun Rose)</h2>"); }
+      else if(i === 5 || i === 14) {
+        link.setAttribute("data-sub-html", "<h2>Cenchrus setaceus (Purple Fountain Grass)</h2>"); }
+      else if (i === 15) {
+        link.setAttribute("data-sub-html", "<h2>Stokes' Aster</h2>"); }
+      else if(i === 16 || i === 22) {
+        link.setAttribute("data-sub-html", "<h2>Sphagneticola trilobata (Wedelia)</h2>"); }
+      else if (i === 17) {
+        link.setAttribute("data-sub-html", "<h2>Lagerstroemia speciosa (Queen's Crape Myrtle)</h2>", "<p>Pride of India</p>"); }
+      else if(i === 18) {
+        link.setAttribute("data-sub-html", "<h2>Nymphaea capensis (Indian Blue Lotus)</h2>"); }
+      else if (i === 19) {
+        link.setAttribute("data-sub-html", "<h2>Nelumbo nucifera (Sacred Lotus)</h2>"); }
+      else if(i === 20) {
+        link.setAttribute("data-sub-html", "<h2>Passiflora foetida (Rambusa)</h2>", "<p>Stinking Passion Flower</p>"); }
+      else if(i === 21) {
+        link.setAttribute("data-sub-html", "<h2>Lantana camara</h2>"); }
+      else
+        link.setAttribute("data-sub-html", `<h4>Flower #${i}</h4>`);
 
       const img = document.createElement("img");
       img.src = thumbSrc;
-      img.alt = `flowers${i}`;
       img.loading = "lazy";
       img.onload = () => {
         if (img.naturalWidth < 300 || img.naturalHeight < 300) {
           img.src = fullSrc;
         }
       };
+
+      if (i === 1 || i === 2 || i === 12) {
+        img.alt = "Blue Plumbago Auriculata";
+      } else if (i === 3) {
+        img.alt = "Chrysanthemum";
+      } else if (i === 4) {
+        img.alt = "Calliandra (Pink Powder Puff)";
+      } else if (i === 6) {
+        img.alt = "Beach Spider Lily";
+      } else if (i === 7) {
+        img.alt = "Purple Passion Flower";
+      } else if (i === 8) {
+        img.alt = "Purple Orchid Tree";
+      } else if (i === 9 || i === 10) {
+        img.alt = "Water Lily";
+      } else if (i === 11) {
+        img.alt = "Baby Sun Rose";
+      } else if (i === 5 || i === 14) {
+        img.alt = "Purple Fountain Grass";
+      } else if (i === 15) {
+        img.alt = "Stokes' Aster";
+      } else if (i === 16 || i === 22) {
+        img.alt = "Wedelia";
+      } else if (i === 17) {
+        img.alt = "Queen's Crape Myrtle";
+      } else if (i === 18) {
+        img.alt = "Indian Blue Lotus";
+      } else if (i === 19) {
+        img.alt = "Sacred Lotus";
+      } else if (i === 20) {
+        img.alt = "Rambusa";
+      } else if (i === 21) {
+        img.alt = "Lantana camara";
+      } else {
+        img.alt = "";  // No tooltip
+      }
+
       link.appendChild(img);
       container.appendChild(link);
     }

@@ -48,17 +48,44 @@
 
       const link = document.createElement("a");
       link.href = fullSrc;
-      link.setAttribute("data-sub-html", `<h4>Insects #${i}</h4>`);
+
+      if (i === 1 || i === 7) {
+        link.setAttribute("data-sub-html", "<h2>Papilio demoleus (Lime Swallowtail)</h2>"); }
+      else if (i === 10) {
+        link.setAttribute("data-sub-html", "<h2>Black swan</h2>"); }
+      else if (i === 20) {
+        link.setAttribute("data-sub-html", "<h2>Budgerigar</h2>"); }
+      else if (i === 24) {
+        link.setAttribute("data-sub-html", "<h2>Lamprotornis purpureus (Purple Glossy Starling)</h2>"); }
+      else if(i === 23) {
+        link.setAttribute("data-sub-html", "<h2>White-throated Toucan</h2>"); }
+      else
+        link.setAttribute("data-sub-html", `<h4>Insect #${i}</h4>`);
 
       const img = document.createElement("img");
       img.src = thumbSrc;
-      img.alt = `insects${i}`;
       img.loading = "lazy";
       img.onload = () => {
         if (img.naturalWidth < 300 || img.naturalHeight < 300) {
           img.src = fullSrc;
         }
       };
+
+      //thumbnail captions
+      if (i === 1 || i === 7) {
+        img.alt = "Lime Swallowtail";
+      } else if (i === 10) {
+        img.alt = "Black swan";
+      } else if (i === 20) {
+        img.alt = "Budgerigar";
+      } else if (i === 24) {
+        img.alt = "Purple Glossy Starling";
+      } else if (i === 23) {
+        img.alt = "White-throated Toucan";
+      } else {
+        img.alt = "";  // No tooltip
+      }
+
       link.appendChild(img);
       container.appendChild(link);
     }
