@@ -195,19 +195,20 @@ h1 {
 
 /* LightGallery Caption Styling */
 .lg-sub-html {
-  padding: 10px 20px !important; /* Reduce padding */
-  text-align: left;
+  padding: 8px 16px; 
+  text-align: center;
 }
 
-.lg-sub-html h2 {
-  font-size: 1.2rem;  /* Smaller font */
-  margin: 0;
-}
-
+.lg-sub-html h2,
+.lg-sub-html h3,
 .lg-sub-html p {
-  font-size: 0.9rem;  /* Smaller font */
-  margin: 4px 0 0 0;
-  color: #ccc;
+  margin: 0 !important; /* Remove all default vertical spacing */
+  line-height: 1.2;
+}
+
+.lg-sub-html h2 + h3,
+.lg-sub-html h2 + p {
+  margin-top: 4px !important; /* Slight space between title and subtitle */
 }
 
 
