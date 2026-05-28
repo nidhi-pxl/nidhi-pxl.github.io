@@ -41,46 +41,47 @@
   <script>
     const container = document.getElementById("skies-gallery");
 
-    // Try to load skies1.jpg to skies20.jpg
-    for (let i = 1; i <= 28; i++) {
-      const thumbSrc = `/images/skies/thumbs/skies${i}.jpg`;
-      const fullSrc = `/images/skies/skies${i}.jpg`;
+    fetch("images.json")
+      .then(res => res.json())
+      .then(data => {
+        data.skies.forEach(({ file, caption, alt }) => {
+          const fullSrc  = `/images/skies/${file}`;
+          const thumbSrc = `/images/skies/thumbs/${file}`;
 
-      const link = document.createElement("a");
-      link.href = fullSrc;
-      link.setAttribute("data-sub-html", `<h4>Skiess #${i}</h4>`);
+          const link = document.createElement("a");
+          link.href = fullSrc;
+          link.setAttribute("data-sub-html", caption || `<h4>${file}</h4>`);
 
-      const img = document.createElement("img");
-      img.src = thumbSrc;
-      img.alt = `skies${i}`;
-      img.loading = "lazy";
-      img.onload = () => {
-        if (img.naturalWidth < 300 || img.naturalHeight < 300) {
-          img.src = fullSrc;
-        }
-      };
-      link.appendChild(img);
-      container.appendChild(link);
-    }
+          const img = document.createElement("img");
+          img.src = thumbSrc;
+          img.alt = alt;
+          img.loading = "lazy";
+          img.onload = () => {
+            if (img.naturalWidth < 300 || img.naturalHeight < 300) {
+              img.src = fullSrc;
+            }
+          };
 
-  </script>
-  <script>
-    $(document).ready(function () {
-      const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+          link.appendChild(img);
+          container.appendChild(link);
+        });
 
-      $('#skies-gallery').justifiedGallery({
-        rowHeight: rowHeight,
-        margins: 4,
-        lastRow: 'justify'
-      }).on('jg.complete', function () {
-        lightGallery(document.getElementById('skies-gallery'), {
-          plugins: [lgZoom, lgThumbnail],
-          speed: 500,
-          download: false,
-          doubleTapZoom: 1.5
+        $(function () {
+          const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+          $('#skies-gallery').justifiedGallery({
+            rowHeight: rowHeight,
+            margins: 4,
+            lastRow: 'justify'
+          }).on('jg.complete', function () {
+            lightGallery(document.getElementById('skies-gallery'), {
+              plugins: [lgZoom, lgThumbnail],
+              speed: 500,
+              download: false,
+              doubleTapZoom: 1.5
+            });
+          });
         });
       });
-    });
   </script>
 
 </body>

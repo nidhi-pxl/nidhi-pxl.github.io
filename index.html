@@ -63,43 +63,10 @@
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 
   <script>
-    const folders = ['flowers', 'skies', 'insects', 'animals', 'landscapes', 'astro'];
-    const folderImageCounts = {
-      flowers: 22,
-      skies: 28,
-      insects: 14,
-      animals: 25,
-      landscapes: 13,
-      astro: 9
-    };
-
-    const customCaptions = {
-      animals2: "Galah cockatoo",
-      animals10: "Black swan",
-      animals20: "Budgerigar",
-      animals23: "White-throated Toucan",
-      animals24: "Purple Glossy Starling (Lamprotornis purpureus)"
-    };
-
-    const images = [];
-    for (const folder in folderImageCounts) {
-      const count = folderImageCounts[folder];
-      for (let i = 1; i <= count; i++) {
-        const key = `${folder}${i}`;
-        const name = `${key}.jpg`;
-        const caption = customCaptions[key] || '';
-        images.push({
-          src: `/images/${folder}/${name}`,
-          thumb: `/images/${folder}/thumbs/${name}`,
-          caption
-        });
-      }
-    }
-
-    const shuffled = images.sort(() => 0.5 - Math.random());
     const gallery = document.getElementById('lightgallery');
     const spinner = document.getElementById('loading-spinner');
 
+    let shuffled = [];
     let loadedCount = 0;
     const batchSize = 20;
     let isLoading = false;
@@ -109,7 +76,7 @@
 
       const batch = shuffled.slice(loadedCount, loadedCount + batchSize);
 
-      batch.forEach(({ src, thumb, caption }) => {
+      batch.forEach(({ src, thumb, caption, alt }) => {
         const a = document.createElement('a');
         a.href = src;
         if (caption) {
@@ -119,45 +86,61 @@
 
         const img = document.createElement('img');
         img.src = thumb;
-        img.alt = caption || "";
+        img.alt = alt || "";
 
         a.appendChild(img);
         gallery.appendChild(a);
       });
 
       loadedCount += batchSize;
-
       $('#lightgallery').justifiedGallery('norewind');
       isLoading = false;
     }
 
-    $(document).ready(function () {
-      const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+    fetch("images.json")
+      .then(res => res.json())
+      .then(data => {
+        const images = [];
+        for (const [folder, entries] of Object.entries(data)) {
+          entries.forEach(({ file, caption, alt }) => {
+            images.push({
+              src:     `/images/${folder}/${file}`,
+              thumb:   `/images/${folder}/thumbs/${file}`,
+              caption: caption || "",
+              alt:     alt || ""
+            });
+          });
+        }
 
-      $('#lightgallery').justifiedGallery({
-        rowHeight: rowHeight,
-        margins: 4,
-        lastRow: 'justify'
-      }).on('jg.complete', function () {
-        lightGallery(document.getElementById('lightgallery'), {
-          selector: '.gallery-item',
-          thumbnail: true,
-          zoom: true,
-          download: false,
-          share: false,
-          actualSize: false,
-          plugins: [lgZoom, lgThumbnail],
-          zoomFromOrigin: true,
-          scale: 1,
-          enableZoomAfter: 300,
-          doubleTapZoom: 2
+        shuffled = images.sort(() => 0.5 - Math.random());
+
+        $(function () {
+          const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+
+          $('#lightgallery').justifiedGallery({
+            rowHeight: rowHeight,
+            margins: 4,
+            lastRow: 'justify'
+          }).on('jg.complete', function () {
+            lightGallery(document.getElementById('lightgallery'), {
+              selector: '.gallery-item',
+              thumbnail: true,
+              zoom: true,
+              download: false,
+              share: false,
+              actualSize: false,
+              plugins: [lgZoom, lgThumbnail],
+              zoomFromOrigin: true,
+              scale: 1,
+              enableZoomAfter: 300,
+              doubleTapZoom: 2
+            });
+            spinner.style.display = 'none';
+          });
+
+          loadBatch();
         });
-        spinner.style.display = 'none';
       });
-
-      // Load initial batch
-      loadBatch();
-    });
 
     // Infinite Scroll
     window.addEventListener('scroll', () => {

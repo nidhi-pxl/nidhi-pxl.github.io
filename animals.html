@@ -41,74 +41,53 @@
   <script>
     const container = document.getElementById("animals-gallery");
 
-    // Try to load animals1.jpg to animals20.jpg
-    for (let i = 1; i <= 24; i++) {
-      const thumbSrc = `/images/animals/thumbs/animals${i}.jpg`;
-      const fullSrc = `/images/animals/animals${i}.jpg`;
+    fetch("images.json")
+      .then(res => res.json())
+      .then(data => {
+        data.animals.forEach(({ file, caption, alt }) => {
+          const fullSrc  = `/images/animals/${file}`;
+          const thumbSrc = `/images/animals/thumbs/${file}`;
 
-      const link = document.createElement("a");
-      link.href = fullSrc;
-            
-      if (i === 2) {
-        link.setAttribute("data-sub-html", "<h2>Galah cockatoo</h2>"); }
-      else if (i === 10) {
-        link.setAttribute("data-sub-html", "<h2>Black swan</h2>"); }
-      else if (i === 20) {
-        link.setAttribute("data-sub-html", "<h2>Budgerigar</h2>"); }
-      else if (i === 24) {
-        link.setAttribute("data-sub-html", "<h2>Lamprotornis purpureus (Purple Glossy Starling)</h2>"); }
-      else if(i === 23) {
-        link.setAttribute("data-sub-html", "<h2>White-throated Toucan</h2>"); }
-      else
-        link.setAttribute("data-sub-html", `<h4>Animal #${i}</h4>`);
+          const link = document.createElement("a");
+          link.href = fullSrc;
+          link.setAttribute("data-sub-html", caption || `<h4>${file}</h4>`);
 
-      const img = document.createElement("img");
-      img.src = thumbSrc;
-      img.loading = "lazy";
-      img.onload = () => {
-        if (img.naturalWidth < 300 || img.naturalHeight < 300) {
-          img.src = fullSrc;
-        }
-      };
+          const img = document.createElement("img");
+          img.src = thumbSrc;
+          img.alt = alt;
+          img.loading = "lazy";
+          img.onload = () => {
+            if (img.naturalWidth < 300 || img.naturalHeight < 300) {
+              img.src = fullSrc;
+            }
+          };
 
-      //thumbnail captions
-      if (i === 2) {
-        img.alt = "Galah cockatoo";
-      } else if (i === 10) {
-        img.alt = "Black swan";
-      } else if (i === 20) {
-        img.alt = "Budgerigar";
-      } else if (i === 24) {
-        img.alt = "Purple Glossy Starling";
-      } else if (i === 23) {
-        img.alt = "White-throated Toucan";
-      } else {
-        img.alt = "";  // No tooltip
-      }
+          link.appendChild(img);
+          container.appendChild(link);
+        });
 
-      link.appendChild(img);
-      container.appendChild(link);
-    }
+        initGallery();
+      });
 
-  </script>
-  <script>
-    $(document).ready(function () {
-      const rowHeight = window.innerWidth > 1600 ? 160 : 200;
-
-      $('#animals-gallery').justifiedGallery({
-        rowHeight: rowHeight,
-        margins: 4,
-        lastRow: 'justify'
-      }).on('jg.complete', function () {
-        lightGallery(document.getElementById('animals-gallery'), {
-          plugins: [lgZoom, lgThumbnail],
-          speed: 500,
-          download: false,
-          doubleTapZoom: 1.2
+    function initGallery() {
+      $(document).ready(function () {
+        const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+        $('#animals-gallery').justifiedGallery({
+          rowHeight: rowHeight,
+          margins: 4,
+          lastRow: 'justify'
+        }).on('jg.complete', function () {
+          lightGallery(document.getElementById('animals-gallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+            download: false,
+            doubleTapZoom: 1.2
+          });
         });
       });
-    });
+    }
   </script>
+
 
 </body>
 </html>
