@@ -79,12 +79,11 @@
       batch.forEach(({ src, thumb, caption, alt, folder }) => {
         const a = document.createElement('a');
         a.href = src;
+        a.dataset.folder = folder;
 
-        const albumLink = `<a class="lg-album-link" href="${folder}.html">→ ${folder.charAt(0).toUpperCase() + folder.slice(1)}</a>`;
-        const subHtml = caption
-          ? `<div class="lg-caption-wrap">${caption}${albumLink}</div>`
-          : `<div class="lg-caption-wrap">${albumLink}</div>`;
-        a.setAttribute('data-sub-html', subHtml);
+        a.setAttribute('data-sub-html', caption
+          ? `<div class="lg-caption-wrap">${caption}</div>`
+          : '');
 
         a.classList.add("gallery-item");
 
@@ -127,7 +126,7 @@
             margins: 4,
             lastRow: 'justify'
           }).on('jg.complete', function () {
-            lightGallery(document.getElementById('lightgallery'), {
+            const lg = lightGallery(document.getElementById('lightgallery'), {
               selector: '.gallery-item',
               thumbnail: true,
               zoom: true,
@@ -140,6 +139,34 @@
               enableZoomAfter: 300,
               doubleTapZoom: 2
             });
+
+            // Inject the album link after each slide renders, outside lightGallery's
+            // click handler scope so the anchor navigates normally
+            document.getElementById('lightgallery').addEventListener('lgAfterSlide', (e) => {
+              const subHtml = document.querySelector('.lg-sub-html');
+              if (!subHtml) return;
+
+              // Remove any previously injected link
+              const existing = subHtml.querySelector('.lg-album-link');
+              if (existing) existing.remove();
+
+              // Read the folder from the active gallery item's data attribute
+              const items = document.querySelectorAll('#lightgallery .gallery-item');
+              const activeItem = items[e.detail.index];
+              if (!activeItem) return;
+
+              const folder = activeItem.dataset.folder;
+              if (!folder) return;
+
+              const label = folder.charAt(0).toUpperCase() + folder.slice(1);
+              const link = document.createElement('a');
+              link.className = 'lg-album-link';
+              link.href = `${folder}.html`;
+              link.textContent = `→ ${label}`;
+
+              subHtml.appendChild(link);
+            });
+
             spinner.style.display = 'none';
           });
 
