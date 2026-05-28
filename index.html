@@ -76,12 +76,16 @@
 
       const batch = shuffled.slice(loadedCount, loadedCount + batchSize);
 
-      batch.forEach(({ src, thumb, caption, alt }) => {
+      batch.forEach(({ src, thumb, caption, alt, folder }) => {
         const a = document.createElement('a');
         a.href = src;
-        if (caption) {
-          a.setAttribute('data-sub-html', `<div class="custom-caption">${caption}</div>`);
-        }
+
+        const albumLink = `<a class="lg-album-link" href="${folder}.html">→ ${folder.charAt(0).toUpperCase() + folder.slice(1)}</a>`;
+        const subHtml = caption
+          ? `<div class="lg-caption-wrap">${caption}${albumLink}</div>`
+          : `<div class="lg-caption-wrap">${albumLink}</div>`;
+        a.setAttribute('data-sub-html', subHtml);
+
         a.classList.add("gallery-item");
 
         const img = document.createElement('img');
@@ -107,7 +111,8 @@
               src:     `/images/${folder}/${file}`,
               thumb:   `/images/${folder}/thumbs/${file}`,
               caption: caption || "",
-              alt:     alt || ""
+              alt:     alt || "",
+              folder:  folder
             });
           });
         }

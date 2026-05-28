@@ -202,13 +202,42 @@ h1 {
 .lg-sub-html h2,
 .lg-sub-html h3,
 .lg-sub-html p {
-  margin: 0 !important; /* Remove all default vertical spacing */
+  margin: 0 !important;
   line-height: 1.2;
 }
 
 .lg-sub-html h2 + h3,
 .lg-sub-html h2 + p {
-  margin-top: 4px !important; /* Slight space between title and subtitle */
+  margin-top: 4px !important;
+}
+
+/* Caption wrapper used on the homepage lightbox */
+.lg-caption-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Album link inside the lightbox */
+.lg-album-link {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 3px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.lg-album-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 
