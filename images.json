@@ -1,130 +1,569 @@
 {
   "animals": [
-    { "file": "animals1.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals2.jpg",  "caption": "<h2>Galah cockatoo</h2>",                                   "alt": "Galah cockatoo" },
-    { "file": "animals3.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals4.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals5.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals6.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals7.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals8.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals9.jpg",  "caption": "",                                                          "alt": "" },
-    { "file": "animals10.jpg", "caption": "<h2>Black swan</h2>",                                       "alt": "Black swan" },
-    { "file": "animals11.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals12.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals13.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals14.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals15.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals16.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals17.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals18.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals19.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals20.jpg", "caption": "<h2>Budgerigar</h2>",                                       "alt": "Budgerigar" },
-    { "file": "animals21.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals22.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "animals23.jpg", "caption": "<h2>White-throated Toucan</h2>",                            "alt": "White-throated Toucan" },
-    { "file": "animals24.jpg", "caption": "<h2>Lamprotornis purpureus (Purple Glossy Starling)</h2>",  "alt": "Purple Glossy Starling" },
-    { "file": "animals25.jpg", "caption": "",                                                          "alt": "" }
+    {
+      "file": "animals1.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals2.jpg",
+      "caption": "<h2>Galah cockatoo</h2>",
+      "alt": "Galah cockatoo"
+    },
+    {
+      "file": "animals3.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals4.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals5.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals6.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals7.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals8.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals9.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals10.jpg",
+      "caption": "<h2>Black swan</h2>",
+      "alt": "Black swan"
+    },
+    {
+      "file": "animals11.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals12.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals13.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals14.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals15.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals16.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals17.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals18.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals19.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals20.jpg",
+      "caption": "<h2>Budgerigar</h2>",
+      "alt": "Budgerigar"
+    },
+    {
+      "file": "animals21.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals22.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "animals23.jpg",
+      "caption": "<h2>White-throated Toucan</h2>",
+      "alt": "White-throated Toucan"
+    },
+    {
+      "file": "animals24.jpg",
+      "caption": "<h2>Lamprotornis purpureus (Purple Glossy Starling)</h2>",
+      "alt": "Purple Glossy Starling"
+    },
+    {
+      "file": "animals25.jpg",
+      "caption": "",
+      "alt": ""
+    }
   ],
-
   "astro": [
-    { "file": "astro1.jpg", "caption": "<h2>Milky Way</h2><h3>Cosmic Ventures Campsite, Goa</h3>", "alt": "Milky Way" },
-    { "file": "astro2.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "astro3.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "astro4.jpg", "caption": "<h2>Full Snow Moon</h2>",                                   "alt": "Snow Moon" },
-    { "file": "astro5.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "astro6.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "astro7.jpg", "caption": "",                                                          "alt": "" },
-    { "file": "astro8.jpg", "caption": "<h2>Jupiter and Orion</h2>",                               "alt": "Jupiter and Orion" },
-    { "file": "astro9.jpg", "caption": "",                                                          "alt": "" }
+    {
+      "file": "astro1.jpg",
+      "caption": "<h2>Milky Way</h2><h3>Cosmic Ventures Campsite, Goa</h3>",
+      "alt": "Milky Way"
+    },
+    {
+      "file": "astro2.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro3.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro4.jpg",
+      "caption": "<h2>Full Snow Moon</h2>",
+      "alt": "Snow Moon"
+    },
+    {
+      "file": "astro5.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro6.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro7.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro8.jpg",
+      "caption": "<h2>Jupiter and Orion</h2>",
+      "alt": "Jupiter and Orion"
+    },
+    {
+      "file": "astro9.jpg",
+      "caption": "",
+      "alt": ""
+    }
   ],
-
   "flowers": [
-    { "file": "flowers1.jpg",  "caption": "<h2>Blue Plumbago Auriculata</h2>",                                              "alt": "Blue Plumbago Auriculata" },
-    { "file": "flowers2.jpg",  "caption": "<h2>Blue Plumbago Auriculata</h2><h4>⚲ Bits Goa</h4>",                          "alt": "Blue Plumbago Auriculata" },
-    { "file": "flowers3.jpg",  "caption": "<h2>Chrysanthemum</h2>",                                                         "alt": "Chrysanthemum" },
-    { "file": "flowers4.jpg",  "caption": "<h2>Calliandra (Pink Powder Puff)</h2>",                                         "alt": "Pink Powder Puff" },
-    { "file": "flowers5.jpg",  "caption": "<h2>Cenchrus setaceus (Purple Fountain Grass)</h2>",                             "alt": "Purple Fountain Grass" },
-    { "file": "flowers6.jpg",  "caption": "<h2>Hymenocallis littoralis (Beach Spider Lily)</h2>",                           "alt": "Beach Spider Lily" },
-    { "file": "flowers7.jpg",  "caption": "<h2>Passiflora incarnata (Purple Passion Flower)</h2>",                          "alt": "Purple Passion Flower" },
-    { "file": "flowers8.jpg",  "caption": "<h2>Bauhinia purpurea (Purple Orchid Tree)</h2>",                                "alt": "Purple Orchid Tree" },
-    { "file": "flowers9.jpg",  "caption": "<h2>Water Lily</h2>",                                                            "alt": "Water Lily" },
-    { "file": "flowers10.jpg", "caption": "<h2>Water Lily</h2>",                                                            "alt": "Water Lily" },
-    { "file": "flowers11.jpg", "caption": "<h2>Aptenia cordifolia (Baby Sun Rose)</h2>",                                    "alt": "Baby Sun Rose" },
-    { "file": "flowers12.jpg", "caption": "<h2>Blue Plumbago Auriculata</h2>",                                              "alt": "Blue Plumbago Auriculata" },
-    { "file": "flowers13.jpg", "caption": "",                                                                                "alt": "" },
-    { "file": "flowers14.jpg", "caption": "<h2>Bougainvillea</h2><h4>paper-flowers</h4>",                                   "alt": "Bougainvillea" },
-    { "file": "flowers15.jpg", "caption": "<h2>Stokes' Aster</h2>",                                                         "alt": "Stokes' Aster" },
-    { "file": "flowers16.jpg", "caption": "<h2>Sphagneticola trilobata (Wedelia)</h2>",                                     "alt": "Wedelia" },
-    { "file": "flowers17.jpg", "caption": "<h2>Lagerstroemia speciosa (Queen's Crape Myrtle)</h2><h4>Pride of India</h4>", "alt": "Queen's Crape Myrtle" },
-    { "file": "flowers18.jpg", "caption": "<h2>Nymphaea capensis (Indian Blue Lotus)</h2>",                                 "alt": "Indian Blue Lotus" },
-    { "file": "flowers19.jpg", "caption": "<h2>Nelumbo nucifera (Sacred Lotus)</h2>",                                       "alt": "Sacred Lotus" },
-    { "file": "flowers20.jpg", "caption": "<h2>Passiflora foetida (Rambusa)</h2><h3>Stinking Passion Flower</h3>",          "alt": "Rambusa" },
-    { "file": "flowers21.jpg", "caption": "<h2>Lantana camara</h2>",                                                        "alt": "Lantana camara" },
-    { "file": "flowers22.jpg", "caption": "<h2>Sphagneticola trilobata (Wedelia)</h2>",                                     "alt": "Wedelia" }
+    {
+      "file": "flowers1.jpg",
+      "caption": "<h2>Blue Plumbago Auriculata</h2>",
+      "alt": "Blue Plumbago Auriculata"
+    },
+    {
+      "file": "flowers2.jpg",
+      "caption": "<h2>Blue Plumbago Auriculata</h2><h4>⚲ Bits Goa</h4>",
+      "alt": "Blue Plumbago Auriculata"
+    },
+    {
+      "file": "flowers3.jpg",
+      "caption": "<h2>Chrysanthemum</h2>",
+      "alt": "Chrysanthemum"
+    },
+    {
+      "file": "flowers4.jpg",
+      "caption": "<h2>Calliandra (Pink Powder Puff)</h2>",
+      "alt": "Pink Powder Puff"
+    },
+    {
+      "file": "flowers5.jpg",
+      "caption": "<h2>Cenchrus setaceus (Purple Fountain Grass)</h2>",
+      "alt": "Purple Fountain Grass"
+    },
+    {
+      "file": "flowers6.jpg",
+      "caption": "<h2>Hymenocallis littoralis (Beach Spider Lily)</h2>",
+      "alt": "Beach Spider Lily"
+    },
+    {
+      "file": "flowers7.jpg",
+      "caption": "<h2>Passiflora incarnata (Purple Passion Flower)</h2>",
+      "alt": "Purple Passion Flower"
+    },
+    {
+      "file": "flowers8.jpg",
+      "caption": "<h2>Bauhinia purpurea (Purple Orchid Tree)</h2>",
+      "alt": "Purple Orchid Tree"
+    },
+    {
+      "file": "flowers9.jpg",
+      "caption": "<h2>Water Lily</h2>",
+      "alt": "Water Lily"
+    },
+    {
+      "file": "flowers10.jpg",
+      "caption": "<h2>Water Lily</h2>",
+      "alt": "Water Lily"
+    },
+    {
+      "file": "flowers11.jpg",
+      "caption": "<h2>Aptenia cordifolia (Baby Sun Rose)</h2>",
+      "alt": "Baby Sun Rose"
+    },
+    {
+      "file": "flowers12.jpg",
+      "caption": "<h2>Blue Plumbago Auriculata</h2>",
+      "alt": "Blue Plumbago Auriculata"
+    },
+    {
+      "file": "flowers13.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "flowers14.jpg",
+      "caption": "<h2>Bougainvillea</h2><h4>paper-flowers</h4>",
+      "alt": "Bougainvillea"
+    },
+    {
+      "file": "flowers15.jpg",
+      "caption": "<h2>Stokes' Aster</h2>",
+      "alt": "Stokes' Aster"
+    },
+    {
+      "file": "flowers16.jpg",
+      "caption": "<h2>Sphagneticola trilobata (Wedelia)</h2>",
+      "alt": "Wedelia"
+    },
+    {
+      "file": "flowers17.jpg",
+      "caption": "<h2>Lagerstroemia speciosa (Queen's Crape Myrtle)</h2><h4>Pride of India</h4>",
+      "alt": "Queen's Crape Myrtle"
+    },
+    {
+      "file": "flowers18.jpg",
+      "caption": "<h2>Nymphaea capensis (Indian Blue Lotus)</h2>",
+      "alt": "Indian Blue Lotus"
+    },
+    {
+      "file": "flowers19.jpg",
+      "caption": "<h2>Nelumbo nucifera (Sacred Lotus)</h2>",
+      "alt": "Sacred Lotus"
+    },
+    {
+      "file": "flowers20.jpg",
+      "caption": "<h2>Passiflora foetida (Rambusa)</h2><h3>Stinking Passion Flower</h3>",
+      "alt": "Rambusa"
+    },
+    {
+      "file": "flowers21.jpg",
+      "caption": "<h2>Lantana camara</h2>",
+      "alt": "Lantana camara"
+    },
+    {
+      "file": "flowers22.jpg",
+      "caption": "<h2>Sphagneticola trilobata (Wedelia)</h2>",
+      "alt": "Wedelia"
+    }
   ],
-
   "insects": [
-    { "file": "insects1.jpg",  "caption": "<h2>Papilio demoleus (Lime Swallowtail)</h2>",                                              "alt": "Lime Swallowtail" },
-    { "file": "insects2.jpg",  "caption": "<h2>Male damselfly</h2>",                                                                   "alt": "Damselfly" },
-    { "file": "insects3.jpg",  "caption": "<h2>Papilio polytes (Common Mormon)</h2>",                                                  "alt": "Common Mormon" },
-    { "file": "insects4.jpg",  "caption": "<h2>Talicada nyseus (Red Pierrot)</h2>",                                                    "alt": "Red Pierrot" },
-    { "file": "insects5.jpg",  "caption": "",                                                                                          "alt": "" },
-    { "file": "insects6.jpg",  "caption": "",                                                                                          "alt": "" },
-    { "file": "insects7.jpg",  "caption": "<h2>Papilio demoleus (Lime Swallowtail)</h2>",                                              "alt": "Lime Swallowtail" },
-    { "file": "insects8.jpg",  "caption": "",                                                                                          "alt": "" },
-    { "file": "insects9.jpg",  "caption": "<h2>Chilades lajus (Lime Blue)</h2>",                                                       "alt": "Lime Blue" },
-    { "file": "insects10.jpg", "caption": "<h2>Ariadne merione (Common Castor)</h2>",                                                  "alt": "Common Castor" },
-    { "file": "insects11.jpg", "caption": "<h2>Neurothemis fluctuans (Red Grasshawk)</h2>",                                            "alt": "Red Grasshawk" },
-    { "file": "insects12.jpg", "caption": "<h2>Rhyothemis variegata (Common Picture Wing dragonfly)</h2><h3>variegated flutterer</h3>","alt": "Common Picture Wing" },
-    { "file": "insects13.jpg", "caption": "",                                                                                          "alt": "" },
-    { "file": "insects14.jpg", "caption": "<h2>Neurothemis tullia (Pied Paddy Skimmer)</h2>",                                          "alt": "Pied Paddy Skimmer" }
+    {
+      "file": "insects1.jpg",
+      "caption": "<h2>Papilio demoleus (Lime Swallowtail)</h2>",
+      "alt": "Lime Swallowtail"
+    },
+    {
+      "file": "insects2.jpg",
+      "caption": "<h2>Male damselfly</h2>",
+      "alt": "Damselfly"
+    },
+    {
+      "file": "insects3.jpg",
+      "caption": "<h2>Papilio polytes (Common Mormon)</h2>",
+      "alt": "Common Mormon"
+    },
+    {
+      "file": "insects4.jpg",
+      "caption": "<h2>Talicada nyseus (Red Pierrot)</h2>",
+      "alt": "Red Pierrot"
+    },
+    {
+      "file": "insects5.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "insects6.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "insects7.jpg",
+      "caption": "<h2>Papilio demoleus (Lime Swallowtail)</h2>",
+      "alt": "Lime Swallowtail"
+    },
+    {
+      "file": "insects8.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "insects9.jpg",
+      "caption": "<h2>Chilades lajus (Lime Blue)</h2>",
+      "alt": "Lime Blue"
+    },
+    {
+      "file": "insects10.jpg",
+      "caption": "<h2>Ariadne merione (Common Castor)</h2>",
+      "alt": "Common Castor"
+    },
+    {
+      "file": "insects11.jpg",
+      "caption": "<h2>Neurothemis fluctuans (Red Grasshawk)</h2>",
+      "alt": "Red Grasshawk"
+    },
+    {
+      "file": "insects12.jpg",
+      "caption": "<h2>Rhyothemis variegata (Common Picture Wing dragonfly)</h2><h3>variegated flutterer</h3>",
+      "alt": "Common Picture Wing"
+    },
+    {
+      "file": "insects13.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "insects14.jpg",
+      "caption": "<h2>Neurothemis tullia (Pied Paddy Skimmer)</h2>",
+      "alt": "Pied Paddy Skimmer"
+    }
   ],
-
   "landscapes": [
-    { "file": "landscapes1.jpg",  "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",       "alt": "Chikkamagaluru" },
-    { "file": "landscapes2.jpg",  "caption": "<h2>⚲ Uluwatu Temple</h2><h3>Bali</h3>",            "alt": "Uluwatu Temple" },
-    { "file": "landscapes3.jpg",  "caption": "<h2>⚲ Gopinatham</h2><h3>Karnataka</h3>",           "alt": "Gopinatham" },
-    { "file": "landscapes4.jpg",  "caption": "<h2>⚲ SRS Hills, Ramanagara</h2><h3>Karnataka</h3>","alt": "SRS Hills (Ramanagara)" },
-    { "file": "landscapes5.jpg",  "caption": "<h2>⚲ Gopinatham</h2><h3>Karnataka</h3>",           "alt": "Gopinatham" },
-    { "file": "landscapes6.jpg",  "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",       "alt": "Chikkamagaluru" },
-    { "file": "landscapes7.jpg",  "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",       "alt": "Chikkamagaluru" },
-    { "file": "landscapes8.jpg",  "caption": "<h2>⚲ Bogmalo beach</h2><h3>Goa</h3>",              "alt": "Bogmalo beach" },
-    { "file": "landscapes9.jpg",  "caption": "<h2>⚲ Devil's Finger</h2><h3>Goa</h3>",             "alt": "Devil's Finger beach" },
-    { "file": "landscapes10.jpg", "caption": "<h2>⚲ Uluwatu Temple</h2><h3>Bali</h3>",            "alt": "Uluwatu Temple" },
-    { "file": "landscapes11.jpg", "caption": "<h2>⚲ Mount Batur</h2><h3>Bali</h3>",               "alt": "Mount Batur" },
-    { "file": "landscapes12.jpg", "caption": "<h2>⚲ Goa Gajah, Ubud</h2><h3>Bali</h3>",          "alt": "Goa Gajah (Ubud)" },
-    { "file": "landscapes13.jpg", "caption": "<h2>⚲ Karanji Lake, Mysuru</h2><h3>Karnataka</h3>", "alt": "Karanji Lake (Mysuru)" }
+    {
+      "file": "landscapes1.jpg",
+      "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",
+      "alt": "Chikkamagaluru"
+    },
+    {
+      "file": "landscapes2.jpg",
+      "caption": "<h2>⚲ Uluwatu Temple</h2><h3>Bali</h3>",
+      "alt": "Uluwatu Temple"
+    },
+    {
+      "file": "landscapes3.jpg",
+      "caption": "<h2>⚲ Gopinatham</h2><h3>Karnataka</h3>",
+      "alt": "Gopinatham"
+    },
+    {
+      "file": "landscapes4.jpg",
+      "caption": "<h2>⚲ SRS Hills, Ramanagara</h2><h3>Karnataka</h3>",
+      "alt": "SRS Hills (Ramanagara)"
+    },
+    {
+      "file": "landscapes5.jpg",
+      "caption": "<h2>⚲ Gopinatham</h2><h3>Karnataka</h3>",
+      "alt": "Gopinatham"
+    },
+    {
+      "file": "landscapes6.jpg",
+      "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",
+      "alt": "Chikkamagaluru"
+    },
+    {
+      "file": "landscapes7.jpg",
+      "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",
+      "alt": "Chikkamagaluru"
+    },
+    {
+      "file": "landscapes8.jpg",
+      "caption": "<h2>⚲ Bogmalo beach</h2><h3>Goa</h3>",
+      "alt": "Bogmalo beach"
+    },
+    {
+      "file": "landscapes9.jpg",
+      "caption": "<h2>⚲ Devil's Finger</h2><h3>Goa</h3>",
+      "alt": "Devil's Finger beach"
+    },
+    {
+      "file": "landscapes10.jpg",
+      "caption": "<h2>⚲ Uluwatu Temple</h2><h3>Bali</h3>",
+      "alt": "Uluwatu Temple"
+    },
+    {
+      "file": "landscapes11.jpg",
+      "caption": "<h2>⚲ Mount Batur</h2><h3>Bali</h3>",
+      "alt": "Mount Batur"
+    },
+    {
+      "file": "landscapes12.jpg",
+      "caption": "<h2>⚲ Goa Gajah, Ubud</h2><h3>Bali</h3>",
+      "alt": "Goa Gajah (Ubud)"
+    },
+    {
+      "file": "landscapes13.jpg",
+      "caption": "<h2>⚲ Karanji Lake, Mysuru</h2><h3>Karnataka</h3>",
+      "alt": "Karanji Lake (Mysuru)"
+    }
   ],
-
   "skies": [
-    { "file": "skies1.jpg",  "caption": "", "alt": "" },
-    { "file": "skies2.jpg",  "caption": "", "alt": "" },
-    { "file": "skies3.jpg",  "caption": "", "alt": "" },
-    { "file": "skies4.jpg",  "caption": "", "alt": "" },
-    { "file": "skies5.jpg",  "caption": "", "alt": "" },
-    { "file": "skies6.jpg",  "caption": "", "alt": "" },
-    { "file": "skies7.jpg",  "caption": "", "alt": "" },
-    { "file": "skies8.jpg",  "caption": "", "alt": "" },
-    { "file": "skies9.jpg",  "caption": "", "alt": "" },
-    { "file": "skies10.jpg", "caption": "", "alt": "" },
-    { "file": "skies11.jpg", "caption": "", "alt": "" },
-    { "file": "skies12.jpg", "caption": "", "alt": "" },
-    { "file": "skies13.jpg", "caption": "", "alt": "" },
-    { "file": "skies14.jpg", "caption": "", "alt": "" },
-    { "file": "skies15.jpg", "caption": "", "alt": "" },
-    { "file": "skies16.jpg", "caption": "", "alt": "" },
-    { "file": "skies17.jpg", "caption": "", "alt": "" },
-    { "file": "skies18.jpg", "caption": "", "alt": "" },
-    { "file": "skies19.jpg", "caption": "", "alt": "" },
-    { "file": "skies20.jpg", "caption": "", "alt": "" },
-    { "file": "skies21.jpg", "caption": "", "alt": "" },
-    { "file": "skies22.jpg", "caption": "", "alt": "" },
-    { "file": "skies23.jpg", "caption": "", "alt": "" },
-    { "file": "skies24.jpg", "caption": "", "alt": "" },
-    { "file": "skies25.jpg", "caption": "", "alt": "" },
-    { "file": "skies26.jpg", "caption": "", "alt": "" },
-    { "file": "skies27.jpg", "caption": "", "alt": "" },
-    { "file": "skies28.jpg", "caption": "", "alt": "" }
+    {
+      "file": "skies1.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies2.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies3.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies4.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies5.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies6.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies7.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies8.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies9.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies10.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies11.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies12.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies13.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies14.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies15.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies16.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies17.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies18.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies19.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies20.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies21.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies22.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies23.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies24.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies25.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies26.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies27.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "skies28.jpg",
+      "caption": "",
+      "alt": ""
+    }
   ]
 }

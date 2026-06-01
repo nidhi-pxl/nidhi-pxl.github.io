@@ -1,0 +1,40 @@
+{
+  "enabled": true,
+  "name": "Generate Thumbnail on New Album Image",
+  "description": "When a new image file is created in any of the 6 album folders (but not in thumbs/), runs generate_thumbs.py to create a scaled thumbnail and append the entry to images.json",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "images/animals/*.jpg",
+      "images/animals/*.jpeg",
+      "images/animals/*.png",
+      "images/animals/*.webp",
+      "images/astro/*.jpg",
+      "images/astro/*.jpeg",
+      "images/astro/*.png",
+      "images/astro/*.webp",
+      "images/flowers/*.jpg",
+      "images/flowers/*.jpeg",
+      "images/flowers/*.png",
+      "images/flowers/*.webp",
+      "images/insects/*.jpg",
+      "images/insects/*.jpeg",
+      "images/insects/*.png",
+      "images/insects/*.webp",
+      "images/landscapes/*.jpg",
+      "images/landscapes/*.jpeg",
+      "images/landscapes/*.png",
+      "images/landscapes/*.webp",
+      "images/skies/*.jpg",
+      "images/skies/*.jpeg",
+      "images/skies/*.png",
+      "images/skies/*.webp"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "cd \"c:\\Users\\nidhi\\OneDrive\\Documents\\test_resources\\ps-1\\nidhi-pxl.github.io\" && python generate_thumbs.py",
+    "timeout": 60
+  }
+}
