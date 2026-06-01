@@ -198,13 +198,21 @@
     // Fade header out as user scrolls down
     (function () {
       const header = document.getElementById('site-header');
-      const fadeDistance = 300; // px of scroll over which it fully fades
+      const fadeDistance = 320; // px of scroll over which it fully fades
+
+      // Set padding-top on <main> to match actual header height
+      function syncHeaderOffset() {
+        document.documentElement.style.setProperty(
+          '--header-height', header.offsetHeight + 'px'
+        );
+      }
+      syncHeaderOffset();
+      window.addEventListener('resize', syncHeaderOffset, { passive: true });
 
       window.addEventListener('scroll', () => {
         const y = window.scrollY;
         const opacity = Math.max(0, 1 - y / fadeDistance);
         header.style.opacity = opacity;
-        // also collapse pointer events once invisible so it doesn't block clicks
         header.style.pointerEvents = opacity === 0 ? 'none' : '';
       }, { passive: true });
     })();
