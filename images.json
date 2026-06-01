@@ -129,8 +129,8 @@
   "astro": [
     {
       "file": "astro1.jpg",
-      "caption": "<h2>Milky Way</h2><h3>Cosmic Ventures Campsite, Goa</h3>",
-      "alt": "Milky Way"
+      "caption": "<h2>Milky Way</h2><h3>Cosmic Ventures Campsite, Goa, 2025</h3>",
+      "alt": "Milky Way 2025"
     },
     {
       "file": "astro2.jpg",
@@ -169,6 +169,36 @@
     },
     {
       "file": "astro9.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro10.jpg",
+      "caption": "<h2>Milky Way</h2><h3>Vijardurg, 2026</h3>",
+      "alt": "Milky Way 2026"
+    },
+    {
+      "file": "astro11.jpg",
+      "caption": "Star trails",
+      "alt": "Star trails"
+    },
+    {
+      "file": "astro12.jpg",
+      "caption": "Star trails centered on Polaris",
+      "alt": "Star trails"
+    },
+    {
+      "file": "astro13.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro14.jpg",
+      "caption": "",
+      "alt": ""
+    },
+    {
+      "file": "astro15.jpg",
       "caption": "",
       "alt": ""
     }

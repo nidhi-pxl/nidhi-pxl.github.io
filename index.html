@@ -198,7 +198,6 @@
     // Fade header out as user scrolls down
     (function () {
       const header = document.getElementById('site-header');
-      const fadeDistance = 320; // px of scroll over which it fully fades
 
       // Set padding-top on <main> to match actual header height
       function syncHeaderOffset() {
@@ -210,8 +209,8 @@
       window.addEventListener('resize', syncHeaderOffset, { passive: true });
 
       window.addEventListener('scroll', () => {
-        const y = window.scrollY;
-        const opacity = Math.max(0, 1 - y / fadeDistance);
+        const fadeDistance = header.offsetHeight; // fade over exactly the banner's own height
+        const opacity = Math.max(0, 1 - window.scrollY / fadeDistance);
         header.style.opacity = opacity;
         header.style.pointerEvents = opacity === 0 ? 'none' : '';
       }, { passive: true });
