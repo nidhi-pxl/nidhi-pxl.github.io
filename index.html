@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
 </head>
 <body>
-  <header>
-    <h1>Nidhi Mekaraj - Photography Portfolio</h1>
+  <header id="site-header">
+    <h1>Nidhi Mekaraj<span class="header-subtitle">Photography Portfolio</span></h1>
   </header>
 
   <main>
@@ -194,6 +194,21 @@
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Hide header on scroll down, show on scroll up
+    (function () {
+      const header = document.getElementById('site-header');
+      let lastY = 0;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y > lastY && y > 80) {
+          header.classList.add('header-hidden');
+        } else {
+          header.classList.remove('header-hidden');
+        }
+        lastY = y;
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>

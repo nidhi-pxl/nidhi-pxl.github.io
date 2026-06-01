@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Playwrite+England+Joined:wght@100..400&display=swap');
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -6,14 +8,68 @@ body {
 }
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   text-align: center;
-  padding: 1.5rem;
-  background: #333;
+  padding: 2.8rem 2rem;
+
+  /* Background image layer — swap the URL for any image in your /images folder */
+  background-color: #222;
+  background-image: url('/images/skies/skies15.jpg');
+  background-size: cover;
+  background-position: center 40%;
+
+  /* Dark overlay so text stays readable over the photo */
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.52);
+
   color: white;
+
+  /* Slide-up transition */
+  transform: translateY(0);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  opacity: 1;
+}
+
+header.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 h1 {
-  text-shadow: 2px 2px 4px rgba(98, 6, 6, 0.564);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0;
+  line-height: 1.15;
+  text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+}
+
+.header-subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.album-card h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.gallery-section h2 {
+  font-family: 'Playwrite England Joined', cursive;
 }
 
 /* Album Section */
@@ -65,14 +121,6 @@ h1 {
   background: rgba(0, 0, 0, 0.4);
   z-index: 0;
   border-radius: 8px;
-}
-
-.album-card h2 {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 10px 0;
-  text-align: center;
-  font-size: 1.3rem;
 }
 
 .album-card:hover::before {
