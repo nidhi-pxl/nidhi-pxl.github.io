@@ -48,7 +48,7 @@ def make_thumbnail(src: Path, dst: Path):
         thumb = img.resize((THUMB_WIDTH, new_h), Image.LANCZOS)
         # Always save as JPEG regardless of source extension
         thumb.save(dst.with_suffix(".jpg"), "JPEG", quality=85, optimize=True)
-    print(f"  ✓ thumbnail → {dst.relative_to(SCRIPT_DIR)}")
+    print(f"  + thumbnail -> {dst.relative_to(SCRIPT_DIR)}")
 
 
 def process_album(album: str, data: dict) -> int:
@@ -116,7 +116,7 @@ def main():
 
     total_new = 0
     for album in target_albums:
-        print(f"\n── {album} ──")
+        print(f"\n--- {album} ---")
         total_new += process_album(album, data)
 
     # Write updated JSON back (preserve formatting)
@@ -124,10 +124,10 @@ def main():
         json.dump(data, f, indent=2, ensure_ascii=False)
 
     if total_new:
-        print(f"\n✅ Done — {total_new} new image(s) added to images.json")
+        print(f"\n[Done] - {total_new} new image(s) added to images.json")
         print("   Open images.json to fill in captions and alt text for new entries.")
     else:
-        print("\n✅ Done — no new images found.")
+        print("\n[Done] - no new images found.")
 
 
 if __name__ == "__main__":

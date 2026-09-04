@@ -16,6 +16,16 @@
 <body>
   <header id="site-header">
     <h1>Nidhi Mekaraj<span class="header-subtitle">Photography Portfolio</span></h1>
+    <div class="header-nav">
+      <a href="https://www.instagram.com/nidhi.pxl/" target="_blank" rel="noopener noreferrer" class="instagram-link" title="Instagram @nidhi.pxl">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span>@nidhi.pxl</span>
+      </a>
+    </div>
   </header>
 
   <main>
@@ -63,6 +73,10 @@
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 
   <script>
+    // Prevent Right-Click & Image Dragging to protect images
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+
     const gallery = document.getElementById('lightgallery');
     const spinner = document.getElementById('loading-spinner');
 
@@ -70,6 +84,7 @@
     let loadedCount = 0;
     const batchSize = 20;
     let isLoading = false;
+    let lgInstance = null;
 
     function loadBatch() {
       if (loadedCount >= shuffled.length) return;
@@ -90,13 +105,20 @@
         const img = document.createElement('img');
         img.src = thumb;
         img.alt = alt || "";
+        img.loading = "lazy";
 
         a.appendChild(img);
         gallery.appendChild(a);
       });
 
-      loadedCount += batchSize;
+      loadedCount += batch.length;
+
       $('#lightgallery').justifiedGallery('norewind');
+      
+      if (lgInstance) {
+        lgInstance.refresh();
+      }
+
       isLoading = false;
     }
 
@@ -107,8 +129,8 @@
         for (const [folder, entries] of Object.entries(data)) {
           entries.forEach(({ file, caption, alt }) => {
             images.push({
-              src:     `/images/${folder}/${file}`,
-              thumb:   `/images/${folder}/thumbs/${file}`,
+              src:     `images/${folder}/${file}`,
+              thumb:   `images/${folder}/thumbs/${file}`,
               caption: caption || "",
               alt:     alt || "",
               folder:  folder
@@ -123,49 +145,49 @@
 
           $('#lightgallery').justifiedGallery({
             rowHeight: rowHeight,
-            margins: 4,
+            margins: 6,
             lastRow: 'justify'
           }).on('jg.complete', function () {
-            const lg = lightGallery(document.getElementById('lightgallery'), {
-              selector: '.gallery-item',
-              thumbnail: true,
-              zoom: true,
-              download: false,
-              share: false,
-              actualSize: false,
-              plugins: [lgZoom, lgThumbnail],
-              zoomFromOrigin: true,
-              scale: 1,
-              enableZoomAfter: 300,
-              doubleTapZoom: 2
-            });
+            if (!lgInstance) {
+              lgInstance = lightGallery(document.getElementById('lightgallery'), {
+                selector: '.gallery-item',
+                thumbnail: true,
+                zoom: true,
+                download: false,
+                share: false,
+                actualSize: false,
+                plugins: [lgZoom, lgThumbnail],
+                zoomFromOrigin: true,
+                scale: 1,
+                enableZoomAfter: 300,
+                doubleTapZoom: 2
+              });
 
-            // Inject the album link after each slide renders, outside lightGallery's
-            // click handler scope so the anchor navigates normally
-            document.getElementById('lightgallery').addEventListener('lgAfterSlide', (e) => {
-              const subHtml = document.querySelector('.lg-sub-html');
-              if (!subHtml) return;
+              document.getElementById('lightgallery').addEventListener('lgAfterSlide', (e) => {
+                const subHtml = document.querySelector('.lg-sub-html');
+                if (!subHtml) return;
 
-              // Remove any previously injected link
-              const existing = subHtml.querySelector('.lg-album-link');
-              if (existing) existing.remove();
+                const existing = subHtml.querySelector('.lg-album-link');
+                if (existing) existing.remove();
 
-              // Read the folder from the active gallery item's data attribute
-              const items = document.querySelectorAll('#lightgallery .gallery-item');
-              const activeItem = items[e.detail.index];
-              if (!activeItem) return;
+                const items = document.querySelectorAll('#lightgallery .gallery-item');
+                const activeItem = items[e.detail.index];
+                if (!activeItem) return;
 
-              const folder = activeItem.dataset.folder;
-              if (!folder) return;
+                const folder = activeItem.dataset.folder;
+                if (!folder) return;
 
-              const label = folder.charAt(0).toUpperCase() + folder.slice(1);
-              const link = document.createElement('a');
-              link.className = 'lg-album-link';
-              link.href = `${folder}.html`;
-              link.textContent = `→ ${label}`;
+                const label = folder.charAt(0).toUpperCase() + folder.slice(1);
+                const link = document.createElement('a');
+                link.className = 'lg-album-link';
+                link.href = `${folder}.html`;
+                link.textContent = `→ ${label}`;
 
-              subHtml.appendChild(link);
-            });
+                subHtml.appendChild(link);
+              });
+            } else {
+              lgInstance.refresh();
+            }
 
             spinner.style.display = 'none';
           });
@@ -176,7 +198,7 @@
 
     // Infinite Scroll
     window.addEventListener('scroll', () => {
-      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 300;
 
       if (nearBottom && !isLoading && loadedCount < shuffled.length) {
         isLoading = true;
@@ -185,7 +207,7 @@
         setTimeout(() => {
           loadBatch();
           spinner.style.display = 'none';
-        }, 500);
+        }, 300);
       }
 
       document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
@@ -195,11 +217,10 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Fade header out as user scrolls down
+    // Header opacity fade out on scroll
     (function () {
       const header = document.getElementById('site-header');
 
-      // Set padding-top on <main> to match actual header height
       function syncHeaderOffset() {
         document.documentElement.style.setProperty(
           '--header-height', header.offsetHeight + 'px'
@@ -209,7 +230,7 @@
       window.addEventListener('resize', syncHeaderOffset, { passive: true });
 
       window.addEventListener('scroll', () => {
-        const fadeDistance = header.offsetHeight; // fade over exactly the banner's own height
+        const fadeDistance = header.offsetHeight;
         const opacity = Math.max(0, 1 - window.scrollY / fadeDistance);
         header.style.opacity = opacity;
         header.style.pointerEvents = opacity === 0 ? 'none' : '';

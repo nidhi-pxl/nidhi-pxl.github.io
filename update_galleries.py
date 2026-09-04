@@ -1,38 +1,151 @@
 import os
 
-albums = ["flowers", "skies"]
-image_base = "images"
+albums = ["animals", "astro", "flowers", "insects", "landscapes", "skies"]
 
-for album in albums:
-    folder = os.path.join(image_base, album)
-    if not os.path.exists(folder):
-        continue
-
-    images = sorted([img for img in os.listdir(folder) if img.endswith((".jpg", ".png", ".jpeg"))])
-    image_tags = "\n".join([f'      <img src="{image_base}/{album}/{img}" alt="{img}">' for img in images])
-
-    html = f"""<!DOCTYPE html>
+def generate_album_html(album):
+    title = album.capitalize()
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{album.title()} Album</title>
+  <title>{title} Album - Nidhi Mekaraj Photography</title>
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- LightGallery CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" rel="stylesheet" />
+
+  <!-- JustifiedGallery CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+
+  <!-- JustifiedGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 </head>
+
 <body>
-  <header>
-    <h1>{album.title()}</h1>
-    <a href="index.html">← Back to Home</a>
+  <header id="site-header">
+    <h1>{title}</h1>
+    <div class="header-nav">
+      <a href="index.html" class="back-link">← Back to Portfolio</a>
+      <a href="https://www.instagram.com/nidhi.pxl/" target="_blank" rel="noopener noreferrer" class="instagram-link" title="Instagram @nidhi.pxl">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span>@nidhi.pxl</span>
+      </a>
+    </div>
   </header>
+
   <main>
-    <div class="gallery">
-{image_tags}
+    <div class="gallery-section">
+      <div id="{album}-gallery" class="justified-gallery"></div>
     </div>
   </main>
+
+  <!-- Scroll To Top Button -->
+  <button id="scrollToTop" title="Back to Top" onclick="scrollToTop()">↑</button>
+
+  <!-- LightGallery JS -->
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+
+  <script>
+    // Prevent Right-Click & Image Dragging to protect images
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+
+    const container = document.getElementById("{album}-gallery");
+
+    fetch("images.json")
+      .then(res => res.json())
+      .then(data => {{
+        if (data.{album}) {{
+          data.{album}.forEach(({{ file, caption, alt }}) => {{
+            const fullSrc  = `images/{album}/${{file}}`;
+            const thumbSrc = `images/{album}/thumbs/${{file}}`;
+
+            const link = document.createElement("a");
+            link.href = fullSrc;
+            link.setAttribute("data-sub-html", caption ? `<div class="lg-caption-wrap">${{caption}}</div>` : "");
+
+            const img = document.createElement("img");
+            img.src = thumbSrc;
+            img.alt = alt || "";
+            img.loading = "lazy";
+            img.onerror = () => {{
+              img.src = fullSrc;
+            }};
+
+            link.appendChild(img);
+            container.appendChild(link);
+          }});
+        }}
+
+        $(function () {{
+          const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+          $('#{album}-gallery').justifiedGallery({{
+            rowHeight: rowHeight,
+            margins: 6,
+            lastRow: 'justify'
+          }}).on('jg.complete', function () {{
+            lightGallery(document.getElementById('{album}-gallery'), {{
+              plugins: [lgZoom, lgThumbnail],
+              speed: 500,
+              download: false,
+              share: false,
+              doubleTapZoom: 1.5
+            }});
+          }});
+        }});
+      }});
+
+    // Scroll to Top
+    window.addEventListener('scroll', () => {{
+      document.getElementById('scrollToTop').classList.toggle('show', window.scrollY > 300);
+    }});
+
+    function scrollToTop() {{
+      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+    }}
+
+    // Header opacity fade out on scroll
+    (function () {{
+      const header = document.getElementById('site-header');
+
+      function syncHeaderOffset() {{
+        document.documentElement.style.setProperty(
+          '--header-height', header.offsetHeight + 'px'
+        );
+      }}
+      syncHeaderOffset();
+      window.addEventListener('resize', syncHeaderOffset, {{ passive: true }});
+
+      window.addEventListener('scroll', () => {{
+        const fadeDistance = header.offsetHeight;
+        const opacity = Math.max(0, 1 - window.scrollY / fadeDistance);
+        header.style.opacity = opacity;
+        header.style.pointerEvents = opacity === 0 ? 'none' : '';
+      }}, {{ passive: true }});
+    }})();
+  </script>
 </body>
-</html>"""
+</html>
+"""
 
-    with open(f"{album}.html", "w") as f:
-        f.write(html)
+def main():
+    for album in albums:
+        filepath = f"{album}.html"
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(generate_album_html(album))
+        print(f"  + Updated {filepath}")
 
-print("Gallery pages updated.")
+if __name__ == "__main__":
+    main()
