@@ -12,6 +12,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" />
   <!-- JustifiedGallery CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
+
+  <script>
+    // Clean URL: Automatically remove trailing .html from address bar
+    if (window.location.pathname.endsWith('.html')) {
+      const cleanPath = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+      window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+    }
+  </script>
 </head>
 <body>
   <header id="site-header">
@@ -30,22 +38,22 @@
 
   <main>
     <div class="albums">
-      <a href="flowers.html" class="album-card flowers">
+      <a href="flowers" class="album-card flowers">
         <h2>Flowers</h2>
       </a>
-      <a href="skies.html" class="album-card skies">
+      <a href="skies" class="album-card skies">
         <h2>Skies</h2>
       </a>
-      <a href="animals.html" class="album-card animals">
+      <a href="animals" class="album-card animals">
         <h2>Animals</h2>
       </a>
-      <a href="landscapes.html" class="album-card landscapes">
+      <a href="landscapes" class="album-card landscapes">
         <h2>Landscapes</h2>
       </a>
-      <a href="insects.html" class="album-card insects">
+      <a href="insects" class="album-card insects">
         <h2>Insects</h2>
       </a>
-      <a href="astro.html" class="album-card astro">
+      <a href="astro" class="album-card astro">
         <h2>Astro</h2>
       </a>
     </div>
@@ -96,10 +104,12 @@
         a.href = src;
         a.dataset.folder = folder;
 
-        a.setAttribute('data-sub-html', caption
-          ? `<div class="lg-caption-wrap">${caption}</div>`
-          : '');
+        const albumLabel = folder ? folder.charAt(0).toUpperCase() + folder.slice(1) : '';
+        const albumBtnHtml = folder ? `<a class="lg-album-link" href="${folder}">→ ${albumLabel}</a>` : '';
+        const captionTextHtml = caption ? `<div>${caption}</div>` : '';
+        const fullSubHtml = `<div class="lg-caption-wrap">${captionTextHtml}${albumBtnHtml}</div>`;
 
+        a.setAttribute('data-sub-html', fullSubHtml);
         a.classList.add("gallery-item");
 
         const img = document.createElement('img');
@@ -161,29 +171,6 @@
                 scale: 1,
                 enableZoomAfter: 300,
                 doubleTapZoom: 2
-              });
-
-              document.getElementById('lightgallery').addEventListener('lgAfterSlide', (e) => {
-                const subHtml = document.querySelector('.lg-sub-html');
-                if (!subHtml) return;
-
-                const existing = subHtml.querySelector('.lg-album-link');
-                if (existing) existing.remove();
-
-                const items = document.querySelectorAll('#lightgallery .gallery-item');
-                const activeItem = items[e.detail.index];
-                if (!activeItem) return;
-
-                const folder = activeItem.dataset.folder;
-                if (!folder) return;
-
-                const label = folder.charAt(0).toUpperCase() + folder.slice(1);
-                const link = document.createElement('a');
-                link.className = 'lg-album-link';
-                link.href = `${folder}.html`;
-                link.textContent = `→ ${label}`;
-
-                subHtml.appendChild(link);
               });
             } else {
               lgInstance.refresh();
