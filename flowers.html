@@ -48,21 +48,36 @@
   <main>
     <div class="gallery-section">
       <div id="flowers-gallery" class="justified-gallery"></div>
+      <div class="gallery-end">✦ End of Flowers Album ✦</div>
     </div>
   </main>
 
   <!-- Scroll To Top Button -->
   <button id="scrollToTop" title="Back to Top" onclick="scrollToTop()">↑</button>
 
-  <!-- LightGallery JS -->
+  <!-- LightGallery JS & Plugins -->
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
 
   <script>
     // Prevent Right-Click & Image Dragging to protect images
     document.addEventListener('contextmenu', (e) => e.preventDefault());
     document.addEventListener('dragstart', (e) => e.preventDefault());
+
+    // Pressing 'F' or 'f' key toggles Fullscreen mode when LightGallery is open
+    document.addEventListener('keydown', (e) => {
+      if ((e.key === 'f' || e.key === 'F') && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        const lgContainer = document.querySelector('.lg-container.lg-show');
+        if (lgContainer) {
+          const fsBtn = lgContainer.querySelector('.lg-fullscreen');
+          if (fsBtn) {
+            fsBtn.click();
+          }
+        }
+      }
+    });
 
     const container = document.getElementById("flowers-gallery");
 
@@ -96,10 +111,11 @@
           $('#flowers-gallery').justifiedGallery({
             rowHeight: rowHeight,
             margins: 6,
-            lastRow: 'justify'
+            lastRow: 'nojustify'
           }).on('jg.complete', function () {
             lightGallery(document.getElementById('flowers-gallery'), {
-              plugins: [lgZoom, lgThumbnail],
+              plugins: [lgZoom, lgThumbnail, lgFullscreen],
+              fullScreen: true,
               speed: 500,
               download: false,
               share: false,

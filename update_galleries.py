@@ -54,21 +54,51 @@ def generate_album_html(album):
   <main>
     <div class="gallery-section">
       <div id="{album}-gallery" class="justified-gallery"></div>
+      <div class="gallery-end">✦ End of {title} Album ✦</div>
     </div>
   </main>
 
   <!-- Scroll To Top Button -->
   <button id="scrollToTop" title="Back to Top" onclick="scrollToTop()">↑</button>
 
-  <!-- LightGallery JS -->
+  <!-- LightGallery JS & Plugins -->
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
 
   <script>
     // Prevent Right-Click & Image Dragging to protect images
     document.addEventListener('contextmenu', (e) => e.preventDefault());
     document.addEventListener('dragstart', (e) => e.preventDefault());
+
+    // Pressing 'F' or 'f' key toggles Fullscreen mode when LightGallery is open
+    document.addEventListener('keydown', (e) => {{
+      if ((e.key === 'f' || e.key === 'F') && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {{
+        const lgContainer = document.querySelector('.lg-container.lg-show');
+        if (lgContainer) {{
+          const fsBtn = lgContainer.querySelector('.lg-fullscreen');
+          if (fsBtn) {{
+            fsBtn.click();
+          }}
+        }}
+      }}
+    }});
+
+    // Auto-enter fullscreen mode on mobile landscape orientation
+    function autoFullscreenOnMobileLandscape() {{
+      const isMobileLandscape = window.matchMedia("(orientation: landscape) and (max-height: 650px)").matches;
+      const lgContainer = document.querySelector('.lg-container.lg-show');
+      if (isMobileLandscape && lgContainer && !lgContainer.classList.contains('lg-fullscreen-on')) {{
+        const fsBtn = lgContainer.querySelector('.lg-fullscreen');
+        if (fsBtn) {{
+          fsBtn.click();
+        }}
+      }}
+    }}
+
+    window.addEventListener('resize', autoFullscreenOnMobileLandscape);
+    window.addEventListener('orientationchange', autoFullscreenOnMobileLandscape);
 
     const container = document.getElementById("{album}-gallery");
 
@@ -102,15 +132,19 @@ def generate_album_html(album):
           $('#{album}-gallery').justifiedGallery({{
             rowHeight: rowHeight,
             margins: 6,
-            lastRow: 'justify'
+            lastRow: 'nojustify'
           }}).on('jg.complete', function () {{
-            lightGallery(document.getElementById('{album}-gallery'), {{
-              plugins: [lgZoom, lgThumbnail],
+            const lgEl = document.getElementById('{album}-gallery');
+            lightGallery(lgEl, {{
+              plugins: [lgZoom, lgThumbnail, lgFullscreen],
+              fullScreen: true,
               speed: 500,
               download: false,
               share: false,
               doubleTapZoom: 1.5
             }});
+
+            lgEl.addEventListener('lgAfterOpen', autoFullscreenOnMobileLandscape);
           }});
         }});
       }});
