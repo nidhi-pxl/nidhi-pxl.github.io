@@ -34,14 +34,6 @@
     <h1>Astro</h1>
     <div class="header-nav">
       <a href="./" class="back-link">← Back to Portfolio</a>
-      <a href="https://www.instagram.com/nidhi.pxl/" target="_blank" rel="noopener noreferrer" class="instagram-link" title="Instagram @nidhi.pxl">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-        </svg>
-        <span>@nidhi.pxl</span>
-      </a>
     </div>
   </header>
 
@@ -79,6 +71,21 @@
       }
     });
 
+    // Auto-enter fullscreen mode on mobile landscape orientation
+    function autoFullscreenOnMobileLandscape() {
+      const isMobileLandscape = window.matchMedia("(orientation: landscape) and (max-height: 650px)").matches;
+      const lgContainer = document.querySelector('.lg-container.lg-show');
+      if (isMobileLandscape && lgContainer && !lgContainer.classList.contains('lg-fullscreen-on')) {
+        const fsBtn = lgContainer.querySelector('.lg-fullscreen');
+        if (fsBtn) {
+          fsBtn.click();
+        }
+      }
+    }
+
+    window.addEventListener('resize', autoFullscreenOnMobileLandscape);
+    window.addEventListener('orientationchange', autoFullscreenOnMobileLandscape);
+
     const container = document.getElementById("astro-gallery");
 
     fetch("images.json")
@@ -113,7 +120,8 @@
             margins: 6,
             lastRow: 'nojustify'
           }).on('jg.complete', function () {
-            lightGallery(document.getElementById('astro-gallery'), {
+            const lgEl = document.getElementById('astro-gallery');
+            lightGallery(lgEl, {
               plugins: [lgZoom, lgThumbnail, lgFullscreen],
               fullScreen: true,
               speed: 500,
@@ -121,6 +129,8 @@
               share: false,
               doubleTapZoom: 1.5
             });
+
+            lgEl.addEventListener('lgAfterOpen', autoFullscreenOnMobileLandscape);
           });
         });
       });
