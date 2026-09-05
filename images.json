@@ -3,42 +3,84 @@
     {
       "file": "animals1.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "1600"
+      }
     },
     {
       "file": "animals2.jpg",
       "caption": "<h2>Galah cockatoo</h2>",
-      "alt": "Galah cockatoo"
+      "alt": "Galah cockatoo",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/100s",
+        "iso": "160",
+        "focal": "171mm"
+      }
     },
     {
       "file": "animals3.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "1000"
+      }
     },
     {
       "file": "animals4.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/640s",
+        "iso": "320",
+        "focal": "111mm"
+      }
     },
     {
       "file": "animals5.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/400s",
+        "iso": "320",
+        "focal": "132mm"
+      }
     },
     {
       "file": "animals6.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/80s",
+        "iso": "3200",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals7.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/125s",
+        "iso": "1250",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals8.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/500s",
+        "iso": "1250",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals9.jpg",
@@ -48,12 +90,24 @@
     {
       "file": "animals10.jpg",
       "caption": "<h2>Black swan</h2>",
-      "alt": "Black swan"
+      "alt": "Black swan",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/320s",
+        "iso": "320",
+        "focal": "159mm"
+      }
     },
     {
       "file": "animals11.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/1000s",
+        "iso": "2500",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals12.jpg",
@@ -63,114 +117,234 @@
     {
       "file": "animals13.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/250s",
+        "iso": "2000",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals14.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/570s",
+        "iso": "263",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "animals15.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "50"
+      }
     },
     {
       "file": "animals16.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "320"
+      }
     },
     {
       "file": "animals17.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "320"
+      }
     },
     {
       "file": "animals18.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/1000s",
+        "iso": "5000",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals19.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "250"
+      }
     },
     {
       "file": "animals20.jpg",
       "caption": "<h2>Budgerigar</h2>",
-      "alt": "Budgerigar"
+      "alt": "Budgerigar",
+      "exif": {
+        "fstop": "f/2.8",
+        "shutter": "1/125s",
+        "iso": "2500",
+        "focal": "35mm"
+      }
     },
     {
       "file": "animals21.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/640s",
+        "iso": "1600",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals22.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/200s",
+        "iso": "640",
+        "focal": "210mm"
+      }
     },
     {
       "file": "animals23.jpg",
       "caption": "<h2>White-throated Toucan</h2>",
-      "alt": "White-throated Toucan"
+      "alt": "White-throated Toucan",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/160s",
+        "iso": "125",
+        "focal": "150mm"
+      }
     },
     {
       "file": "animals24.jpg",
       "caption": "<h2>Lamprotornis purpureus (Purple Glossy Starling)</h2>",
-      "alt": "Purple Glossy Starling"
+      "alt": "Purple Glossy Starling",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/100s",
+        "iso": "80",
+        "focal": "126mm"
+      }
     },
     {
       "file": "animals25.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/4.5",
+        "shutter": "1/100s",
+        "iso": "100",
+        "focal": "64mm"
+      }
     }
   ],
   "astro": [
     {
       "file": "astro1.jpg",
       "caption": "<h2>Milky Way</h2><h3>Cosmic Ventures Campsite, Goa, 2025</h3>",
-      "alt": "Milky Way 2025"
+      "alt": "Milky Way 2025",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "16s",
+        "iso": "1628",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "astro2.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "16.0s",
+        "iso": "409",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "astro3.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/320s",
+        "iso": "160",
+        "focal": "210mm"
+      }
     },
     {
       "file": "astro4.jpg",
       "caption": "<h2>Full Snow Moon</h2>",
-      "alt": "Snow Moon"
+      "alt": "Snow Moon",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/1250s",
+        "iso": "250",
+        "focal": "210mm"
+      }
     },
     {
       "file": "astro5.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/160s",
+        "iso": "100",
+        "focal": "210mm"
+      }
     },
     {
       "file": "astro6.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/4.9",
+        "shutter": "1/50s",
+        "iso": "800",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "astro7.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/2s",
+        "iso": "8615",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "astro8.jpg",
       "caption": "<h2>Jupiter and Orion</h2>",
-      "alt": "Jupiter and Orion"
+      "alt": "Jupiter and Orion",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/3s",
+        "iso": "15747",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "astro9.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "16.0s",
+        "iso": "984",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "astro10.jpg",
@@ -190,24 +364,48 @@
     {
       "file": "astro13.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/2.8",
+        "shutter": "4s",
+        "iso": "6400",
+        "focal": "35mm"
+      }
     },
     {
       "file": "astro14.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "16s",
+        "iso": "2174",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "astro15.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "16s",
+        "iso": "333",
+        "focal": "6.9mm"
+      }
     }
   ],
   "flowers": [
     {
       "file": "flowers1.jpg",
       "caption": "<h2>Blue Plumbago Auriculata</h2>",
-      "alt": "Blue Plumbago Auriculata"
+      "alt": "Blue Plumbago Auriculata",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/500s",
+        "iso": "500",
+        "focal": "210mm"
+      }
     },
     {
       "file": "flowers2.jpg",
@@ -217,37 +415,70 @@
     {
       "file": "flowers3.jpg",
       "caption": "<h2>Chrysanthemum</h2>",
-      "alt": "Chrysanthemum"
+      "alt": "Chrysanthemum",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/3333s",
+        "iso": "160",
+        "focal": "5.4mm"
+      }
     },
     {
       "file": "flowers4.jpg",
       "caption": "<h2>Calliandra (Pink Powder Puff)</h2>",
-      "alt": "Pink Powder Puff"
+      "alt": "Pink Powder Puff",
+      "exif": {
+        "iso": "400"
+      }
     },
     {
       "file": "flowers5.jpg",
       "caption": "<h2>Cenchrus setaceus (Purple Fountain Grass)</h2>",
-      "alt": "Purple Fountain Grass"
+      "alt": "Purple Fountain Grass",
+      "exif": {
+        "iso": "800"
+      }
     },
     {
       "file": "flowers6.jpg",
       "caption": "<h2>Hymenocallis littoralis (Beach Spider Lily)</h2>",
-      "alt": "Beach Spider Lily"
+      "alt": "Beach Spider Lily",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/1250s",
+        "iso": "640",
+        "focal": "204mm"
+      }
     },
     {
       "file": "flowers7.jpg",
       "caption": "<h2>Passiflora incarnata (Purple Passion Flower)</h2>",
-      "alt": "Purple Passion Flower"
+      "alt": "Purple Passion Flower",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/3200s",
+        "iso": "3200",
+        "focal": "210mm"
+      }
     },
     {
       "file": "flowers8.jpg",
       "caption": "<h2>Bauhinia purpurea (Purple Orchid Tree)</h2>",
-      "alt": "Purple Orchid Tree"
+      "alt": "Purple Orchid Tree",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/4000s",
+        "iso": "3200",
+        "focal": "210mm"
+      }
     },
     {
       "file": "flowers9.jpg",
       "caption": "<h2>Water Lily</h2>",
-      "alt": "Water Lily"
+      "alt": "Water Lily",
+      "exif": {
+        "iso": "160"
+      }
     },
     {
       "file": "flowers10.jpg",
@@ -257,52 +488,109 @@
     {
       "file": "flowers11.jpg",
       "caption": "<h2>Aptenia cordifolia (Baby Sun Rose)</h2>",
-      "alt": "Baby Sun Rose"
+      "alt": "Baby Sun Rose",
+      "exif": {
+        "iso": "500"
+      }
     },
     {
       "file": "flowers12.jpg",
       "caption": "<h2>Blue Plumbago Auriculata</h2>",
-      "alt": "Blue Plumbago Auriculata"
+      "alt": "Blue Plumbago Auriculata",
+      "exif": {
+        "fstop": "f/2.8",
+        "shutter": "1/800s",
+        "iso": "160",
+        "focal": "35mm"
+      }
     },
     {
       "file": "flowers13.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/500s",
+        "iso": "800",
+        "focal": "210mm"
+      }
     },
     {
       "file": "flowers14.jpg",
       "caption": "<h2>Bougainvillea</h2><h4>paper-flowers</h4>",
-      "alt": "Bougainvillea"
+      "alt": "Bougainvillea",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/2500s",
+        "iso": "320",
+        "focal": "142mm"
+      }
     },
     {
       "file": "flowers15.jpg",
       "caption": "<h2>Stokes' Aster</h2>",
-      "alt": "Stokes' Aster"
+      "alt": "Stokes' Aster",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/800s",
+        "iso": "50",
+        "focal": "35mm"
+      }
     },
     {
       "file": "flowers16.jpg",
       "caption": "<h2>Sphagneticola trilobata (Wedelia)</h2>",
-      "alt": "Wedelia"
+      "alt": "Wedelia",
+      "exif": {
+        "fstop": "f/2.8",
+        "shutter": "1/800s",
+        "iso": "200",
+        "focal": "35mm"
+      }
     },
     {
       "file": "flowers17.jpg",
       "caption": "<h2>Lagerstroemia speciosa (Queen's Crape Myrtle)</h2><h4>Pride of India</h4>",
-      "alt": "Queen's Crape Myrtle"
+      "alt": "Queen's Crape Myrtle",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/800s",
+        "iso": "125",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "flowers18.jpg",
       "caption": "<h2>Nymphaea capensis (Indian Blue Lotus)</h2>",
-      "alt": "Indian Blue Lotus"
+      "alt": "Indian Blue Lotus",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/160s",
+        "iso": "125",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "flowers19.jpg",
       "caption": "<h2>Nelumbo nucifera (Sacred Lotus)</h2>",
-      "alt": "Sacred Lotus"
+      "alt": "Sacred Lotus",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/400s",
+        "iso": "125",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "flowers20.jpg",
       "caption": "<h2>Passiflora foetida (Rambusa)</h2><h3>Stinking Passion Flower</h3>",
-      "alt": "Rambusa"
+      "alt": "Rambusa",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/241s",
+        "iso": "100",
+        "focal": "4.1mm"
+      }
     },
     {
       "file": "flowers21.jpg",
@@ -319,57 +607,120 @@
     {
       "file": "insects1.jpg",
       "caption": "<h2>Papilio demoleus (Lime Swallowtail)</h2>",
-      "alt": "Lime Swallowtail"
+      "alt": "Lime Swallowtail",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/160s",
+        "iso": "640",
+        "focal": "210mm"
+      }
     },
     {
       "file": "insects2.jpg",
       "caption": "<h2>Male damselfly</h2>",
-      "alt": "Damselfly"
+      "alt": "Damselfly",
+      "exif": {
+        "fstop": "f/4.5",
+        "shutter": "1/500s",
+        "iso": "400",
+        "focal": "35mm"
+      }
     },
     {
       "file": "insects3.jpg",
       "caption": "<h2>Papilio polytes (Common Mormon)</h2>",
-      "alt": "Common Mormon"
+      "alt": "Common Mormon",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/640s",
+        "iso": "1250",
+        "focal": "210mm"
+      }
     },
     {
       "file": "insects4.jpg",
       "caption": "<h2>Talicada nyseus (Red Pierrot)</h2>",
-      "alt": "Red Pierrot"
+      "alt": "Red Pierrot",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/100s",
+        "iso": "32",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "insects5.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/400s",
+        "iso": "400",
+        "focal": "35mm"
+      }
     },
     {
       "file": "insects6.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/146s",
+        "iso": "20",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "insects7.jpg",
       "caption": "<h2>Papilio demoleus (Lime Swallowtail)</h2>",
-      "alt": "Lime Swallowtail"
+      "alt": "Lime Swallowtail",
+      "exif": {
+        "fstop": "f/5",
+        "shutter": "1/500s",
+        "iso": "500",
+        "focal": "35mm"
+      }
     },
     {
       "file": "insects8.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "250"
+      }
     },
     {
       "file": "insects9.jpg",
       "caption": "<h2>Chilades lajus (Lime Blue)</h2>",
-      "alt": "Lime Blue"
+      "alt": "Lime Blue",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/550s",
+        "iso": "20",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "insects10.jpg",
       "caption": "<h2>Ariadne merione (Common Castor)</h2>",
-      "alt": "Common Castor"
+      "alt": "Common Castor",
+      "exif": {
+        "fstop": "f/2.8",
+        "shutter": "1/2000s",
+        "iso": "500",
+        "focal": "35mm"
+      }
     },
     {
       "file": "insects11.jpg",
       "caption": "<h2>Neurothemis fluctuans (Red Grasshawk)</h2>",
-      "alt": "Red Grasshawk"
+      "alt": "Red Grasshawk",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/640s",
+        "iso": "500",
+        "focal": "210mm"
+      }
     },
     {
       "file": "insects12.jpg",
@@ -379,12 +730,21 @@
     {
       "file": "insects13.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/6.3",
+        "shutter": "1/500s",
+        "iso": "200",
+        "focal": "210mm"
+      }
     },
     {
       "file": "insects14.jpg",
       "caption": "<h2>Neurothemis tullia (Pied Paddy Skimmer)</h2>",
-      "alt": "Pied Paddy Skimmer"
+      "alt": "Pied Paddy Skimmer",
+      "exif": {
+        "iso": "200"
+      }
     }
   ],
   "landscapes": [
@@ -396,17 +756,35 @@
     {
       "file": "landscapes2.jpg",
       "caption": "<h2>⚲ Uluwatu Temple</h2><h3>Bali</h3>",
-      "alt": "Uluwatu Temple"
+      "alt": "Uluwatu Temple",
+      "exif": {
+        "fstop": "f/2.2",
+        "shutter": "1/3891s",
+        "iso": "42",
+        "focal": "1.9mm"
+      }
     },
     {
       "file": "landscapes3.jpg",
       "caption": "<h2>⚲ Gopinatham</h2><h3>Karnataka</h3>",
-      "alt": "Gopinatham"
+      "alt": "Gopinatham",
+      "exif": {
+        "fstop": "f/2.2",
+        "shutter": "1/5457s",
+        "iso": "50",
+        "focal": "2.2mm"
+      }
     },
     {
       "file": "landscapes4.jpg",
       "caption": "<h2>⚲ SRS Hills, Ramanagara</h2><h3>Karnataka</h3>",
-      "alt": "SRS Hills (Ramanagara)"
+      "alt": "SRS Hills (Ramanagara)",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/10526s",
+        "iso": "21",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "landscapes5.jpg",
@@ -416,99 +794,201 @@
     {
       "file": "landscapes6.jpg",
       "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",
-      "alt": "Chikkamagaluru"
+      "alt": "Chikkamagaluru",
+      "exif": {
+        "fstop": "f/4.9",
+        "shutter": "1/100s",
+        "iso": "250",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "landscapes7.jpg",
       "caption": "<h2>⚲ Chikkamagaluru</h2><h3>Karnataka</h3>",
-      "alt": "Chikkamagaluru"
+      "alt": "Chikkamagaluru",
+      "exif": {
+        "fstop": "f/2.5",
+        "shutter": "1/100s",
+        "iso": "125",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "landscapes8.jpg",
       "caption": "<h2>⚲ Bogmalo beach</h2><h3>Goa</h3>",
-      "alt": "Bogmalo beach"
+      "alt": "Bogmalo beach",
+      "exif": {
+        "iso": "1600"
+      }
     },
     {
       "file": "landscapes9.jpg",
       "caption": "<h2>⚲ Devil's Finger</h2><h3>Goa</h3>",
-      "alt": "Devil's Finger beach"
+      "alt": "Devil's Finger beach",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/5236s",
+        "iso": "21",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "landscapes10.jpg",
       "caption": "<h2>⚲ Uluwatu Temple</h2><h3>Bali</h3>",
-      "alt": "Uluwatu Temple"
+      "alt": "Uluwatu Temple",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/500s",
+        "iso": "250",
+        "focal": "99mm"
+      }
     },
     {
       "file": "landscapes11.jpg",
       "caption": "<h2>⚲ Mount Batur</h2><h3>Bali</h3>",
-      "alt": "Mount Batur"
+      "alt": "Mount Batur",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/2088s",
+        "iso": "21",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "landscapes12.jpg",
       "caption": "<h2>⚲ Goa Gajah, Ubud</h2><h3>Bali</h3>",
-      "alt": "Goa Gajah (Ubud)"
+      "alt": "Goa Gajah (Ubud)",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/950s",
+        "iso": "21",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "landscapes13.jpg",
       "caption": "<h2>⚲ Karanji Lake, Mysuru</h2><h3>Karnataka</h3>",
-      "alt": "Karanji Lake (Mysuru)"
+      "alt": "Karanji Lake (Mysuru)",
+      "exif": {
+        "iso": "160"
+      }
     }
   ],
   "skies": [
     {
       "file": "skies1.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "80"
+      }
     },
     {
       "file": "skies2.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/125s",
+        "iso": "20",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "skies3.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/50s",
+        "iso": "20",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "skies4.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/531s",
+        "iso": "20",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "skies5.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "iso": "64"
+      }
     },
     {
       "file": "skies6.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/7.1",
+        "shutter": "1/800s",
+        "iso": "125",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "skies7.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/800s",
+        "iso": "125",
+        "focal": "22.7mm"
+      }
     },
     {
       "file": "skies8.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/4.9",
+        "shutter": "1/30s",
+        "iso": "800",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "skies9.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/7.1",
+        "shutter": "1/800s",
+        "iso": "125",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "skies10.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/2.5",
+        "shutter": "1/100s",
+        "iso": "125",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "skies11.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/7.1",
+        "shutter": "1/800s",
+        "iso": "125",
+        "focal": "34.6mm"
+      }
     },
     {
       "file": "skies12.jpg",
@@ -518,27 +998,57 @@
     {
       "file": "skies13.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/5",
+        "shutter": "1/100s",
+        "iso": "125",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "skies14.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/2.5",
+        "shutter": "1/100s",
+        "iso": "125",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "skies15.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/5.6",
+        "shutter": "1/100s",
+        "iso": "125",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "skies16.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/500s",
+        "iso": "200",
+        "focal": "10.4mm"
+      }
     },
     {
       "file": "skies17.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/4.9",
+        "shutter": "1/100s",
+        "iso": "400",
+        "focal": "37.1mm"
+      }
     },
     {
       "file": "skies18.jpg",
@@ -548,7 +1058,13 @@
     {
       "file": "skies19.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/260s",
+        "iso": "21",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "skies20.jpg",
@@ -558,42 +1074,90 @@
     {
       "file": "skies21.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/10",
+        "shutter": "1/800s",
+        "iso": "50",
+        "focal": "139mm"
+      }
     },
     {
       "file": "skies22.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.7",
+        "shutter": "1/2717s",
+        "iso": "21",
+        "focal": "6.9mm"
+      }
     },
     {
       "file": "skies23.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/2.2",
+        "shutter": "1/102s",
+        "iso": "40",
+        "focal": "1.4mm"
+      }
     },
     {
       "file": "skies24.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/2.2",
+        "shutter": "1/50s",
+        "iso": "80",
+        "focal": "1.4mm"
+      }
     },
     {
       "file": "skies25.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/50s",
+        "iso": "80",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "skies26.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/50s",
+        "iso": "200",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "skies27.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/50s",
+        "iso": "200",
+        "focal": "5.2mm"
+      }
     },
     {
       "file": "skies28.jpg",
       "caption": "",
-      "alt": ""
+      "alt": "",
+      "exif": {
+        "fstop": "f/1.8",
+        "shutter": "1/50s",
+        "iso": "25",
+        "focal": "5.2mm"
+      }
     }
   ]
 }

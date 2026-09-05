@@ -86,19 +86,98 @@
     window.addEventListener('resize', autoFullscreenOnMobileLandscape);
     window.addEventListener('orientationchange', autoFullscreenOnMobileLandscape);
 
+    function setupInfoButton(lgEl) {
+      lgEl.addEventListener('lgAfterOpen', () => {
+        const toolbar = document.querySelector('.lg-container .lg-toolbar');
+        if (toolbar && !toolbar.querySelector('.lg-info-wrap')) {
+          const infoWrap = document.createElement('div');
+          infoWrap.className = 'lg-info-wrap';
+          infoWrap.innerHTML = `
+            <button class="lg-info-btn" aria-label="Image Information" title="Image Metadata">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </button>
+            <div class="lg-info-popover" id="lg-info-popover">
+              <div class="lg-info-header">Image Specs</div>
+              <div class="lg-info-content">
+                <div class="lg-info-row"><span class="lg-info-label">F-stop:</span><span class="lg-info-val" id="info-fstop">N/A</span></div>
+                <div class="lg-info-row"><span class="lg-info-label">Shutter Speed:</span><span class="lg-info-val" id="info-shutter">N/A</span></div>
+                <div class="lg-info-row"><span class="lg-info-label">ISO:</span><span class="lg-info-val" id="info-iso">N/A</span></div>
+                <div class="lg-info-row"><span class="lg-info-label">Focal Length:</span><span class="lg-info-val" id="info-focal">N/A</span></div>
+              </div>
+            </div>
+          `;
+
+          // Insert: [info] [fullscreen] [close]  — so insert before the fullscreen button
+          const fsBtn = toolbar.querySelector('.lg-fullscreen');
+          const closeBtn = toolbar.querySelector('.lg-close');
+          const insertBefore = fsBtn || closeBtn;
+          if (insertBefore) {
+            toolbar.insertBefore(infoWrap, insertBefore);
+          } else {
+            toolbar.appendChild(infoWrap);
+          }
+
+          const infoBtn = infoWrap.querySelector('.lg-info-btn');
+          infoBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            infoWrap.classList.toggle('active');
+          });
+
+          document.addEventListener('click', (e) => {
+            if (!infoWrap.contains(e.target)) {
+              infoWrap.classList.remove('active');
+            }
+          });
+        }
+        autoFullscreenOnMobileLandscape();
+      });
+
+      lgEl.addEventListener('lgAfterSlide', (e) => {
+        const items = lgEl.querySelectorAll('a[data-sub-html]');
+        const activeItem = items[e.detail.index];
+        if (!activeItem) return;
+
+        const fstopEl = document.getElementById('info-fstop');
+        const shutterEl = document.getElementById('info-shutter');
+        const isoEl = document.getElementById('info-iso');
+        const focalEl = document.getElementById('info-focal');
+
+        if (fstopEl) fstopEl.textContent = activeItem.dataset.fstop || 'N/A';
+        if (shutterEl) shutterEl.textContent = activeItem.dataset.shutter || 'N/A';
+        if (isoEl) isoEl.textContent = activeItem.dataset.iso || 'N/A';
+        if (focalEl) focalEl.textContent = activeItem.dataset.focal || 'N/A';
+      });
+    }
+
     const container = document.getElementById("flowers-gallery");
 
     fetch("images.json")
       .then(res => res.json())
       .then(data => {
         if (data.flowers) {
-          data.flowers.forEach(({ file, caption, alt }) => {
+          data.flowers.forEach(({ file, caption, alt, exif }) => {
             const fullSrc  = `images/flowers/${file}`;
             const thumbSrc = `images/flowers/thumbs/${file}`;
 
             const link = document.createElement("a");
             link.href = fullSrc;
             link.setAttribute("data-sub-html", caption ? `<div class="lg-caption-wrap">${caption}</div>` : "");
+
+            if (exif) {
+              link.dataset.fstop = exif.fstop || 'N/A';
+              link.dataset.shutter = exif.shutter || 'N/A';
+              link.dataset.iso = exif.iso || 'N/A';
+              link.dataset.focal = exif.focal || 'N/A';
+            } else {
+              link.dataset.fstop = 'N/A';
+              link.dataset.shutter = 'N/A';
+              link.dataset.iso = 'N/A';
+              link.dataset.focal = 'N/A';
+            }
 
             const img = document.createElement("img");
             img.src = thumbSrc;
@@ -130,7 +209,7 @@
               doubleTapZoom: 1.5
             });
 
-            lgEl.addEventListener('lgAfterOpen', autoFullscreenOnMobileLandscape);
+            setupInfoButton(lgEl);
           });
         });
       });

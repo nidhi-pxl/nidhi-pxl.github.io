@@ -355,6 +355,46 @@ main {
   }
 }
 
+/* LightGallery Toolbar — full width so counter stays left, icons stay right */
+.lg-container .lg-toolbar {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  float: none !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 46px !important;
+  z-index: 1090 !important;
+  padding: 0 4px !important;
+  box-sizing: border-box !important;
+}
+
+/* Counter (1/20) stays at the left — LG renders it as .lg-counter inside toolbar */
+.lg-container .lg-toolbar .lg-counter {
+  order: -1 !important;
+  margin-right: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* All icon buttons and the info wrap stay right-aligned */
+.lg-container .lg-toolbar .lg-icon,
+.lg-container .lg-toolbar .lg-info-wrap {
+  float: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Toolbar button order (right side): info → fullscreen → close */
+.lg-container .lg-toolbar .lg-info-wrap  { order: 1 !important; }
+.lg-container .lg-toolbar .lg-fullscreen { order: 2 !important; }
+.lg-container .lg-toolbar .lg-close      { order: 3 !important; }
+
 /* LightGallery Customizations & Smooth Captions */
 .lg-sub-html {
   padding: 12px 24px 18px;
@@ -415,6 +455,90 @@ main {
   border-bottom-color: rgba(255, 255, 255, 0.85);
   background: transparent;
   transform: none;
+}
+
+/* Information 'i' Icon & EXIF Metadata Popover */
+.lg-info-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.lg-info-btn {
+  background: transparent;
+  border: none;
+  color: #999999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  transition: color 0.2s ease;
+}
+
+.lg-info-btn:hover {
+  color: #ffffff;
+}
+
+.lg-info-popover {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 220px;
+  background: rgba(14, 16, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 2000;
+  text-align: left;
+}
+
+.lg-info-wrap:hover .lg-info-popover,
+.lg-info-wrap.active .lg-info-popover {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.lg-info-header {
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lg-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-size: 0.83rem;
+  padding: 4px 0;
+}
+
+.lg-info-label {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+}
+
+.lg-info-val {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 /* Fullscreen Mode: ONLY Hide Thumbnail Preview Strip, Keep Caption Title & Redirect Button Clickable */
