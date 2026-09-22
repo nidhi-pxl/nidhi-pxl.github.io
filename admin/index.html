@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Nidhi Mekaraj Photography</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Site CSS & Admin Styling -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- Supabase JS SDK v2 & Config -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+
+  <!-- EXIF JS for Client-side EXIF Extraction -->
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+
+  <style>
+    /* Admin Dark Theme Overrides & Layout */
+    :root {
+      --bg-dark: #0a0c0e;
+      --card-bg: rgba(20, 24, 30, 0.85);
+      --border-color: rgba(255, 255, 255, 0.12);
+      --accent-color: #3b82f6;
+      --accent-hover: #2563eb;
+      --danger-color: #ef4444;
+      --danger-hover: #dc2626;
+      --text-main: #e6e8eb;
+      --text-muted: #9ca3af;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* Auth Screen */
+    .auth-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    .auth-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .auth-card h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2rem;
+      margin-top: 0;
+      margin-bottom: 8px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .auth-card p.subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    /* Form Controls */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    textarea.form-control {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #0a0c0e;
+    }
+
+    .btn-primary:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-accent {
+      background: var(--accent-color);
+      color: #ffffff;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-danger {
+      background: var(--danger-color);
+      color: #ffffff;
+    }
+
+    .btn-danger:hover {
+      background: var(--danger-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Header Nav */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 28px;
+    }
+
+    .admin-header h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.2rem;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .admin-header p {
+      margin: 4px 0 0 0;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Toolbar & Search */
+    .dashboard-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .search-filter-group {
+      display: flex;
+      gap: 12px;
+      flex: 1;
+      max-width: 600px;
+    }
+
+    /* Table & Card List */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--card-bg);
+    }
+
+    table.admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.admin-table th,
+    table.admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    table.admin-table th {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    table.admin-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .thumb-cell img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: block;
+    }
+
+    .badge-cat {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .exif-summary {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: #12161c;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-header h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: #ffffff;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Image Preview in Modal */
+    .image-preview-wrap {
+      width: 100%;
+      height: 180px;
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.3);
+      margin-top: 8px;
+      position: relative;
+    }
+
+    .image-preview-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .image-preview-placeholder {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* Notifications & Alert banners */
+    .alert-box {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .alert-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .alert-success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="admin-container">
+    
+    <!-- Alert Notification Banner -->
+    <div id="alertBanner" class="alert-box"></div>
+
+    <!-- 1. AUTH SCREEN (Visible when unauthenticated) -->
+    <div id="authScreen" class="auth-wrapper">
+      <div class="auth-card">
+        <h2>Portfolio Admin</h2>
+        <p class="subtitle">Nidhi Mekaraj Photography</p>
+        
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" class="form-control" placeholder="admin@example.com" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required />
+          </div>
+
+          <button type="submit" id="loginBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+            Sign In to Dashboard
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. DASHBOARD SCREEN (Visible when logged in as Admin) -->
+    <div id="dashboardScreen" style="display: none;">
+      
+      <header class="admin-header">
+        <div>
+          <h1>Nidhi Mekaraj</h1>
+          <p>Portfolio Content Management System</p>
+        </div>
+        <div class="user-info">
+          <span id="userEmailSpan" style="font-size: 0.88rem; color: var(--text-muted);"></span>
+          <a href="../" target="_blank" class="btn btn-secondary btn-sm">View Live Site ↗</a>
+          <button id="logoutBtn" class="btn btn-secondary btn-sm">Log Out</button>
+        </div>
+      </header>
+
+      <!-- Dashboard Toolbar -->
+      <div class="dashboard-toolbar">
+        <div class="search-filter-group">
+          <input type="text" id="searchInput" class="form-control" placeholder="Search title, subtitle, or category..." />
+          <select id="categoryFilter" class="form-control" style="width: 180px;">
+            <option value="ALL">All Categories</option>
+            <option value="Flowers">Flowers</option>
+            <option value="Skies">Skies</option>
+            <option value="Animals">Animals</option>
+            <option value="Landscapes">Landscapes</option>
+            <option value="Insects">Insects</option>
+            <option value="Astro">Astro</option>
+          </select>
+        </div>
+
+        <button id="openAddModalBtn" class="btn btn-accent">
+          + Add Photograph
+        </button>
+      </div>
+
+      <!-- Photographs Table -->
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Thumbnail</th>
+              <th>Title / Subtitle</th>
+              <th style="width: 120px;">Category</th>
+              <th style="width: 200px;">EXIF Metadata</th>
+              <th style="width: 140px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="photoTableBody">
+            <tr>
+              <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                Loading photographs from Supabase...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 3. ADD / EDIT PHOTOGRAPH MODAL -->
+  <div id="photoModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add New Photograph</h3>
+        <button class="modal-close" onclick="closePhotoModal()">&times;</button>
+      </div>
+
+      <form id="photoForm">
+        <input type="hidden" id="photoId" />
+
+        <!-- Image Upload / File Picker -->
+        <div class="form-group">
+          <label>Photograph Image File</label>
+          <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp" class="form-control" />
+          <div class="image-preview-wrap" id="previewWrap">
+            <div class="image-preview-placeholder" id="previewPlaceholder">Select an image file to preview & auto-detect EXIF</div>
+            <img id="imagePreview" style="display: none;" />
+          </div>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="photoTitle">Title *</label>
+            <input type="text" id="photoTitle" class="form-control" placeholder="e.g. Blue Plumbago Auriculata" required />
+          </div>
+          <div class="form-group">
+            <label for="photoSubtitle">Subtitle</label>
+            <input type="text" id="photoSubtitle" class="form-control" placeholder="e.g. ⚲ Bits Goa" />
+          </div>
+        </div>
+
+        <!-- Category & Alt Text -->
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="photoCategory">Category *</label>
+            <select id="photoCategory" class="form-control" required>
+              <option value="Flowers">Flowers</option>
+              <option value="Skies">Skies</option>
+              <option value="Animals">Animals</option>
+              <option value="Landscapes">Landscapes</option>
+              <option value="Insects">Insects</option>
+              <option value="Astro">Astro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="photoAlt">Alt Text</label>
+            <input type="text" id="photoAlt" class="form-control" placeholder="Accessibility description" />
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="photoDescription">Description</label>
+          <textarea id="photoDescription" class="form-control" placeholder="Optional story or notes about this photograph"></textarea>
+        </div>
+
+        <!-- EXIF Metadata Section -->
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+          <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">
+            Image Specs / EXIF Metadata
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="photoFstop">F-stop</label>
+              <input type="text" id="photoFstop" class="form-control" placeholder="e.g. f/6.3" />
+            </div>
+            <div class="form-group">
+              <label for="photoShutter">Shutter Speed</label>
+              <input type="text" id="photoShutter" class="form-control" placeholder="e.g. 1/500s" />
+            </div>
+            <div class="form-group">
+              <label for="photoIso">ISO Speed</label>
+              <input type="number" id="photoIso" class="form-control" placeholder="e.g. 500" />
+            </div>
+            <div class="form-group">
+              <label for="photoFocal">Focal Length</label>
+              <input type="text" id="photoFocal" class="form-control" placeholder="e.g. 210mm" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="uploadProgressBar" class="progress-bar-wrap">
+          <div id="uploadProgressFill" class="progress-bar-fill"></div>
+        </div>
+        <div id="uploadStatusText" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; text-align: center; display: none;"></div>
+
+        <!-- Modal Actions -->
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button type="button" class="btn btn-secondary" onclick="closePhotoModal()">Cancel</button>
+          <button type="submit" id="savePhotoBtn" class="btn btn-accent">Save Photograph</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. DELETE CONFIRMATION MODAL -->
+  <div id="deleteModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>Delete Photograph</h3>
+        <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
+      </div>
+
+      <p style="font-size: 0.95rem; color: var(--text-main); margin-bottom: 24px;">
+        Are you sure you want to delete <strong id="deletePhotoTitle"></strong>?
+        This action will remove the database record and delete both original and thumbnail storage objects from Supabase.
+      </p>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px;">
+        <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Delete Permanently</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin JavaScript Logic -->
+  <script>
+    // State management
+    let allPhotos = [];
+    let currentPhotoToDelete = null;
+
+    // DOM Elements
+    const authScreen = document.getElementById('authScreen');
+    const dashboardScreen = document.getElementById('dashboardScreen');
+    const loginForm = document.getElementById('loginForm');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userEmailSpan = document.getElementById('userEmailSpan');
+    const alertBanner = document.getElementById('alertBanner');
+
+    const photoTableBody = document.getElementById('photoTableBody');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const openAddModalBtn = document.getElementById('openAddModalBtn');
+
+    const photoModal = document.getElementById('photoModal');
+    const photoForm = document.getElementById('photoForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const imageFileInput = document.getElementById('imageFileInput');
+    const previewWrap = document.getElementById('previewWrap');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+    const savePhotoBtn = document.getElementById('savePhotoBtn');
+    const uploadProgressBar = document.getElementById('uploadProgressBar');
+    const uploadProgressFill = document.getElementById('uploadProgressFill');
+    const uploadStatusText = document.getElementById('uploadStatusText');
+
+    const deleteModal = document.getElementById('deleteModal');
+    const deletePhotoTitle = document.getElementById('deletePhotoTitle');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+    // Helper: Show Banner Alert
+    function showAlert(msg, type = 'danger') {
+      alertBanner.className = `alert-box alert-${type}`;
+      alertBanner.textContent = msg;
+      alertBanner.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        alertBanner.style.display = 'none';
+      }, 6000);
+    }
+
+    // ── Authentication Workflow ─────────────────────────────────────────────
+
+    async function initAuth() {
+      const supabase = window.getSupabaseClient();
+      if (!supabase) return;
+
+      const { data: { session } } = await supabase.auth.getSession();
+      handleSessionState(session);
+
+      supabase.auth.onAuthStateChange((event, session) => {
+        handleSessionState(session);
+      });
+    }
+
+    function handleSessionState(session) {
+      if (session && session.user) {
+        // UI Check for Admin User ID (RLS enforces database security)
+        const configAdminUid = window.SUPABASE_CONFIG ? window.SUPABASE_CONFIG.ADMIN_UID : null;
+        if (configAdminUid && configAdminUid !== 'YOUR_ADMIN_USER_ID' && session.user.id !== configAdminUid) {
+          showAlert('Unauthorized access: Your user ID does not match configured admin permissions.', 'danger');
+          window.getSupabaseClient().auth.signOut();
+          showAuthScreen();
+          return;
+        }
+
+        userEmailSpan.textContent = session.user.email;
+        authScreen.style.display = 'none';
+        dashboardScreen.style.display = 'block';
+        fetchPhotographs();
+      } else {
+        showAuthScreen();
+      }
+    }
+
+    function showAuthScreen() {
+      authScreen.style.display = 'flex';
+      dashboardScreen.style.display = 'none';
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Signing in...';
+
+      const supabase = window.getSupabaseClient();
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: loginEmail.value.trim(),
+        password: loginPassword.value
+      });
+
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Sign In to Dashboard';
+
+      if (error) {
+        showAlert(error.message, 'danger');
+      }
+    });
+
+    logoutBtn.addEventListener('click', async () => {
+      const supabase = window.getSupabaseClient();
+      await supabase.auth.signOut();
+    });
+
+    // ── Fetch & Render Dashboard Data ──────────────────────────────────────
+
+    async function fetchPhotographs() {
+      const supabase = window.getSupabaseClient();
+      photoTableBody.innerHTML = `
+        <tr>
+          <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
+            Fetching photographs from Supabase...
+          </td>
+        </tr>`;
+
+      const { data, error } = await supabase
+        .from('photographs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        showAlert(`Error loading photographs: ${error.message}`, 'danger');
+        photoTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #fca5a5;">Failed to load data</td></tr>`;
+        return;
+      }
+
+      allPhotos = data || [];
+      renderPhotoTable();
+    }
+
+    function renderPhotoTable() {
+      const query = searchInput.value.toLowerCase().trim();
+      const cat = categoryFilter.value;
+
+      const filtered = allPhotos.filter(item => {
+        const matchesCat = (cat === 'ALL' || item.category === cat);
+        const matchesSearch = !query || 
+          (item.title && item.title.toLowerCase().includes(query)) ||
+          (item.subtitle && item.subtitle.toLowerCase().includes(query)) ||
+          (item.category && item.category.toLowerCase().includes(query));
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        photoTableBody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
+              No photographs found matching your criteria.
+            </td>
+          </tr>`;
+        return;
+      }
+
+      photoTableBody.innerHTML = filtered.map(r => {
+        const thumbUrl = window.getPublicUrl(r.thumbnail_path);
+        const exifParts = [];
+        if (r.fstop) exifParts.push(r.fstop);
+        if (r.shutter_speed) exifParts.push(r.shutter_speed);
+        if (r.iso) exifParts.push(`ISO ${r.iso}`);
+        if (r.focal_length) exifParts.push(r.focal_length);
+        const exifText = exifParts.length > 0 ? exifParts.join(' · ') : 'No EXIF metadata';
+
+        const subtitleText = r.subtitle ? `<br><small style="color: var(--text-muted);">${r.subtitle}</small>` : '';
+
+        return `
+          <tr>
+            <td class="thumb-cell">
+              <img src="${thumbUrl}" alt="${r.alt_text || r.title}" onerror="this.src='../images/placeholder.jpg'" />
+            </td>
+            <td>
+              <strong>${escapeHtml(r.title)}</strong>
+              ${subtitleText}
+            </td>
+            <td>
+              <span class="badge-cat">${r.category}</span>
+            </td>
+            <td class="exif-summary">
+              ${exifText}
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-secondary btn-sm" onclick="openEditModal('${r.id}')">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="openDeleteModal('${r.id}')">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    searchInput.addEventListener('input', renderPhotoTable);
+    categoryFilter.addEventListener('change', renderPhotoTable);
+
+    // ── Client-side Thumbnail Generator (Max 400px Wide, JPEG Quality 85) ──
+
+    function generateThumbnailBlob(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const targetWidth = 400;
+            let targetHeight = img.height;
+            if (img.width > targetWidth) {
+              targetHeight = Math.round(img.height * targetWidth / img.width);
+              canvas.width = targetWidth;
+              canvas.height = targetHeight;
+            } else {
+              canvas.width = img.width;
+              canvas.height = img.height;
+            }
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob((blob) => {
+              if (blob) {
+                resolve(blob);
+              } else {
+                reject(new Error('Canvas thumbnail generation failed'));
+              }
+            }, 'image/jpeg', 0.85);
+          };
+          img.onerror = () => reject(new Error('Failed to load image for thumbnail generation'));
+          img.src = e.target.result;
+        };
+        reader.onerror = () => reject(new Error('Failed to read image file'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ── EXIF Extraction & File Input Handling ────────────────────────────────
+
+    imageFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // Display Preview
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        imagePreview.src = ev.target.result;
+        imagePreview.style.display = 'block';
+        previewPlaceholder.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+
+      // Auto-extract EXIF metadata
+      if (window.EXIF) {
+        EXIF.getData(file, function () {
+          const fstopRaw = EXIF.getTag(this, 'FNumber');
+          const shutterRaw = EXIF.getTag(this, 'ExposureTime');
+          const isoRaw = EXIF.getTag(this, 'ISOSpeedRatings') || EXIF.getTag(this, 'PhotographicSensitivity');
+          const focalRaw = EXIF.getTag(this, 'FocalLength');
+
+          if (fstopRaw) {
+            document.getElementById('photoFstop').value = `f/${parseFloat(fstopRaw).toFixed(1).replace(/\.0$/, '')}`;
+          }
+          if (shutterRaw) {
+            const val = parseFloat(shutterRaw);
+            if (val > 0 && val < 1) {
+              document.getElementById('photoShutter').value = `1/${Math.round(1 / val)}s`;
+            } else if (val >= 1) {
+              document.getElementById('photoShutter').value = `${val}s`;
+            }
+          }
+          if (isoRaw) {
+            const isoVal = Array.isArray(isoRaw) ? isoRaw[0] : isoRaw;
+            document.getElementById('photoIso').value = parseInt(isoVal);
+          }
+          if (focalRaw) {
+            document.getElementById('photoFocal').value = `${Math.round(parseFloat(focalRaw))}mm`;
+          }
+        });
+      }
+    });
+
+    // ── Modal Operations: Add & Edit ───────────────────────────────────────
+
+    openAddModalBtn.addEventListener('click', () => {
+      photoForm.reset();
+      document.getElementById('photoId').value = '';
+      modalTitle.textContent = 'Add New Photograph';
+      imagePreview.style.display = 'none';
+      previewPlaceholder.style.display = 'block';
+      imageFileInput.required = true;
+      uploadProgressBar.style.display = 'none';
+      uploadStatusText.style.display = 'none';
+      photoModal.classList.add('active');
+    });
+
+    function openEditModal(photoId) {
+      const item = allPhotos.find(p => p.id === photoId);
+      if (!item) return;
+
+      photoForm.reset();
+      document.getElementById('photoId').value = item.id;
+      document.getElementById('photoTitle').value = item.title || '';
+      document.getElementById('photoSubtitle').value = item.subtitle || '';
+      document.getElementById('photoDescription').value = item.description || '';
+      document.getElementById('photoCategory').value = item.category || 'Flowers';
+      document.getElementById('photoAlt').value = item.alt_text || '';
+      document.getElementById('photoFstop').value = item.fstop || '';
+      document.getElementById('photoShutter').value = item.shutter_speed || '';
+      document.getElementById('photoIso').value = item.iso || '';
+      document.getElementById('photoFocal').value = item.focal_length || '';
+
+      imageFileInput.required = false; // Optional replacement on edit
+      modalTitle.textContent = `Edit Photograph: ${item.title}`;
+
+      const thumbUrl = window.getPublicUrl(item.thumbnail_path);
+      imagePreview.src = thumbUrl;
+      imagePreview.style.display = 'block';
+      previewPlaceholder.style.display = 'none';
+
+      uploadProgressBar.style.display = 'none';
+      uploadStatusText.style.display = 'none';
+      photoModal.classList.add('active');
+    }
+
+    function closePhotoModal() {
+      photoModal.classList.remove('active');
+    }
+
+    // ── Save / Upload Form Submission Workflow ─────────────────────────────
+
+    photoForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const photoId = document.getElementById('photoId').value;
+      const isEdit = !!photoId;
+      const existingItem = isEdit ? allPhotos.find(p => p.id === photoId) : null;
+
+      const title = document.getElementById('photoTitle').value.trim();
+      const subtitle = document.getElementById('photoSubtitle').value.trim() || null;
+      const description = document.getElementById('photoDescription').value.trim() || null;
+      const category = document.getElementById('photoCategory').value;
+      const altText = document.getElementById('photoAlt').value.trim() || null;
+      const fstop = document.getElementById('photoFstop').value.trim() || null;
+      const shutter = document.getElementById('photoShutter').value.trim() || null;
+      const isoInput = document.getElementById('photoIso').value;
+      const iso = isoInput ? parseInt(isoInput) : null;
+      const focal = document.getElementById('photoFocal').value.trim() || null;
+
+      const file = imageFileInput.files[0];
+
+      if (!isEdit && !file) {
+        alert('Please choose an image file to upload.');
+        return;
+      }
+
+      savePhotoBtn.disabled = true;
+      savePhotoBtn.textContent = 'Saving...';
+      uploadProgressBar.style.display = 'block';
+      uploadStatusText.style.display = 'block';
+      uploadProgressFill.style.width = '10%';
+      uploadStatusText.textContent = 'Preparing image and generating 400px thumbnail...';
+
+      const supabase = window.getSupabaseClient();
+      const bucket = window.SUPABASE_CONFIG.STORAGE_BUCKET;
+
+      let imagePath = isEdit ? existingItem.image_path : '';
+      let thumbPath = isEdit ? existingItem.thumbnail_path : '';
+      let newlyUploadedOriginalPath = null;
+      let newlyUploadedThumbPath = null;
+
+      try {
+        const catLower = category.toLowerCase();
+        const uuidKey = isEdit ? photoId : crypto.randomUUID();
+
+        // Check if category changed or new image provided
+        const catChanged = isEdit && existingItem && existingItem.category !== category;
+
+        if (file || catChanged) {
+          // If replacing file or changing category
+          uploadProgressFill.style.width = '30%';
+          uploadStatusText.textContent = 'Uploading original image...';
+
+          let origFileBlob = file;
+
+          // If no new file but category changed, we re-upload existing files to new paths
+          if (!file && catChanged) {
+            // Re-upload paths based on existing item
+            const oldExt = existingItem.image_path.substring(existingItem.image_path.lastIndexOf('.'));
+            imagePath = `originals/${catLower}/${uuidKey}${oldExt}`;
+            thumbPath = `thumbnails/${catLower}/${uuidKey}.jpg`;
+          } else if (file) {
+            const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+            const cleanExt = ext === '.jpeg' ? '.jpg' : ext;
+            imagePath = `originals/${catLower}/${uuidKey}${cleanExt}`;
+            thumbPath = `thumbnails/${catLower}/${uuidKey}.jpg`;
+
+            // Upload Original
+            const { error: origErr } = await supabase.storage
+              .from(bucket)
+              .upload(imagePath, file, { upsert: true, contentType: file.type });
+
+            if (origErr) throw new Error(`Original Image Upload Failed: ${origErr.message}`);
+            newlyUploadedOriginalPath = imagePath;
+
+            // Generate and Upload Thumbnail (400px, JPEG 85)
+            uploadProgressFill.style.width = '60%';
+            uploadStatusText.textContent = 'Uploading 400px thumbnail...';
+
+            const thumbBlob = await generateThumbnailBlob(file);
+            const { error: thumbErr } = await supabase.storage
+              .from(bucket)
+              .upload(thumbPath, thumbBlob, { upsert: true, contentType: 'image/jpeg' });
+
+            if (thumbErr) throw new Error(`Thumbnail Upload Failed: ${thumbErr.message}`);
+            newlyUploadedThumbPath = thumbPath;
+          }
+        }
+
+        uploadProgressFill.style.width = '80%';
+        uploadStatusText.textContent = 'Saving database record...';
+
+        const payload = {
+          title,
+          subtitle,
+          description,
+          category,
+          alt_text: altText,
+          fstop,
+          shutter_speed: shutter,
+          iso,
+          focal_length: focal,
+          image_path: imagePath,
+          thumbnail_path: thumbPath
+        };
+
+        if (!isEdit) {
+          payload.id = uuidKey;
+          const { error: dbErr } = await supabase.from('photographs').insert(payload);
+          if (dbErr) throw new Error(`Database Record Insertion Failed: ${dbErr.message}`);
+        } else {
+          const { error: dbErr } = await supabase.from('photographs').update(payload).eq('id', photoId);
+          if (dbErr) throw new Error(`Database Record Update Failed: ${dbErr.message}`);
+
+          // If file replaced or category changed, cleanup old storage objects
+          if (existingItem && (file || catChanged)) {
+            if (existingItem.image_path !== imagePath) {
+              await supabase.storage.from(bucket).remove([existingItem.image_path]);
+            }
+            if (existingItem.thumbnail_path !== thumbPath) {
+              await supabase.storage.from(bucket).remove([existingItem.thumbnail_path]);
+            }
+          }
+        }
+
+        uploadProgressFill.style.width = '100%';
+        uploadStatusText.textContent = 'Success!';
+
+        closePhotoModal();
+        showAlert(isEdit ? 'Photograph updated successfully!' : 'Photograph uploaded successfully!', 'success');
+        fetchPhotographs();
+
+      } catch (err) {
+        console.error('Error during save:', err);
+
+        // Atomic Cleanup on failure: delete newly uploaded storage files if DB insert/update failed
+        if (newlyUploadedOriginalPath) {
+          await supabase.storage.from(bucket).remove([newlyUploadedOriginalPath]);
+        }
+        if (newlyUploadedThumbPath) {
+          await supabase.storage.from(bucket).remove([newlyUploadedThumbPath]);
+        }
+
+        showAlert(err.message || 'Save operation failed.', 'danger');
+      } finally {
+        savePhotoBtn.disabled = false;
+        savePhotoBtn.textContent = 'Save Photograph';
+      }
+    });
+
+    // ── Delete Operation Workflow ──────────────────────────────────────────
+
+    function openDeleteModal(photoId) {
+      const item = allPhotos.find(p => p.id === photoId);
+      if (!item) return;
+
+      currentPhotoToDelete = item;
+      deletePhotoTitle.textContent = `"${item.title}"`;
+      deleteModal.classList.add('active');
+    }
+
+    function closeDeleteModal() {
+      deleteModal.classList.remove('active');
+      currentPhotoToDelete = null;
+    }
+
+    confirmDeleteBtn.addEventListener('click', async () => {
+      if (!currentPhotoToDelete) return;
+
+      const item = currentPhotoToDelete;
+      confirmDeleteBtn.disabled = true;
+      confirmDeleteBtn.textContent = 'Deleting...';
+
+      const supabase = window.getSupabaseClient();
+      const bucket = window.SUPABASE_CONFIG.STORAGE_BUCKET;
+
+      let storageSuccess = true;
+      let dbSuccess = true;
+      const errors = [];
+
+      // 1. Delete Storage Objects
+      const { error: origErr } = await supabase.storage.from(bucket).remove([item.image_path]);
+      if (origErr) {
+        storageSuccess = false;
+        errors.push(`Original Storage: ${origErr.message}`);
+      }
+
+      const { error: thumbErr } = await supabase.storage.from(bucket).remove([item.thumbnail_path]);
+      if (thumbErr) {
+        storageSuccess = false;
+        errors.push(`Thumbnail Storage: ${thumbErr.message}`);
+      }
+
+      // 2. Delete Database Record
+      const { error: dbErr } = await supabase.from('photographs').delete().eq('id', item.id);
+      if (dbErr) {
+        dbSuccess = false;
+        errors.push(`Database Record: ${dbErr.message}`);
+      }
+
+      confirmDeleteBtn.disabled = false;
+      confirmDeleteBtn.textContent = 'Delete Permanently';
+      closeDeleteModal();
+
+      if (!dbSuccess || !storageSuccess) {
+        showAlert(`Partial failure deleting photograph: ${errors.join(' | ')}`, 'danger');
+      } else {
+        showAlert(`Photograph "${item.title}" deleted successfully!`, 'success');
+      }
+
+      fetchPhotographs();
+    });
+
+    // Initialize Auth & Application
+    document.addEventListener('DOMContentLoaded', initAuth);
+  </script>
+</body>
+</html>

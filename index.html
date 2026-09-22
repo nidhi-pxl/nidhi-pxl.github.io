@@ -13,6 +13,10 @@
   <!-- JustifiedGallery CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
 
+  <!-- Supabase JS SDK & Configuration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+
   <script>
     // Clean URL: Automatically remove trailing .html from address bar
     if (window.location.pathname.endsWith('.html')) {
@@ -198,7 +202,7 @@
 
       const batch = shuffled.slice(loadedCount, loadedCount + batchSize);
 
-      batch.forEach(({ src, thumb, caption, alt, folder, exif }) => {
+      batch.forEach(({ src, thumb, title, subtitle, description, alt, folder, exif }) => {
         const a = document.createElement('a');
         a.href = src;
         a.dataset.folder = folder;
@@ -217,15 +221,19 @@
 
         const albumLabel = folder ? folder.charAt(0).toUpperCase() + folder.slice(1) : '';
         const albumBtnHtml = folder ? `<a class="lg-album-link" href="${folder}">→ ${albumLabel}</a>` : '';
-        const captionTextHtml = caption ? `<div>${caption}</div>` : '';
-        const fullSubHtml = `<div class="lg-caption-wrap">${captionTextHtml}${albumBtnHtml}</div>`;
+        
+        let titleHtml = title ? `<h2>${title}</h2>` : '';
+        let subtitleHtml = subtitle ? `<h3>${subtitle}</h3>` : '';
+        let descHtml = description ? `<p>${description}</p>` : '';
+
+        const fullSubHtml = `<div class="lg-caption-wrap">${titleHtml}${subtitleHtml}${descHtml}${albumBtnHtml}</div>`;
 
         a.setAttribute('data-sub-html', fullSubHtml);
         a.classList.add("gallery-item");
 
         const img = document.createElement('img');
         img.src = thumb;
-        img.alt = alt || "";
+        img.alt = alt || title || "";
         img.loading = "lazy";
 
         a.appendChild(img);
@@ -248,61 +256,109 @@
       }
     }
 
-    fetch("images.json")
-      .then(res => res.json())
-      .then(data => {
-        const images = [];
-        for (const [folder, entries] of Object.entries(data)) {
-          entries.forEach(({ file, caption, alt, exif }) => {
-            images.push({
-              src:     `images/${folder}/${file}`,
-              thumb:   `images/${folder}/thumbs/${file}`,
-              caption: caption || "",
-              alt:     alt || "",
-              folder:  folder,
-              exif:    exif || null
-            });
-          });
+    async function loadPortfolioData() {
+      const client = window.getSupabaseClient ? window.getSupabaseClient() : null;
+      let items = [];
+
+      if (client && window.SUPABASE_CONFIG && !window.SUPABASE_CONFIG.SUPABASE_URL.includes('YOUR_SUPABASE')) {
+        try {
+          const { data, error } = await client
+            .from('photographs')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+          if (!error && data && data.length > 0) {
+            items = data.map(r => ({
+              src: window.getPublicUrl(r.image_path),
+              thumb: window.getPublicUrl(r.thumbnail_path),
+              title: r.title || '',
+              subtitle: r.subtitle || '',
+              description: r.description || '',
+              alt: r.alt_text || r.title || '',
+              folder: r.category ? r.category.toLowerCase() : '',
+              exif: {
+                fstop: r.fstop,
+                shutter: r.shutter_speed,
+                iso: r.iso ? String(r.iso) : null,
+                focal: r.focal_length
+              }
+            }));
+          }
+        } catch (err) {
+          console.warn('Error fetching from Supabase, falling back to local images.json:', err);
         }
+      }
 
-        shuffled = images.sort(() => 0.5 - Math.random());
+      // Fallback to local images.json if Supabase returns empty or is not yet configured
+      if (items.length === 0) {
+        try {
+          const res = await fetch("images.json");
+          const data = await res.json();
+          for (const [folder, entries] of Object.entries(data)) {
+            entries.forEach(({ file, caption, alt, exif }) => {
+              // Parse caption HTML for fallback display
+              let tempDiv = document.createElement('div');
+              tempDiv.innerHTML = caption || '';
+              let h2 = tempDiv.querySelector('h2');
+              let h3 = tempDiv.querySelector('h3') || tempDiv.querySelector('h4');
 
-        $(function () {
-          const rowHeight = window.innerWidth > 1600 ? 160 : 200;
-
-          $('#lightgallery').justifiedGallery({
-            rowHeight: rowHeight,
-            margins: 6,
-            lastRow: 'nojustify'
-          }).on('jg.complete', function () {
-            if (!lgInstance) {
-              const lgEl = document.getElementById('lightgallery');
-              lgInstance = lightGallery(lgEl, {
-                selector: '.gallery-item',
-                thumbnail: true,
-                zoom: true,
-                fullScreen: true,
-                download: false,
-                share: false,
-                actualSize: false,
-                plugins: [lgZoom, lgThumbnail, lgFullscreen],
-                zoomFromOrigin: true,
-                scale: 1,
-                enableZoomAfter: 300,
-                doubleTapZoom: 2
+              items.push({
+                src:     `images/${folder}/${file}`,
+                thumb:   `images/${folder}/thumbs/${file}`,
+                title:   h2 ? h2.textContent : (caption && !caption.includes('<') ? caption : alt || file),
+                subtitle: h3 ? h3.textContent : '',
+                description: '',
+                alt:     alt || "",
+                folder:  folder,
+                exif:    exif || null
               });
+            });
+          }
+        } catch (e) {
+          console.error("Failed to load portfolio images:", e);
+        }
+      }
 
-              setupInfoButton(lgEl);
-            } else {
-              lgInstance.refresh();
-            }
+      shuffled = items.sort(() => 0.5 - Math.random());
 
-            spinner.style.display = 'none';
-          });
+      $(function () {
+        const rowHeight = window.innerWidth > 1600 ? 160 : 200;
 
-          loadBatch();
+        $('#lightgallery').justifiedGallery({
+          rowHeight: rowHeight,
+          margins: 6,
+          lastRow: 'nojustify'
+        }).on('jg.complete', function () {
+          if (!lgInstance) {
+            const lgEl = document.getElementById('lightgallery');
+            lgInstance = lightGallery(lgEl, {
+              selector: '.gallery-item',
+              thumbnail: true,
+              zoom: true,
+              fullScreen: true,
+              download: false,
+              share: false,
+              actualSize: false,
+              plugins: [lgZoom, lgThumbnail, lgFullscreen],
+              zoomFromOrigin: true,
+              scale: 1,
+              enableZoomAfter: 300,
+              doubleTapZoom: 2
+            });
+
+            setupInfoButton(lgEl);
+          } else {
+            lgInstance.refresh();
+          }
+
+          spinner.style.display = 'none';
         });
+
+        loadBatch();
       });
+    }
+
+    loadPortfolioData();
 
     // Infinite Scroll
     window.addEventListener('scroll', () => {

@@ -14,6 +14,10 @@
   <!-- JustifiedGallery CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
 
+  <!-- Supabase JS SDK & Configuration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+
   <!-- jQuery -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 
@@ -155,64 +159,124 @@
 
     const container = document.getElementById("insects-gallery");
 
-    fetch("images.json")
-      .then(res => res.json())
-      .then(data => {
-        if (data.insects) {
-          data.insects.forEach(({ file, caption, alt, exif }) => {
-            const fullSrc  = `images/insects/${file}`;
-            const thumbSrc = `images/insects/thumbs/${file}`;
+    async function loadAlbumData() {
+      const client = window.getSupabaseClient ? window.getSupabaseClient() : null;
+      let albumItems = [];
 
-            const link = document.createElement("a");
-            link.href = fullSrc;
-            link.setAttribute("data-sub-html", caption ? `<div class="lg-caption-wrap">${caption}</div>` : "");
+      if (client && window.SUPABASE_CONFIG && !window.SUPABASE_CONFIG.SUPABASE_URL.includes('YOUR_SUPABASE')) {
+        try {
+          const { data, error } = await client
+            .from('photographs')
+            .select('*')
+            .eq('category', 'Insects')
+            .order('created_at', { ascending: false });
 
-            if (exif) {
-              link.dataset.fstop = exif.fstop || 'N/A';
-              link.dataset.shutter = exif.shutter || 'N/A';
-              link.dataset.iso = exif.iso || 'N/A';
-              link.dataset.focal = exif.focal || 'N/A';
-            } else {
-              link.dataset.fstop = 'N/A';
-              link.dataset.shutter = 'N/A';
-              link.dataset.iso = 'N/A';
-              link.dataset.focal = 'N/A';
-            }
+          if (!error && data && data.length > 0) {
+            albumItems = data.map(r => ({
+              fullSrc: window.getPublicUrl(r.image_path),
+              thumbSrc: window.getPublicUrl(r.thumbnail_path),
+              title: r.title || '',
+              subtitle: r.subtitle || '',
+              description: r.description || '',
+              alt: r.alt_text || r.title || '',
+              exif: {
+                fstop: r.fstop,
+                shutter: r.shutter_speed,
+                iso: r.iso ? String(r.iso) : null,
+                focal: r.focal_length
+              }
+            }));
+          }
+        } catch (err) {
+          console.warn("Failed to fetch album from Supabase, trying images.json fallback:", err);
+        }
+      }
 
-            const img = document.createElement("img");
-            img.src = thumbSrc;
-            img.alt = alt || "";
-            img.loading = "lazy";
-            img.onerror = () => {
-              img.src = fullSrc;
-            };
+      if (albumItems.length === 0) {
+        try {
+          const res = await fetch("images.json");
+          const data = await res.json();
+          if (data.insects) {
+            data.insects.forEach(({ file, caption, alt, exif }) => {
+              let tempDiv = document.createElement('div');
+              tempDiv.innerHTML = caption || '';
+              let h2 = tempDiv.querySelector('h2');
+              let h3 = tempDiv.querySelector('h3') || tempDiv.querySelector('h4');
 
-            link.appendChild(img);
-            container.appendChild(link);
-          });
+              albumItems.push({
+                fullSrc:  `images/insects/${file}`,
+                thumbSrc: `images/insects/thumbs/${file}`,
+                title:    h2 ? h2.textContent : (caption && !caption.includes('<') ? caption : alt || file),
+                subtitle: h3 ? h3.textContent : '',
+                description: '',
+                alt:      alt || "",
+                exif:     exif || null
+              });
+            });
+          }
+        } catch (e) {
+          console.error("Failed to load album images.json:", e);
+        }
+      }
+
+      albumItems.forEach(({ fullSrc, thumbSrc, title, subtitle, description, alt, exif }) => {
+        const link = document.createElement("a");
+        link.href = fullSrc;
+
+        let titleHtml = title ? `<h2>${title}</h2>` : '';
+        let subtitleHtml = subtitle ? `<h3>${subtitle}</h3>` : '';
+        let descHtml = description ? `<p>${description}</p>` : '';
+        const captionHtml = (titleHtml || subtitleHtml || descHtml) ? `<div class="lg-caption-wrap">${titleHtml}${subtitleHtml}${descHtml}</div>` : "";
+
+        link.setAttribute("data-sub-html", captionHtml);
+
+        if (exif) {
+          link.dataset.fstop = exif.fstop || 'N/A';
+          link.dataset.shutter = exif.shutter || 'N/A';
+          link.dataset.iso = exif.iso || 'N/A';
+          link.dataset.focal = exif.focal || 'N/A';
+        } else {
+          link.dataset.fstop = 'N/A';
+          link.dataset.shutter = 'N/A';
+          link.dataset.iso = 'N/A';
+          link.dataset.focal = 'N/A';
         }
 
-        $(function () {
-          const rowHeight = window.innerWidth > 1600 ? 160 : 200;
-          $('#insects-gallery').justifiedGallery({
-            rowHeight: rowHeight,
-            margins: 6,
-            lastRow: 'nojustify'
-          }).on('jg.complete', function () {
-            const lgEl = document.getElementById('insects-gallery');
-            lightGallery(lgEl, {
-              plugins: [lgZoom, lgThumbnail, lgFullscreen],
-              fullScreen: true,
-              speed: 500,
-              download: false,
-              share: false,
-              doubleTapZoom: 1.5
-            });
+        const img = document.createElement("img");
+        img.src = thumbSrc;
+        img.alt = alt || title || "";
+        img.loading = "lazy";
+        img.onerror = () => {
+          img.src = fullSrc;
+        };
 
-            setupInfoButton(lgEl);
+        link.appendChild(img);
+        container.appendChild(link);
+      });
+
+      $(function () {
+        const rowHeight = window.innerWidth > 1600 ? 160 : 200;
+        $('#insects-gallery').justifiedGallery({
+          rowHeight: rowHeight,
+          margins: 6,
+          lastRow: 'nojustify'
+        }).on('jg.complete', function () {
+          const lgEl = document.getElementById('insects-gallery');
+          lightGallery(lgEl, {
+            plugins: [lgZoom, lgThumbnail, lgFullscreen],
+            fullScreen: true,
+            speed: 500,
+            download: false,
+            share: false,
+            doubleTapZoom: 1.5
           });
+
+          setupInfoButton(lgEl);
         });
       });
+    }
+
+    loadAlbumData();
 
     // Scroll to Top
     window.addEventListener('scroll', () => {
