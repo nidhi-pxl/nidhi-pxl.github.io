@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Admin Dashboard - Nidhi Mekaraj Photography</title>
 
   <!-- Google Fonts -->
@@ -135,6 +138,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .btn-primary {
@@ -191,7 +195,7 @@
       align-items: center;
       padding-bottom: 20px;
       border-bottom: 1px solid var(--border-color);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .admin-header h1 {
@@ -217,17 +221,54 @@
     .dashboard-toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
+      background: rgba(15, 18, 24, 0.6);
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
     }
 
     .search-filter-group {
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
       flex: 1;
-      max-width: 600px;
+      align-items: center;
+      min-width: 280px;
+    }
+
+    .search-input-wrap {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* Result Count Banner */
+    .result-count-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .cache-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .cache-status-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
     }
 
     /* Table & Card List */
@@ -367,6 +408,17 @@
       .grid-2 {
         grid-template-columns: 1fr;
       }
+      .dashboard-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-filter-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .search-input-wrap {
+        width: 100%;
+      }
     }
 
     /* Image Preview in Modal */
@@ -481,11 +533,13 @@
         </div>
       </header>
 
-      <!-- Dashboard Toolbar -->
+      <!-- Dashboard Toolbar (Search, Filter, Clear, Refresh, Add) -->
       <div class="dashboard-toolbar">
         <div class="search-filter-group">
-          <input type="text" id="searchInput" class="form-control" placeholder="Search title, subtitle, or category..." />
-          <select id="categoryFilter" class="form-control" style="width: 180px;">
+          <div class="search-input-wrap">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search title, subtitle, category..." />
+          </div>
+          <select id="categoryFilter" class="form-control" style="width: 160px;">
             <option value="ALL">All Categories</option>
             <option value="Flowers">Flowers</option>
             <option value="Skies">Skies</option>
@@ -494,11 +548,26 @@
             <option value="Insects">Insects</option>
             <option value="Astro">Astro</option>
           </select>
+          <button id="clearFiltersBtn" class="btn btn-secondary btn-sm" title="Clear Search and Category Filter">
+            Clear
+          </button>
+          <button id="refreshBtn" class="btn btn-secondary btn-sm" title="Explicitly fetch fresh data from Supabase">
+            🔄 Refresh
+          </button>
         </div>
 
         <button id="openAddModalBtn" class="btn btn-accent">
           + Add Photograph
         </button>
+      </div>
+
+      <!-- Result Count Banner -->
+      <div class="result-count-bar">
+        <div id="resultCountText">Loading dataset...</div>
+        <div class="cache-status-badge">
+          <span class="dot"></span>
+          <span id="cacheSourceText">Client-side Cache</span>
+        </div>
       </div>
 
       <!-- Photographs Table -->
@@ -516,7 +585,7 @@
           <tbody id="photoTableBody">
             <tr>
               <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
-                Loading photographs from Supabase...
+                Loading photographs...
               </td>
             </tr>
           </tbody>
@@ -648,7 +717,10 @@
 
   <!-- Admin JavaScript Logic -->
   <script>
-    // State management
+    // Constants & Cache Key
+    const CACHE_KEY = 'portfolio_admin_photos_cache';
+
+    // Application state
     let allPhotos = [];
     let currentPhotoToDelete = null;
 
@@ -666,7 +738,11 @@
     const photoTableBody = document.getElementById('photoTableBody');
     const searchInput = document.getElementById('searchInput');
     const categoryFilter = document.getElementById('categoryFilter');
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
     const openAddModalBtn = document.getElementById('openAddModalBtn');
+    const resultCountText = document.getElementById('resultCountText');
+    const cacheSourceText = document.getElementById('cacheSourceText');
 
     const photoModal = document.getElementById('photoModal');
     const photoForm = document.getElementById('photoForm');
@@ -711,19 +787,12 @@
 
     function handleSessionState(session) {
       if (session && session.user) {
-        // UI Check for Admin User ID (RLS enforces database security)
-        const configAdminUid = window.SUPABASE_CONFIG ? window.SUPABASE_CONFIG.ADMIN_UID : null;
-        if (configAdminUid && configAdminUid !== 'YOUR_ADMIN_USER_ID' && session.user.id !== configAdminUid) {
-          showAlert('Unauthorized access: Your user ID does not match configured admin permissions.', 'danger');
-          window.getSupabaseClient().auth.signOut();
-          showAuthScreen();
-          return;
-        }
-
         userEmailSpan.textContent = session.user.email;
         authScreen.style.display = 'none';
         dashboardScreen.style.display = 'block';
-        fetchPhotographs();
+        
+        // Initial dataset load (uses client-side cache if valid)
+        loadPhotographs(false);
       } else {
         showAuthScreen();
       }
@@ -754,14 +823,43 @@
     });
 
     logoutBtn.addEventListener('click', async () => {
+      sessionStorage.removeItem(CACHE_KEY);
+      allPhotos = [];
       const supabase = window.getSupabaseClient();
       await supabase.auth.signOut();
     });
 
-    // ── Fetch & Render Dashboard Data ──────────────────────────────────────
+    // ── Caching & Data Fetching Workflow ────────────────────────────────────
 
-    async function fetchPhotographs() {
+    /**
+     * Loads photographs either from sessionStorage cache or Supabase database.
+     * @param {boolean} forceRefresh - If true, ignores sessionStorage and fetches fresh data from Supabase.
+     */
+    async function loadPhotographs(forceRefresh = false) {
+      // 1. Try restoring from sessionStorage if forceRefresh is false
+      if (!forceRefresh) {
+        try {
+          const cachedJson = sessionStorage.getItem(CACHE_KEY);
+          if (cachedJson) {
+            const parsed = JSON.parse(cachedJson);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              allPhotos = parsed;
+              cacheSourceText.textContent = 'Client-side Cache';
+              renderPhotoTable();
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn('Error reading photograph cache from sessionStorage:', err);
+        }
+      }
+
+      // 2. Fetch fresh dataset from Supabase
       const supabase = window.getSupabaseClient();
+      refreshBtn.disabled = true;
+      refreshBtn.textContent = '⏳ Loading...';
+      cacheSourceText.textContent = 'Fetching Supabase...';
+
       photoTableBody.innerHTML = `
         <tr>
           <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
@@ -774,30 +872,73 @@
         .select('*')
         .order('created_at', { ascending: false });
 
+      refreshBtn.disabled = false;
+      refreshBtn.textContent = '🔄 Refresh';
+
       if (error) {
         showAlert(`Error loading photographs: ${error.message}`, 'danger');
-        photoTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #fca5a5;">Failed to load data</td></tr>`;
+        photoTableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #fca5a5;">Failed to load data from database</td></tr>`;
         return;
       }
 
       allPhotos = data || [];
+
+      // Update sessionStorage cache
+      try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(allPhotos));
+      } catch (e) {
+        console.warn('Failed to save to sessionStorage:', e);
+      }
+
+      cacheSourceText.textContent = 'Supabase Synced';
       renderPhotoTable();
     }
+
+    /**
+     * Updates in-memory dataset and sessionStorage cache after Add/Edit/Delete.
+     */
+    function updateLocalCache() {
+      try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(allPhotos));
+      } catch (e) {
+        console.warn('Failed to update sessionStorage cache:', e);
+      }
+      cacheSourceText.textContent = 'Client-side Cache';
+      renderPhotoTable();
+    }
+
+    // ── Client-side Searching & Filtering ────────────────────────────────────
 
     function renderPhotoTable() {
       const query = searchInput.value.toLowerCase().trim();
       const cat = categoryFilter.value;
+
+      const totalCount = allPhotos.length;
 
       const filtered = allPhotos.filter(item => {
         const matchesCat = (cat === 'ALL' || item.category === cat);
         const matchesSearch = !query || 
           (item.title && item.title.toLowerCase().includes(query)) ||
           (item.subtitle && item.subtitle.toLowerCase().includes(query)) ||
-          (item.category && item.category.toLowerCase().includes(query));
+          (item.category && item.category.toLowerCase().includes(query)) ||
+          (item.description && item.description.toLowerCase().includes(query)) ||
+          (item.alt_text && item.alt_text.toLowerCase().includes(query)) ||
+          (item.image_path && item.image_path.toLowerCase().includes(query));
         return matchesCat && matchesSearch;
       });
 
-      if (filtered.length === 0) {
+      const filteredCount = filtered.length;
+
+      // Format result count text
+      if (query) {
+        resultCountText.innerHTML = `<strong>${totalCount}</strong> total · <strong>${filteredCount}</strong> shown matching '${escapeHtml(query)}'`;
+      } else if (cat !== 'ALL') {
+        resultCountText.innerHTML = `<strong>${totalCount}</strong> total · <strong>${filteredCount}</strong> shown in ${cat}`;
+      } else {
+        resultCountText.innerHTML = `<strong>${totalCount}</strong> total · <strong>${filteredCount}</strong> shown`;
+      }
+
+      if (filteredCount === 0) {
         photoTableBody.innerHTML = `
           <tr>
             <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">
@@ -816,22 +957,22 @@
         if (r.focal_length) exifParts.push(r.focal_length);
         const exifText = exifParts.length > 0 ? exifParts.join(' · ') : 'No EXIF metadata';
 
-        const subtitleText = r.subtitle ? `<br><small style="color: var(--text-muted);">${r.subtitle}</small>` : '';
+        const subtitleText = r.subtitle ? `<br><small style="color: var(--text-muted);">${escapeHtml(r.subtitle)}</small>` : '';
 
         return `
           <tr>
             <td class="thumb-cell">
-              <img src="${thumbUrl}" alt="${r.alt_text || r.title}" onerror="this.src='../images/placeholder.jpg'" />
+              <img src="${thumbUrl}" alt="${escapeHtml(r.alt_text || r.title)}" onerror="this.src='../images/placeholder.jpg'" />
             </td>
             <td>
               <strong>${escapeHtml(r.title)}</strong>
               ${subtitleText}
             </td>
             <td>
-              <span class="badge-cat">${r.category}</span>
+              <span class="badge-cat">${escapeHtml(r.category)}</span>
             </td>
             <td class="exif-summary">
-              ${exifText}
+              ${escapeHtml(exifText)}
             </td>
             <td>
               <div class="action-buttons">
@@ -849,8 +990,19 @@
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
+    // Client-side filtering listeners (NO SUPABASE FETCHES)
     searchInput.addEventListener('input', renderPhotoTable);
     categoryFilter.addEventListener('change', renderPhotoTable);
+
+    clearFiltersBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      categoryFilter.value = 'ALL';
+      renderPhotoTable();
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      loadPhotographs(true);
+    });
 
     // ── Client-side Thumbnail Generator (Max 400px Wide, JPEG Quality 85) ──
 
@@ -1032,15 +1184,10 @@
         const catChanged = isEdit && existingItem && existingItem.category !== category;
 
         if (file || catChanged) {
-          // If replacing file or changing category
           uploadProgressFill.style.width = '30%';
           uploadStatusText.textContent = 'Uploading original image...';
 
-          let origFileBlob = file;
-
-          // If no new file but category changed, we re-upload existing files to new paths
           if (!file && catChanged) {
-            // Re-upload paths based on existing item
             const oldExt = existingItem.image_path.substring(existingItem.image_path.lastIndexOf('.'));
             imagePath = `originals/${catLower}/${uuidKey}${oldExt}`;
             thumbPath = `thumbnails/${catLower}/${uuidKey}.jpg`;
@@ -1091,8 +1238,12 @@
 
         if (!isEdit) {
           payload.id = uuidKey;
+          payload.created_at = new Date().toISOString();
           const { error: dbErr } = await supabase.from('photographs').insert(payload);
           if (dbErr) throw new Error(`Database Record Insertion Failed: ${dbErr.message}`);
+
+          // Update local state without full reload
+          allPhotos.unshift(payload);
         } else {
           const { error: dbErr } = await supabase.from('photographs').update(payload).eq('id', photoId);
           if (dbErr) throw new Error(`Database Record Update Failed: ${dbErr.message}`);
@@ -1106,6 +1257,12 @@
               await supabase.storage.from(bucket).remove([existingItem.thumbnail_path]);
             }
           }
+
+          // Update local state object
+          const idx = allPhotos.findIndex(p => p.id === photoId);
+          if (idx !== -1) {
+            allPhotos[idx] = { ...allPhotos[idx], ...payload };
+          }
         }
 
         uploadProgressFill.style.width = '100%';
@@ -1113,7 +1270,9 @@
 
         closePhotoModal();
         showAlert(isEdit ? 'Photograph updated successfully!' : 'Photograph uploaded successfully!', 'success');
-        fetchPhotographs();
+        
+        // Update cache locally & re-render view without page reload
+        updateLocalCache();
 
       } catch (err) {
         console.error('Error during save:', err);
@@ -1190,10 +1349,11 @@
       if (!dbSuccess || !storageSuccess) {
         showAlert(`Partial failure deleting photograph: ${errors.join(' | ')}`, 'danger');
       } else {
+        // Remove item locally and update cache without full reload
+        allPhotos = allPhotos.filter(p => p.id !== item.id);
+        updateLocalCache();
         showAlert(`Photograph "${item.title}" deleted successfully!`, 'success');
       }
-
-      fetchPhotographs();
     });
 
     // Initialize Auth & Application
