@@ -50,8 +50,8 @@ img {
   pointer-events: auto;
 }
 
-/* Fixed Header Banner */
-header {
+/* Fixed Header Banner (Public Portfolio Pages Only) */
+#site-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -69,7 +69,7 @@ header {
   will-change: opacity;
 }
 
-header.header-hidden {
+#site-header.header-hidden {
   opacity: 0;
   pointer-events: none;
 }

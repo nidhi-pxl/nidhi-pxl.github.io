@@ -1214,7 +1214,7 @@
             // Upload Original
             const { error: origErr } = await supabase.storage
               .from(bucket)
-              .upload(imagePath, file, { upsert: true, contentType: file.type });
+              .upload(imagePath, file, { contentType: file.type });
 
             if (origErr) throw new Error(`Original Image Upload Failed: ${origErr.message}`);
             newlyUploadedOriginalPath = imagePath;
@@ -1226,7 +1226,7 @@
             const thumbBlob = await generateThumbnailBlob(file);
             const { error: thumbErr } = await supabase.storage
               .from(bucket)
-              .upload(thumbPath, thumbBlob, { upsert: true, contentType: 'image/jpeg' });
+              .upload(thumbPath, thumbBlob, { contentType: 'image/jpeg' });
 
             if (thumbErr) throw new Error(`Thumbnail Upload Failed: ${thumbErr.message}`);
             newlyUploadedThumbPath = thumbPath;
